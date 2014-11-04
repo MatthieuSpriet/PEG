@@ -1,0 +1,88 @@
+//
+// Prefix header for all source files of the 'PEG' target in the 'PEG' project
+//
+
+#import <Availability.h>
+
+
+#ifndef __IPHONE_5_0
+    #warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
+
+#define	DEBUG
+#define	USE_AFNetworking	0		// pm140219
+#define USE_AFNetworkingWS	1		// pm140221 nouvelle approche avec des services AFN
+
+#import "PEG.h"
+// pm140218 #import "SynthesizeSingleton.h"
+#import "SPIRSession.h"
+#import "SPIRException.h"
+#import "NSDictionary+ConvenientAccess.h"
+#import "PEG_BaseUIViewController.h"
+
+//#import <LibTraceParse/LibTraceParse.h>
+
+#ifdef DEBUG
+/*!
+ @abstract DLog permet d'afficher une trace améliorée dans la console
+ @discussion DLog passe des informations supplémentaires à NSLog, notamment le nom de la fonction et la ligne du fichier d'où est issu l'appel
+ Exemples d'utilisation :
+ <pre>
+ DLog();
+ DLog(@"ici");
+ DLog(@"valeur : %d", x);
+ </pre>
+ 
+ Attention :
+ <pre>
+ DLog(aStringVariable);
+ </pre>
+ 
+ Vous devez appeler à la place :
+ 
+ <pre>
+ DLog(@"%@", aStringVariable);
+ </pre>
+ @result L'objet avec un état autorelease
+ @availability Disponible dans Phoenix 1.0 et supérieur
+ */
+#	define DLog(fmt, ...) NSLog((@"\n\n%s [Line %d] " fmt "\n\n"), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#	define DLog(...)
+#	define NSLog(...)
+#endif
+
+#	define ALog(fmt, ...) NSLog((@"\n\n%s [Line %d] " fmt "\n\n"), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#define PEG_KEYCHAIN_SERVICE_NAME				[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SPIRKeychainServiceName"]
+#define PEG_KEYCHAIN_USERNAME_ACCESS			@"username"
+#define PEG_KEYCHAIN_PASSWORD_ACCESS			@"password"
+#define PEG_FONCTION_IDENT_KEY					[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SPIREndpointIdent"]
+#define PEG_ENDPOINT_FUNCTION					@"CRM_MAIN"
+#define PEG_ENDPOINT_STORE_FUNCTION				@"STORE"
+#define PEG_WS_APPLICATION						[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SPIRAppNameKey"]
+#define PEG_WS_DEVICE							@"IPHONE"
+#define PEG_WS_ENVIRONNEMENT					[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SPIREnvironnementKey"]
+#define PEG_WS_VERSION							[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define IS_RETINA_DISPLAY()						[[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2.0f
+#define DISPLAY_SCALE							IS_RETINA_DISPLAY() ? 2.0f : 1.0f
+#define PIXEL_SIZE(size)						IS_RETINA_DISPLAY() ? CGSizeMake(size.width/2.0f, size.height/2.0f) : size
+#define CLICK_TO_CALL(number)					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", number]]]
+#define PXColorWithRGB(__RED, __GREEN, __BLUE)				[UIColor colorWithRed:__RED/255.0 green:__GREEN/255.0 blue:__BLUE/255.0 alpha:1.0]
+#define PXColorWithRGBA(__RED, __GREEN, __BLUE, __ALPHA)	[UIColor colorWithRed:__RED/255.0 green:__GREEN/255.0 blue:__BLUE/255.0 alpha:__ALPHA/255.0]
+#define PXColorWithHex(__HEX_VALUE)							[UIColor colorWithRed:((float)((__HEX_VALUE & 0xFF0000) >> 16))/255.0 green:((float)((__HEX_VALUE & 0xFF00) >> 8))/255.0 blue:((float)(__HEX_VALUE & 0xFF))/255.0 alpha:1.0]
+#define PXColorWithHexAlpha(__HEX_VALUE, __ALPHA)			[UIColor colorWithRed:((float)((__HEX_VALUE & 0xFF0000) >> 16))/255.0 green:((float)((__HEX_VALUE & 0xFF00) >> 8))/255.0 blue:((float)(__HEX_VALUE & 0xFF))/255.0 alpha:__ALPHA/255.0]
+
+// App and Build version
+#define PEG_APP_VERSION						[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define PEG_BUILD_VERSION                   [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+
+
+
+

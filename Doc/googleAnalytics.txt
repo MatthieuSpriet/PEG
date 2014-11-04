@@ -1,0 +1,61 @@
+Mise en place de Google Analytics
+28 mai 2014
+
+
+----------
+
+* ajout PEG_GoogleAnalyticsServices -> à documenter !
+
+* remplacé UIViewController par PEG_BaseUIViewController comme super classe des viewController
+* dans PEG_BaseUIViewController dans un 1er temps, on donne comme nom d'écran le nom de la classe de son controlleur
+* classe PEG_BaseUIViewController, PEG_BaseUIViewController.h dans PEG-Prefix.pch
+* init dans didFinishLaunchingWithOptions
+* verif qu'on a bien les lib:
+    libGoogleAnalyticsServices.a
+    AdSupport.framework
+    CoreData.framework
+    SystemConfiguration.framework
+    libz.dylib
+* installation SDK: dans directory GoogleAnalytics + lib statique
+* verif on utilise pas NSManagedObjectContextDidSaveNotification    -> ok
+
+
+
+----------
+UA-25620591-4
+----------
+Mise en place du dernier SDK
+Mise en place des points suivants : https://developers.google.com/analytics/devguides/collection/ios/v3/?hl=fr
+en ajoutant une couche PegBaseUIViewController qui hérite de GAITrackedViewController
+Et vérifier la valeur par défaut du screename sinon mettre le nom du viewcontroller.
+---
+Ensuite, il faudra créer un service dans une nouvelle classe PEG_GoogleAnalyticsServices qui permettent de setter des valeurs custom de dimension 1.
+[tracker send:[[[GAIDictionaryBuilder createAppView] set:@"premium"
+                                                 forKey:[GAIFields customDimensionForIndex:1]] build]];
+
+Créer un PEG_enumValueForDim1GoogleAnlaytics, qui liste les valeurs possibles : WSTournee,WSTourneeADX.
+https://developers.google.com/analytics/devguides/collection/ios/v3/customdimsmets?hl=fr
+
+
+---------
+(GAIBatchingDispatcher.m:424): Saved hit: {
+    parameters =     {
+        "&_u" = ".oKoKoKo";
+        "&_v" = "mi3.0.7";
+        "&aid" = "fr.spir.pegase.cmm.dev";
+        "&an" = PEG;
+        "&av" = "3.0";
+        "&cd" = "PEG_TourneeADXViewController";
+        "&cd1" = Grenoble;
+        "&cd2" = Vourey;
+        "&cid" = "784084c4-4476-4aea-b3de-f36451d1f76b";
+        "&cm1" = "24.1";
+        "&sr" = 320x480;
+        "&t" = appview;
+        "&tid" = "UA-25620591-4";
+        "&ul" = en;
+        "&v" = 1;
+        "&z" = 16617505928747249614;
+        gaiVersion = "3.07";
+    };
+    timestamp = "2014-05-28 16:39:43 +0000";

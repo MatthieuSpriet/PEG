@@ -1,0 +1,41 @@
+//
+//  Project.xcconfig
+//  PEG
+//
+//  Created by sap_mac_dev3 on 10/06/13.
+//  Copyright (c) 2013 spir. All rights reserved.
+//
+ARCHS							= $(ARCHS_STANDARD_32_BIT)
+ARCHS[sdk=iphoneos*]			= armv7
+ARCHS[sdk=iphonesimulator*]		= i386
+SDKROOT							= iphoneos
+
+
+GCC_PREFIX_HEADER				= PEG/PEG-Prefix.pch
+GCC_PRECOMPILE_PREFIX_HEADER	= YES
+GCC_VERSION						= com.apple.compilers.llvm.clang.1_0
+
+ALWAYS_SEARCH_USER_PATHS		= YES
+
+HEADER_SEARCH_PATHS				= $(inherited) "$(SRCROOT)/PEG/Libraries/**" "$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse/Parse.framework/**" "$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse/**" "$(SDK_DIR)/usr/include/libxml2"
+
+LIBRARY_SEARCH_PATHS			= $(inherited) "$(SRCROOT)/PEG/Libraries/**" "$(SDK_DIR)/usr/include/libxml2"
+FRAMEWORK_SEARCH_PATHS			= $(inherited) "$(SRCROOT)/PEG/Libraries/**"
+
+OTHER_CFLAGS					= $(inherited)
+OTHER_LDFLAGS					= $(inherited) -ObjC -all_load -lxml2
+
+SPIR_ICON_PREFIX				= Prod
+
+SPIR_ICON_IPAD					= $(SPIR_ICON_PREFIX)-Icon-iPad.png
+SPIR_ICON_SMALL_CINQUANTE		= $(SPIR_ICON_PREFIX)-Icon-Small-50.png
+SPIR_ICON_SMALL					= $(SPIR_ICON_PREFIX)-Icon-Small.png
+SPIR_ICON_SMALL_TWO_TIMES		= $(SPIR_ICON_PREFIX)-Icon-Small@2x.png
+SPIR_ICON						= $(SPIR_ICON_PREFIX)-Icon.png
+SPIR_ICON_TWO_TIMES				= $(SPIR_ICON_PREFIX)-Icon@2x.png
+
+INFOPLIST_FILE					= PEGConfig/PEG-info.plist
+PRODUCT_NAME					= PEG CMM
+
+SPIR_ENDPOINT_PROTOCOL			= http
+SPIR_ENDPOINT_IDENT				=

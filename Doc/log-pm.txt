@@ -1,0 +1,247 @@
+log-pm.txt
+----------
+février 2014
+
+mail Matthieu 18/02
+Le but de jeu est de stabiliser l'application, cela passe entre autre par :
+- Passer en ARC
+- Remplacer la librairie non compatible ARC et obsolète HTTP Request
+- Régler les crash identifié (A ce jour, création d'un lieu puis recherche dans la liste juste après)
+- ...
+
+Il faudra par la suite :
+- Faire une passes sur le fonctionnement du GPS.
+- Faire une passe sur la gestion de la batterie (Mise en veille, GPS, ...)
+- Voir ensemble pour une solution supprimant le Coredata en multithread (Photo)
+-  ...
+
+Je suis disponible au téléphone 04 42 33 65 07.
+
+---------
+
+* ARC
+* ASIHTTPRequest -> AFNetworking
+* JSON lib ?
+
+à voir avec Matthieu:
+---------------------
+* vérifier que deviceIdentifier peut bien remplacer uniqueIdentifier dans l'utilisation qui en est faite (voir notes dans SPIRBaseFormDataRequest.m)
+* Attention SPIRBaseFormDataRequest.m est bien utilisé, donc pb avec [device uniqueIdentifier] !
+* PEG_DtlPresentoirViewController.m n'est apparement pas utilisé. Virer le fichier  ?
+
+---------------
+
+todo:
+* Reachability (à remplacer par version ARC si on garde !) -> voir AFNetworking / AFNetworkReachabilityManager qui doit prendre en charge !
+* SFHFKeychainUtils.m : voir si on peut s'en passer facilement
+* MBProgressHUD : remplacer + cocoapod (https://github.com/jdg/MBProgressHUD)
+* PEG_ListeTourneesViewController.m il y avait des commentaire sur le dealloc     /*[_dateSelectUIDatePicker release]; Mis en commentaire, sinon EXC_BAD_ACCESS
+* EHAlertView.m (SPIR) taggé, mais pb le cocoapods de SPIR est non ARC. On fait quoi ?
+* error block des requete (leak)	-> non, si on change l'implémentation, ce code ne servira plus
+
+
+gestion du GPS
+--------------
+PEGAppDelegate.m
+userAuthenticationSucceed:
+	principalLocationManager = [[CLLocationManager alloc] init];
+puis startUpdatingLocation et reste en fonctionement
+
+PEG_ListeLieuViewController.m
+@property (strong, nonatomic) CLLocationManager *locationManager;
+effectue une "capture" sauvage de appDelegate.principalLocationManager sur le viewDidLoad
+    self.locationManager = appDelegate.principalLocationManager;
+    self.locationManager.delegate = self;
+
+Le GPS reste en fonctionement en permanence
+
+On peut utiliser "UserLocation.m" version commande express/distribox pour clarifier le code, mais cela ne changera pas en soit la consomation baterie !
+
+--- Utilisation du GPS:
+PEG_MenuLieuViewController.m
+	menu avec 3 choix correspondant à 3 utilisations de PEG_ListeLieuViewController.m
+	setContextPointParCriteredeRecherche / setContextPointAlerte / setContextProspection
+
+L'activation / désactivation du GPS est à voir en fonction de l'utilisation effective…
+
+
+
+
+vendredi 21 février
+-------------------
+* création classe PEGWebServices (un singleton)
+* implémentation PEGWebServices saveBeanMobilitePegaseWithSucces:failure: + modif des appels
+* implémentation getLastSuiviKilometreByMatricule sous forme d'un web service à base AFNetworking + modif code appelant
+
+
+jeudi 20 février
+----------------
+* PEGBaseRequestAFN etc. commence à fonctionner, mais encore du boulot et c'est lourd !
+* viré PEGAuthentificationRequest (confirmation de Thierry)
+* viré setStartedBlock
+* cache : récupérer le code existant, mais utilisation pas claire (restoreRequestFromCache de PEGBaseRequest pas utilisé ?) -> voir SPIRStoreBaseFormDataRequest
+* recencer les appels à PEGBaseRequest	-> PEGAuthentificationRequest douteux
+
+
+19 février 2014
+---------------
+* faire marcher une 1ere requete avec AFNetworking -> login et reception image ok !
+* bouchonage PEGBaseRequestAFN
+* #define	USE_AFNetworking	1
+* utilisation pod pour AFNetworking ->
+
+* pod install avec AFNetworking
+	-> problème avec PEG_DtlPresentoirViewController.h pas trouvé ds PEG_DtlLieuxViewController.m
+	-> apparement pas utilisé, enlevé du projet
+* fixed broken pod
+	apparement c'est général !
+	http://stackoverflow.com/questions/21474536/podfile-gives-an-error-on-install	
+	http://blog.cocoapods.org/Repairing-Our-Broken-Specs-Repository/
+* Attention SPIRBaseFormDataRequest.m est bien utilisé, donc pb avec [device uniqueIdentifier] !
+
+
+18 février 2014
+---------------
+* convertion en workspace
+* PEG_AdminChoixHoraireViewController.m : virer properties recognizerDtDeb etc ?
+* test crash "création d'un lieu puis recherche dans la liste juste après". -> non reproduit, mais le lieu crée n'est pas trouvé tq pas de synchro ?
+* XMLReader explicitement ARC, enlever le flag qd projet ok en ARC
+* passage en ARC du projet lui même (code de SPIR), les lib en -fno-objc-arc
+* recup projet sur GitHub
+* install CrashLythics
+* copie du projet pour diff
+
+
+migration ARC
+=============
+
+151 erreurs signalées pour migration
+
+		[self addRequestHeader:@"X-Device-Id" value:[device uniqueIdentifier]];
+
+viré SynthesizeSingleton.h (utilisé ds PEGSession.m)
+
+SFHFKeychainUtils.m taggé en no arc : -fno-objc-arc dans target, build phase, compiler flags
+ -> 137 erreurs
+
+
+ASIHTTPRequest
+dans un 1er temps, flagger ASIHTTPRequest (+ Reachability) en -fno-objc-arc
+-> 85 erreurs
+
+JSONKit
+http://stackoverflow.com/questions/10681597/does-jsonkit-support-arc-or-is-there-a-fork-that-supports-arc
+Pour l'instant en -fno-objc-arc, mais voir remplacement par SBJson, ou si AFNetworking ne gère pas directement le parsing JSON
+-> 16 issues (13 erreurs, quelle est la différence ?)
+
+
+XMLReader
+semantic issues sur errorPointer
+	https://github.com/amarcadet/XMLReader
+-> remplacer par nouvelle version
+-> -fobjc-arc temporairement le tps de passer le reste du projet en ARC
+=> crash: errorPointer à NULL, rajouté un parametre xmlError:
+	NSDictionary *allResponseDict = [XMLReader dictionaryForXMLData:data options:XMLReaderOptionsProcessNamespaces error:&xmlError];
+
+
+
+PEG_ListeViewController.h
+-> indexSelectedRow retain (was assign) + viré les retain dans PEG_ListeViewController.m
+
+
+SPIRBaseFormDataRequest.m
+-> uniqueIdentifier non supporté en iOS7 remplacé par deviceIdentifier
+
+
+PEG_BeanPoint.h
+@property (nonatomic, retain) NSNumber* CoordFiable;	// ARC pm140218 (was assign)
+
+PEG_AdminChoixHoraireViewController.m
+	passé self.recognizerDtDeb en retain, mais:
+	// note pm140218 on n'a sans doute pas besoin d'une propriété recognizerDtDeb. Le addGestureRecognizer crée une strong reference sur le gesture recognizer…
+	self.recognizerDtDeb = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+
+
+problème de capture des requetes par les block (cycle)
+------------------------------------------------------
+test en passant simplement la requete en __weak (on ne garde pas de reference dessus)
+
+PEGAppDelegate.m passé en ARC
+
+
+MBProgressHUD
+-------------
+
+MBProgressHUD : il y a une version ARC + cocoapods
+https://github.com/jdg/MBProgressHUD
+
+tagger temporairement MBProgressHUD.m en -fno-objc-arc, remplacer apres
+
+
+EHAlertView.m
+-------------
+https://github.com/SPIR-Communication/EHAlertView/blob/master/EHAlertView.m
+maintenu par SPIR-Communication !
+tagger en -fno-objc-arc et signaler !
+
+CustomBadge
+-----------
+convertir
+-> il est placé dans Class/Models/Services, sans doute par erreur
+-> convertit (une version sur https://github.com/Jarada/myLauncher, avec juste une conversion ARC et un closePath en moins ?)
+
+
+Convertion ARC
+--------------
+===> il m'a fait sauter tous les -fno-objc-arc !!!!
+	SFHFKeychainUtils.m
+	ASIHTTPRequest + Reachability
+	JSONKit
+	MBProgressHUD
+	EHAlertView.m
+	CustomBadge
+
+
+=> ok, on peut lancer, faire une synchro initiale…
+
+
+
+====================
+
+
+
+SFHFKeychainUtils.m
+-------------------
+Pas de version ARC de ce fichier qui n'est pas maintenu et considéré deprecated par ses auteurs:
+https://github.com/ldandersen/scifihifi-iphone
+http://stackoverflow.com/questions/7663443/sfhfkeychainutils-ios-keychain-arc-compatible
+-> le garder tel quel sans ARC - 
+	-fno-objc-arc
+-> vérifier ce qu'on utilise dedans, et éventuellement rééecrire si peu utile…
+
+
+
+
+* PEG_ListeTourneesViewController.m
+------------------------------------
+
+ il y avait des commentaire sur le dealloc     /*[_dateSelectUIDatePicker release]; Mis en commentaire, sinon EXC_BAD_ACCESS
+
+
+- (void)dealloc {
+    //Mis en commentaire, sinon EXC_BAD_ACCESS
+    /*[_dateSelectUIDatePicker release];
+    [_listeTourneeUITableView release];
+    [_BtnDateDebutUIButton release];
+    [_labelDtDebutUILabel release];
+    [_labelDtFinUILabel release];
+    [_labelDtFinUILabel release];*/
+    [super dealloc];
+}
+
+- (void) SaveBeanMobilitePegaseWithObserver:(id<PEG_MobilitePegaseServiceDataSource>)p_ObserverOwner
+
+
+
+
+

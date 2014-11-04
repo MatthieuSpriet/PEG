@@ -1,0 +1,30 @@
+//
+//  ProjectDistribution.xcconfig
+//  PEG
+//
+//  Created by sap_mac_dev3 on 10/06/13.
+//  Copyright (c) 2013 spir. All rights reserved.
+//
+#include "Project.xcconfig"
+
+VALIDATE_PRODUCT					= YES
+COPY_PHASE_STRIP					= YES
+CODE_SIGN_IDENTITY					= iPhone Distribution
+CODE_SIGN_IDENTITY[sdk=iphoneos*]	= iPhone Distribution
+
+OTHER_CFLAGS						= $(inherited) -DNS_BLOCK_ASSERTIONS=1
+
+SPIR_ENDPOINT_IDENT				= stargate.spir.fr/prod/R3/Ident
+
+SPIR_KEYCHAIN_SERVICE_NAME      = "peg"
+
+PRODUCT_IDENTIFIER				= fr.spir.pegase.cmm
+
+PEG_URL_SCHEME					= pegcmm
+
+SPIR_ICON_PREFIX				= Prod
+SPIR_ENVIRONNEMENT				= PROD
+
+// Config Parse
+PARSE_APPLICATION_ID            = zFWEtNiut6K8N1OSNDqyVUpeTfMVRsYVDPsfhqeq
+PARSE_CLIENT_KEY                = bpb9EaGxCpFveEmeCISOLurS1fjADvjIEMK9MfGP

@@ -1,0 +1,30 @@
+//
+//  ProjectDebug.xcconfig
+//  PEG
+//
+//  Created by sap_mac_dev3 on 10/06/13.
+//  Copyright (c) 2013 spir. All rights reserved.
+//
+#include "Project.xcconfig"
+
+VALIDATE_PRODUCT					= NO
+COPY_PHASE_STRIP					= NO
+CODE_SIGN_IDENTITY					= iPhone Developer
+CODE_SIGN_IDENTITY[sdk=iphoneos*]	= iPhone Developer
+
+OTHER_CFLAGS					= $(inherited) -DDEBUG -DDEBUG_REQUEST_STATUS=1 -DDEBUG_FORM_DATA_REQUEST=1
+
+SPIR_ENDPOINT_IDENT				= stargatedev.spir.fr/int/R3/Ident
+
+SPIR_KEYCHAIN_SERVICE_NAME      = "peg_debug"
+
+PRODUCT_IDENTIFIER				= fr.spir.pegase.cmm.dev
+
+PEG_URL_SCHEME					= pegcmmint
+
+SPIR_ICON_PREFIX				= Int
+SPIR_ENVIRONNEMENT				= INT
+
+// Config Parse
+PARSE_APPLICATION_ID            = O1spEFNnNjVTHVaUecLnsoGqTnVBvpZNJhup0qNw
+PARSE_CLIENT_KEY                = AU7ilGaWe7vpIHMdlelbDmivi7yfXsdElddWnTz2

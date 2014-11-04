@@ -1,0 +1,257 @@
+log-pm-05-2014.txt
+------------------
+juin 2014
+
+
+#define SANS_SYNCHRO 1
+
+marquage pm_06
+
+=> il faut trouver une fiche avec 2 lieux et alterner entre les 2 photos 
+(2 code séparés par des virgules)
+Agence tpp
+
+
+
+---- pod update
+pc2:PEG-06-2014 pierre$ pod update
+Update all pods
+Analyzing dependencies
+Downloading dependencies
+Installing AFNetworking 2.3.1 (was 2.2.1)
+Generating Pods project
+Integrating client project
+pc2:PEG-06-2014 pierre$
+-----
+
+
+*********
+les PEG_DtlLieuCell ne sont pas desallouées !
+On en crée 2 à chaque ouverture de PEG_DtlLieuxViewController (une pour le titre et une pour admin)
+possible qu'elle retiennent les images
+
+
+*********
+à chaque photo prise pour un présentoire, on crée un nouveau BeanPhoto dans coreData, y compris si il existe déjà une photo à envoyer pour ce présentoire.
+Rajouté un test pour ne pas créer un nouveau BeanPhoto, mais tagger simplement celui existant à not send.
+ATTENTION, ce n'est pas une solution complète, il peut y avoir des problème sur prise de photo en série
+-----
+
+Recherche de l'origine de ces centaine de millier de CFNumber (NSNumber) en mémoire. Il s'agit de la représentation de l'image dans le dictionnaire des parametre de la requete d'upload d'une photo.
+Rien ne semble verrouiller ces CFNumber…
+En fait le problème est à l'extérieur, dans 
+@autoreleasepool inside the loop !
+
+
+
+à voir:
+-------
+* voir pb affichage de la liste très lent ("chargement des lieu" boucle sur des acces core data ?)
+* vérifier les messages de l'analyseur statique
+* - (id)initWithNibName jamais appelé : vérifier ce qu'on fait dedans !
+* self.self à plusieurs endroits - y a t'il une raison ?
+** vérifier si pas de parsing json avec AFNetworking !
+** PEG_DtlLieuCell is used both for title and admin cell !
+
+
+
+lundi 30 juin
+-------------
+todo:
+* rédiger un rapport sur l'intervention
+
+
+en cours:
+* sur prise de photo : création de CFNumbers (par dizaine ou centaine de milliers)
+* l'envoie des image tte les 30 seconde a l'air de consommer de la mémoire (CFNumber et UIImage en particulier)
+
+* la même image est envoyée plusieurs fois (plusieurs fois stockée dans core data ?)     -> ok compris, BeanPhoto avec mm p_id !
+
+>>> il y a aussi un problème de thread : envoie sur thread 9, completion sur thread 1, d'ou pb synchro core data ?
+
+
+done:
+* @autoreleasepool inside the loop. Otherwise the memory is never released !  (4 heure à rechercher ça !)
+* évité envoie multiple mm photo
+
+
+vendredi 27 juin
+----------------
+* désallocation des PEG_DtlLieuCell
+    le problème qui bloque la dealloc des cell (et de la tableView !)
+    PEG_DtlAdresseCell.h
+        @property (weak, nonatomic) UITableView *DtlLieuUITableView;      // pm_06 deadlock (was strong)
+
+
+jeudi 26 juin
+-------------
+* mise à jour AfNetworking semble régler le pb des CFNumbers
+* Avec instruments - on a des centaine de milliers de CFNumbers et de CFStrings ! (en augmentation à chaque ouverture vue détail)
+    -> surtout des CFNumber, donc à priori pas le décodage des images ?
+    -- getBeanimageByIdPointLivraison dans PEGWebServices.m
+* test sans image : leak, mais moins (1 mega / ouverture PEG_DtlLieuxViewController ?)
+* pb base vide qd lancement avec instruments
+* problème au lancement (erreur sur les km)
+
+
+mercredi 25 juin (2 heures)
+----------------
+* l'affichage de la liste ("chargement des lieu") est très lent (boucle sur des acces core data ?)
+* problème lancement avec instruments : base vide !
+* test avec fiche 2 lieux et alternance -> pas de fuite mémoire évidente !
+* signatures
+* compilation projet
+* update des pods (AFNetworking)
+	pc2:PEG-06-2014 pierre$ pod update
+	-> note : le pod AFNetworking est comité sur le GIT
+* checkout from GIT PEG-06-2014
+
+
+------------------------- mail Matthieu 24/06
+tout d'abord dans PEG_DtlLieuxViewController, réactiver l'affichage des photos
+dans -(UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
+en supprimant la zone en commentaire 
+/* Désactivation du get des photos pour test
+
+
+Plusieurs endroits dans le code gère des photos et on des fuites mémoire.
+Je te donne ce que j'ai mais je te laisse mettre en oeuvre ton expertise pour trouver d'autres fuites.
+
+La première fuite se trouve au niveau du code que tu va dé-commenter (ci dessus)
+Il faut demarrer l'appli, avec le code 619 et mot de passe d'au moins 1 lettre.
+Saisie du Kilometrage
+Puis Lieux par critères de recherche
+Puis entrer dans la fiche lieu lieu
+Une photo s'affiche en faisant monter la mémoire de quelques méga, qu'on ne récupérera plus.
+On peut revenir à la liste, puis recommencer, et la mémoire augmente indéfiniment.
+Avec le code en commentaire, la mémoire ne monte plus.
+
+Un autre endroit c'est la prise de photo.
+Dans la fiche lieu, cliquer sur l'appareil photo en haut à droite.
+En prenant des photos, la mémoire monte également indéfiniment.
+En parallèle, les photos sont transmise en background au serveur en tache de fond dans
+PEGAppDelegate - (void)userAuthenticationSucceed:(NSNotification*)notif
+
+Voilà ce que j'ai et qui fait cracher l'appli sans crash lot
+
+-------------- tests 26/06
+
+liste       fiche (agence tpp avec 2 photos)
+
+104         116
+112         124
+124        130
+
+* sur retour à la liste: 120 puis remonte à 124 lors du chargement des lieu
+* sur toggle photo ds la fiche: 125 -> 130 lors du chargement, redescent à 125 et remonte à 130 lors du toggle
+=> la fuite mémoire semble liés au controleur de la fiche qui conserve une resource lors de sa désaloccation ?
+
+PEG_DtlLieuxViewController.m
+
+----
+test sur PEG_BeanImage.m
+
+// pm_06 added dealloc to check what's happening
+- (void)dealloc {
+    self.Image=nil;
+    NSLog (@"PEG_BeanImage: dealloc");
+}
+
+on désalloue bien.
+ajouter "self.Image=nil;" ne change rien (heureusement !)
+
+en desactivant le code des images dans PEG_DtlLieuxViewController.m, on a aussi une fuite mémoire (moins importante)
+
+// Désactivation du get des photos pour test
+// pm_06
+#if 0
+
+on perd à chaque fois 1 ou 1,5 MByte (au lieu de 5 à 10 avec les images !)
+
+
+
+PEG_ListeLieuViewController.m
+
+#define test_pm_06  1
+pour désactiver le rechargement de la liste le temps de debugger !)
+
+
+-----
+PEG_DtlLieuxViewController - test : bien désalloué !
+    - (void)dealloc {
+
+-----
+GestureRecognizers leaking ?
+-> non: un GestureRecognizers ne retient pas sa target !
+
+-----
+Avec instruments - on a des centaine de milliers de CFNumbers et de CFStrings ! (en augmentation à chaque ouverture vue détail)
+-> voir génération image json ?
+
+
+-------- mail envoyé jeudi 26/06 le soir
+Je pense être sur la piste, mais c'est pas encore réglé.
+
+En gros:
+- les PEG_DtlLieuCell ne sont pas desallouées
+- On en crée 2 à chaque ouverture de PEG_DtlLieuxViewController (une pour le titre et une pour admin)
+- il est vraissemble qu'elles retiennent les images
+
+Il y avait peut être aussi un bug avec AFNetworking. J'ai fait une mise à jour en AFNetworking 2.3.1 (was 2.2.1)
+Je trouvais en particulier des centaines de milliers de CFNumber en mémoire, sans doute suite à un parsing JSON fait en interne par  AFNetworking, mais il faut vérifier ça de plus près…
+(sans doute le parsing des images)
+
+Je continue un peu ce soir, et demain matin si j'ai pas fini ce soir. En particulier je n'ai pas encore trouvé pourquoi les cellules ne sont pas libérées, elles sont sans doute retenues par quelque chose.
+
+
+------------
+test avec dealloc explicite de la tableView (sur dealloc de PEG_DtlLieuxViewController)
+    => les PEG_DtlLieuCell ne sont pas deallocated
+
+test avec desactivation des gesture recognizer, et même de l'ensemble du contenu
+    => les PEG_DtlLieuCell ne sont pas deallocated
+
+test en remplaçant par des UITableViewCell standard
+    UITableViewCell* cell =  [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+    => les cellules sont bien désalouées
+
+---> tester avec des cellules "test" du Storyboard
+* en remplaçant tte les cellules, c'est ok (desallouées)
+* PEG_DtlAdresseCell semble bloquer la dealloc
+
+test en remplaçant uniquement cellAdresseLieu
+
+--------------- leak sur prise de photo
+PEG_DtlLieuxViewController.m
+
+BeanPhoto 23 lignes
+
+-------
+à chaque photo prise pour un présentoire, on crée un nouveau BeanPhoto dans coreData, y compris si il existe déjà une photo à envoyer pour ce présentoire.
+Lors de l'envoie réussi de la photo, on marque un (le dernier) de ces BeanPhoto à transmis. S'il y en a plusieurs, seul le dernier est marqué envoyé et on retransmet les autre en boucle toutes les 30 secondes.
+
+Ajout un test si déjà existant. Si oui, la photo précédante peut être en cours de transfert, et sera marquée transférée en cas de succes et la nouvelle version ne sera pas envoyée !
+
+Rajouter boolean transfert en cours ?
+
+----
+Rajouter boolean imageUpdated positionné à YES si on demande le transfert d'un BeanPhoto déjà existant.
+On met simplement imageUpdated à NO au debut de l'envoi de l'image
+Sur completion, on ne met pas isSend à YES si imageUpdated est à YES
+
+reste un cas mal traité : image mise à jour alors que l'envoie de la première est en cours, réussite du 1er envoi et echec de l'envoie de la mise à jour.
+On peut sans doute vivre avec ce cas improbable ?
+
+>>> il y a aussi un problème de thread : envoie sur thread 9, completion sur thread 1, d'ou pb synchro core data ?
+>>> deadlock et blocage possible de la main thread sur un mutex core data !
+
+// pm_06 : @autoreleasepool inside the loop. Otherwise the memory is never released !
+
+
+
+
+
+
+
+
+

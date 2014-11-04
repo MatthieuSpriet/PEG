@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Doc"
+      name = "Doc">
+      <FileRef
+         location = "group:googleAnalytics.txt">
+      </FileRef>
+      <FileRef
+         location = "group:log-pm-06-2014.txt">
+      </FileRef>
+      <FileRef
+         location = "group:log-pm-05-2014.txt">
+      </FileRef>
+      <FileRef
+         location = "group:log-pm.txt">
+      </FileRef>
+      <FileRef
+         location = "group:using-AFNetworking.txt">
+      </FileRef>
+      <FileRef
+         location = "group:peg-notes-pm.txt">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:PEG.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

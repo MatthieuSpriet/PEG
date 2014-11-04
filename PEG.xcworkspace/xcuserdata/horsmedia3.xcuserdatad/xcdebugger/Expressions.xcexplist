@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[BeanCPCommune(compare) compareTrie:]:BeanCPCommune+.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PEG_ListeTourneesViewController prepareForSegue:sender:]:PEG_ListeTourneesViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PEG_ListeTourneesViewController tableView:cellForRowAtIndexPath:]:PEG_ListeTourneesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "v_Tournee.idTournee">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PEG_LieuServices GetNbTachePhotoForAllLieu]:PEG_LieuServices.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "v_ItemTache.code">
+            </PersistentString>
+            <PersistentString
+               value = "v_ItemTache.idLieu">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PEG_CoreDataServices managedObjectToJson:]:PEG_CoreDataServices.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "property.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PEG_LieuServices GetListHistoDistriByIdPresentoir:andIdEdition:]:PEG_LieuServices.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "v_Parution.id">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

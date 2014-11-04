@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<urn:ZIsmOss2Authentification>
+			<Application>{{spir.Application}}</Application>
+			<Device>{{spir.Device}}</Device>
+			<User>{{spir.User}}</User>
+			<Version>{{spir.Version}}</Version>
+		</urn:ZIsmOss2Authentification>
+	</soapenv:Body>
+</soapenv:Envelope>

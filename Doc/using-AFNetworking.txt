@@ -1,0 +1,73 @@
+using-AFNetworking.txt
+----------------------
+
+Le but est de remplacer la librairie ASIHTTRequest, obsolete et non maintenue, par la librairie AFNetworking.
+
+une première approche en réimplémentant PEGBaseRequest comme sous classe de AFHTTPRequestOperation est laissée de coté.
+Elle est décrite dans using-AFNetworking-old.txt
+
+#define USE_AFNetworkingWS	1		// pm140221 nouvelle approche avec des services AFN
+
+
+21 février 2014
+---------------
+Nouvelle approche en implémentant la connectivité au web services avec AFNetworking et en adaptant le code à une nouvelle API.
+
+
+* implémenter l'appel à GetLastSuiviKMUtilisateurWithObserver sous forme d'un web service à base AFNetworking
+
+
+
+PEGViewController.m
+	viewDidAppear
+		[[PEG_FMobilitePegase CreateMobilitePegaseService] GetLastSuiviKMUtilisateurWithObserver:self andMatricule:v_Matricule];
+
+
+appeler directement 
+-(void) fillFinishedGetLastSuiviKMUtilisateur;
+-(void) fillFinishedErrorGetLastSuiviKMUtilisateur;
+
+
+
+------------- test connectivité (reachability) utilisant AFNetworkReachabilityManager
+
+pour remplacer reachability:
+
+soit test du status, soit monitoring:
+
+	// on peut éventuellement surveiller la connectivitée en utilisant AFNetworkReachabilityManager
+	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+		NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
+		if (status == AFNetworkReachabilityStatusNotReachable) {
+		}
+	}];
+
+
+
+------------- discussion avec Thierry et Matthieu 20/02 18h30
+
+un appel à un Web service:
+[[PEG_FMobilitePegase CreateMobilitePegaseService] GetLastSuiviKMUtilisateurWithObserver:self andMatricule:v_Matricule];
+
+
+Refaire des WebServices. Voir PEG_MobilitePegaseService.m
+
+//Composant technique
+@property (nonatomic,weak) id<PEG_MobilitePegaseServiceDataSource> observerMP;
+- (void) GetBeanMobilitePegaseWithObserver:(id<PEG_MobilitePegaseServiceDataSource>)p_ObserverOwner andMatricule:(NSString*) p_Matricule andDate:(NSDate*) p_date;
+- (void) GetBeanTourneeWithObserver:(id<PEG_MobilitePegaseServiceDataSource>)p_ObserverOwner andMatricule:(NSString*) p_Matricule andDateDebut:(NSDate*) p_dateDebut andDateFin:(NSDate*) p_dateFin;
+- (void) SaveBeanMobilitePegaseWithObserver:(id<PEG_MobilitePegaseServiceDataSource>)p_ObserverOwner;
+
+
+@property (nonatomic,weak) id<PEG_BeanSuiviKMUtilisateurDataSource> observerKM;
+- (void) GetLastSuiviKMUtilisateurWithObserver:(id<PEG_BeanSuiviKMUtilisateurDataSource>)p_ObserverOwner andMatricule:(NSString*) p_Matricule;
+
+@end
+
+
+
+
+
+
+
+

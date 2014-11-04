@@ -1,0 +1,334 @@
+SPIR projet Pegase février 2014
+-------------------------------
+
+* source soft sur SVN
+SVN: http://pwappsvn-1.external.spir.fr/pub/spir-peg-cmm/
+mspriet
+spir123
+
+
+* desactivation synchro au démarage
+	PEG_SynchroViewController.m
+	#define SANS_SYNCHRO 1
+
+
+------- à faire
+
+* vérifier tous les appel à superview, en particulier sur les cellules (la hiérarchie a changé avec iOS7, en particulier dans les UICell)
+
+* voir les warnings et passer l'analyseur statique
+
+* virer init "reveal" et variable d'environement REVEAL_DYLIB_PATH
+
+
+
+librairie externes
+------------------
+* ASIHTTPRequest: non maintenue
+* JSONKit: apparement non maintenue.
+* MBProgressHUD en version 0.4 -> vérifier compatibilité avec la version 0.8 actuelle
+
+suggestions
+-----------
+Pour les projets à venir…
+* remplacer ASIHTTPRequest par AFNetworking (à jour et maintenue activement)
+* remplacer JSONKit (SBJson ou NSJSONSerialization). AFNetworking prend en charge le sérialisation
+	https://github.com/stig/json-framework
+* passer en ARC
+* http://cocoapods.org/	pour gérer les librairie externe
+* nommage des variable : en général , par convention les Majuscules initiales sont réservées aux noms de classe.
+
+-------
+
+
+notes:
+------
+
+* tagage de mes interventions avec "pm201402" dans les sources. Par contre beaucoup de modifications sont dans le storyboard !
+
+Quelques détails:
+
+* J'ai remplacé le style de barre de recherche "black translucent" qui est depreciated en iOS7 par "default".
+Vous pouvez choisir un autre style ou couleur…
+
+* J'ai rajouté un bouton cancel sur la barre de recherche dans "Mes tâches". Il n'était pas présent en iOS6 non plus.
+
+* les séparateur des cellules dans une liste sont ne sont pas tracés sur tte la largeur de la liste dans iOS7 (cosmétique)
+
+* les "picker" ne sont pas très distinguable en iOS7. J'ai mis un fond gris pour améliorer le contraste.
+
+* [device uniqueIdentifier] (n'est plus supporté par Apple, l'API n'est plus disponible). J'ai proposé en commentaire une solution, mais elle n'est pas équivalente (identification d'une application sur un device)
+P.S. SPIRBaseFormDataRequest.m n'est apparement pas utilisé !!! Donc faux problème ?	-> NON !
+P.P.S 19/02  Attention SPIRBaseFormDataRequest.m est bien utilisé, donc pb avec [device uniqueIdentifier] !
+
+
+
+Mardi 11 février 2014
+---------------------
+
+* installé Reveal, à virer avant de partir !
+
+* config réseau : attention proxy !
+
+* passé iOS deployement target en iOS7 (était en iOS5) pour éviter des warnings
+
+* 1ere écran login : pb avec callage, bouton pas accessible !
+
+
+PEGViewController
+	- une table view callée en y = 44.
+	iOS7 il faut caller les TableView en haut d'écran (y = 0, ça passe sous la navbar et la barre de status, mais c'est géré par iOS7)
+	On peut utiliser un autolayout pour être plus compatible iOS6 et iOS7 (délicat à migrer!) , ou utiliser des "offset" dans IB entre iOS6 et iOS7.
+	Dans la mesure ou on ne supportera que iOS7 je propose de tout caller pour iOS7
+
+
+ASIHTTPRequest
+	cette librairie n'est plus maintenue…
+	http://stackoverflow.com/questions/12811008/asihttprequest-in-ios6
+
+* modif storyboard pour callage de la table sur PEGViewController
+
+
+erreur "Assistance tel 6545" (uniquement iOS7)
+-----------------------------
+au lancement de l'application. 
+
+PEG_SynchroViewController.m
+On a une exeption sur:
+	[[NSCalendar currentCalendar]initWithCalendarIdentifier:NSGregorianCalendar]
+
+en supposant que l'utilisateur a un setting calendrier gregorien
+	->	NSCalendar *calendar = [NSCalendar currentCalendar];
+
+on peut aussi initialiser un nouveau calendrier (en pensant à le libérer ensuite)
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+
+idem dans PEG_ListeTourneesViewController.m
+
+
+Callage des UITableView dans le storyboard
+------------------------------------------
+PEG_ListeLieuViewController
+callage de la liste ? "Liste Lieu View Controller" dans le storyboard
+-> callé la liste en 0 et 480 de haut
+
+* les cellules elles mm sont mal callées !
+-> callé le titre (accroché en haut), mais il faudrait caller les autres
+
+
+*  PEG_DtlLieuxViewController
+-> callé la liste en 0 et 480 de haut
+
+
+* PEG_ListRelationnelViewController
+style button back en done (was "plain", not supported after iOS5)
+ 
+
+### SPIRBaseFormDataRequest.m
+------------------------------
+[device uniqueIdentifier] n'est plus supporté par Apple.
+Il existe une API renvoyant un identifier d'une instance d'application sur un device…
+==> à faire !
+
+
+PEG_DtlQuantiteMaterielViewController (vue avec restauration idf QuantiteMaterielView)
+* callage de la liste en 0, hauteur 480
+
+
+Attention, il y a des acces au superview
+    UITableViewCell *cell = (UITableViewCell*) [[textField superview] superview];
+
+
+### crash dans PEG_DetailQteCell.m quand on change A Faire / Fait / RAS
+-----------------------------------------------------------------------
+
+- (IBAction)TachesSagControlChanged:(id)sender {
+    NSString* v_CodeMatos = ((PEG_DetailQteCell*)[[v_UISegmentedControl superview] superview]).CodeMateriel;
+
+
+(lldb) po [[v_UISegmentedControl superview] superview]
+<UITableViewCellScrollView: 0x14fa5060; frame = (0 0; 320 55); clipsToBounds = YES; autoresize = W+H; gestureRecognizers = <NSArray: 0x14fc8a70>; layer = <CALayer: 0x1edf28c0>; contentOffset: {0, 0}>
+
+et non pas une PEG_DetailQteCell comme avec iOS6 !!!
+
+corrigé en:
+    NSString* v_CodeMatos = self.CodeMateriel;
+
+
+### bouton "Back" à la place de "EFFIA Gare T G V P5" (affichage différent en iOS7)
+-----------------------------------------------------
+
+le titre du bouton retour est mis à "Back" si le titre de l'écran est trop long, ce n'est pas un bug introduit par iOS7.
+
+PEGPresentoirTabbarViewController.m
+
+à quoi sert le right bar button item "ajouter journal" ?
+-> Impossible d'enlever la navigationbar dans le storyboard ! -> si fait en edition texte
+
+
+### plantage acces carte
+------------------------
+PEG_MapAnnotation.m
+
+attention, on a des properties "copy", mais c'est à nous à faire le copy si on affecte à des variables d'instance !
+donc:
+	title = [p_title copy];
+ou éventuellement
+	self.title = p_title;
+(mais le sous titre est dcl en readonly)
+
+* dans StoryBoard, mettre le delegate de la MKMapView en place
+- (void)mapView:(MKMapView *)mv didAddAnnotationViews:(NSArray *)views n'était jamais appellé !
+mais en fait ça sert à rien. Virer le code ?
+
+et attention, il y a une annotation qui est la position de l'utilisateur, ne pas supposer que c'est celle qu'on a crée !
+
+### écran recherche en 4 pouces
+
+### "Mes tâches" : pb : on sort pas de la recherche (pas de btn cancel visible)
+
+Problème avec les vues qui passent sous la barre de status…
+-> mais mm pb de cancel en iOS6 !
+
+PEG_ListeTachesViewController
+
+
+Vérification des tableView dans le storyBoard
+---------------------------------------------
+
+view controller à vérifier:
+
+PEG_ListRelationnelViewController
+	dimension à vérifier, pas modifié !
+PEG_ActionMinuteViewController
+	idem
+PEG_DatePickerViewController
+PEG_ListeViewController
+PEG_PickerViewController
+
+PEG_ListePointTourneeViewController plus compliqué, à voir
+PEG_ListeTourneesViewController
+
+PEG_AdminChoixHoraireViewController il y a un picker dessous
+
+PEG_ActionReplaceViewController
+
++++ vérifier en écran 4 pouces !
+
+---------------
+17h message d'erreur "tel 6545" 
+GetBeanMobilitePegaseWithObserver
+
+-[PEGException ManageExceptionWithThrow:andMessage:andExparams:] [Line 42] <== EXCEPTION ==> (null) , MESSAGE: processResponse: Erreur de réponse du GetBeanMobilitePegase : DataTable internal index is corrupted: '5'.
+
+
+=================================================================================
+
+Mercredi 12 février 2014
+------------------------
+
+Layout cellule lieux
+--------------------
+* Callage des badges : pb avec un +10 sans doute destiné à compenser le redimensionement des cellules () en iOS6
+cf PEG_DtlLieuxViewController.m
+	#define BADGE_OFFET_X	0
+* Retaillé image "concurrence" marge à droite pour régler pb de positionement du badge
+Mon but était juste d'avoir un comportement acceptable en iOS7, il reste à faire un callage fin avec les images définitive…
+
+les pickers
+-----------
+pas utilisable en iOS7, cf "pb picker iOS7.png" !
+
+* modifié dans le storyboard : callage des vues en bas de l'écran + fond gris 50% avec alpha à 50%
+
+* PEG_PickerViewController modifié dans le Storyboard
+	callage relatif au bas de l'écran pour compatibilité écran 4 pouces
+	rajout d'une vue blanc opaque sous le picker (qui est transparent)
+	fond de la vue principale en gris avec alpha 50%
+
+* PEG_DatePickerViewController
+appelé (uniquement) depuis PEG_ListeTourneesViewController.m
+il pose un pb à cause de la tab bar en bas de l'écran !!
+-> compensation pour la hauteur de la tabBar dans PEG_ListeTourneesViewController
+
+
+# Liste des items (un lieu, plusieurs items)
+	PEG_DtlQuantiteMaterielViewController
+	
+
+layout des sous vues de "présentoire" (TabBarController)
+--------------------------------------------------------
+Les vues passaient sous la barre de navigation, sans compensation automatique du contentInset.
+Le problème n'est pas clair, cette compensation se faisant automatiquement pour la vue PEG_DtlQuantiteMaterielViewController
+La solution que j'ai retenu est d'interdire à ces vues de passer sous les barres (navbar et tabbar). Cela se règle dans les settings du tabbarController dans ce cas (cf "Setting presentoir.png")
+
+
+
+* remplacé setting "Extend edges" sur le tabBar PEGPresentoirTabbarViewController
+
+
+# crash sur clic dans administratif selectionneur de page
+	[PEG_DtlAdresseLieuViewController changePage]
+-> corrigé sur le StoryBoard :(mauvaise signature de méthode)
+
+# centré date picker pour administratif, 3eme écran
+
+# centré showPickerNewPresentoir
+
+
+=================================================================================
+
+Jeudi 13 février 2014
+---------------------
+
+
+* vérifié map (annotation et position utilisateur) -> ok
+
+* dans l'écran lieu, évité que 2 instance d'un picker se supperpose. Par contre pas de protection pour supperposition de 2 picker différents (utile ?)
+
+* picker "relationel" (callage et fond)
+
+* uniqueIdentifier
+	SPIRBaseFormDataRequest.m pas utilisé ???
+
+* crash sur liste concurrent, afficher bouton delete et tap sur back
+Pas clair, mais fixed en sortant du mode édition avant de quitter la vue, cf
+	http://stackoverflow.com/questions/19230446/tableviewcaneditrowatindexpath-crash-when-popping-viewcontroller
+
+
+a voir:
+-------
+
+* vérifier les warning
+
+* analyseur statique
+
+
+2014-02-12 13:15:21.166 PEG[1839:4f57] [STATUS] Request finished: <PEG_ServicesMerchandisingRequests: 0xe2cac00>
+Feb 12 13:15:44 d630_pret.cip.spir.fr PEG[1839] <Error>: CGContextSetFillColorWithColor: invalid context 0x0. This is a serious error. This application, or a library it uses, is using an invalid context  and is thereby contributing to an overall degradation of system stability and reliability. This notice is a courtesy: please fix this problem. It will become a fatal error in an upcoming update.
+
+
+* il y a une thread background qui s'occupe de la conversion et l'upload des photos.
+Au minimum, il faut lui crer un contexte CoreData spécifique. 
+Il faut aussi vérifier que les objets CoreData sont uniquement utilisés dans leur propre thead.
+
+=> Cela peut expliquer des cas de freeze de l'application (bloquée sur un semaphore)
+Peut être plus fréquents quand on debug (après arret sur un point d'arret et continuer… ?)
+
+typiquement sur:
+	v_retour = [[app.managedObjectContext executeFetchRequest:req error:nil] lastObject];
+
+
+
+
+problèmes non iOS7
+------------------
+* bouton "+" des lieu en alerte: pas d'annulation possible
+
+* edition d'un présentoire : l'onglet "Changé" affiche le picker une seule fois et pas de feed back d'un choix
+
+* administratif / ouverture: décalage du jour mise à jour / celui édité
+
+* doule clic sur une bouton du presentoire ("+") -> affichage de 2 pickers supperposés
+
+* SPIRBaseFormDataRequest.m pas utilisé ?

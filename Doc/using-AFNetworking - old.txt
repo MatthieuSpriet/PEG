@@ -1,0 +1,94 @@
+using-AFNetworking-old.txt
+--------------------------
+
+Le but est de remplacer la librairie ASIHTTRequest, obsolete et non maintenue, par la librairie AFNetworking.
+
+*****************************************************************
+pm 140220 
+Cette approche visant à avoir le moins d'impact sur le code existant conduit à du code délicat et n'utilisant pas 
+la librairie AFNetworking de manière optimale.
+Approche laissée de cotée le 20 février
+*****************************************************************
+
+
+Approche avec PEGBaseRequest sous classe de AFHTTPRequestOperation
+------------------------------------------------------------------
+
+****
+PEG-Prefix.pch
+#define	USE_AFNetworking	1		// pm140219
+****
+
+Actuellemnt on a PEGBaseRequest comme classe racine des requètes:
+@interface PEGBaseRequest : ASIHTTPRequest <SPIRRequestProtocol>
+
+On peut donc essayer de remplacer PEGBaseRequest par une implémentation à base de AFNetworking.
+
+PEGBaseRequestAFN.m, avec la nouvelle implémentation de PEGBaseRequest
+
+Il existe une classe destinée à faciliter la migration:
+	https://github.com/AFNetworking/AFNetworking-ASIHTTPRequest
+
+PEGBaseRequest < AFHTTPRequestOperation < AFURLConnectionOperation
+
+
+hierarchie PEGBaseRequest
+-------------------------
+
+PEGBaseRequest
+	PEG_GetBeanMobilitePegaseRequest			utilisé par PEG_MobilitePegaseService.m
+	PEG_LogSpirRequest							PEG_BeanException.m (mécanisme de log des exceptions)
+	PEG_ModuleCommunicationRequest				PEGAppDelegate.m apres login (PEGLoginSucceedNotification)
+	PEG_ServicesMerchandisingRequests			PEG_BeanImage.m et PEG_MobilitePegaseService.m (GetLastSuiviKMUtilisateurWithObserver)
+	PEGAuthentificationWSRequest				PEGAuthenticationViewController
+
+on peut supprimer:
+	PEGAuthentificationRequest					Attention traitement (initWithURL) spécial dans la superclasse PEGBaseRequest !
+												Est ce que cette classe est utilisée (à part un appel à hasCache dans PEGAuthenticationViewController/login) ?
+
+
+
+
+Reachability
+-------------
+	if (![[Reachability reachabilityForInternetConnection] isReachable] && ![PEGAuthentificationRequest hasCache])
+
+
+Gestion du cache
+----------------
+-> recopié le cache existant
+
+
+setStartedBlock
+---------------
+viré setStartedBlock, utilisé à un seeul endroit pour affichage
+
+
+setCompletionBlock
+------------------
+
+setCompletionBlock il ne faut pas que ce soit celui hérité !
+il s'agit d'un bloc success
+
+- (void) GetLastSuiviKMUtilisateurWithObserver:(id<PEG_BeanSuiviKMUtilisateurDataSource>)p_ObserverOwner andMatricule:(NSString*) p_Matricule
+
+
+setPostBody
+-----------
+il faut mettre en place setPostBody (pour envoyer du JSON)
+
+
+ASIFormDataRequest
+------------------
+
+ATTENTION
+@interface SPIRStoreBaseFormDataRequest : ASIFormDataRequest <SPIRRequestProtocol>
+
+il y a une autre hiérarchie depuis ASIFormDataRequest
+
+
+
+
+
+
+

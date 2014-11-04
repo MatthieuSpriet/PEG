@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>${SPIR_ICON}</string>
+				<string>${SPIR_ICON_TWO_TIMES}</string>
+			</array>
+		</dict>
+	</dict>
+	<key>CFBundleIdentifier</key>
+	<string>${PRODUCT_IDENTIFIER}</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>5.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>${PRODUCT_IDENTIFIER}</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>${PEG_URL_SCHEME}</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>ParseApplicationId</key>
+	<string>${PARSE_APPLICATION_ID}</string>
+	<key>ParseClientKey</key>
+	<string>${PARSE_CLIENT_KEY}</string>
+	<key>SPIRAppNameKey</key>
+	<string>PEGCMM</string>
+	<key>SPIRBundleFullVersionString</key>
+	<string>5.2 (1)</string>
+	<key>SPIREndpointIdent</key>
+	<string>${SPIR_ENDPOINT_IDENT}</string>
+	<key>SPIREnvironnementKey</key>
+	<string>${SPIR_ENVIRONNEMENT}</string>
+	<key>SPIRKeychainServiceName</key>
+	<string>${SPIR_KEYCHAIN_SERVICE_NAME}</string>
+	<key>UIMainStoryboardFile</key>
+	<string>MainStoryboard</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>

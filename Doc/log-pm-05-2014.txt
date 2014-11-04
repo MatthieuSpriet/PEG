@@ -1,0 +1,114 @@
+log-pm-05-2014.txt
+------------------
+mai 2014
+
+* desactivation synchro au démarage (from février)
+	PEG_SynchroViewController.m
+	#define SANS_SYNCHRO 1
+
+* date du 3 au 9 mars pour avoir qq chose !
+
+PEG_TourneeADXServices.m
+
+
+mercredi 28 mai
+---------------
+todo:
+
+liste avec 2 sections
+PEG_DtlQuantiteMaterielViewController
+
+il faut récupérer la liste du materiel du lieu
++
+des action standard ("ne veut plus de présentoir" "veut voir une responsable"
+
+cf    self._ListeChoix= [[PEG_FMobilitePegase CreateListeChoix] GetListBeanChoixMaterielByTypePresentoir:self._BeanPresentoir.tYPE];zzzzz
+
+
+en cours:
+
+* ecran PEG_PointTourneeADXViewController.h, IP09
+
+
+done:
+
+
+
+mardi 27 mai
+------------
+* pb avec v_BeanPointDsgn.IdParution, qui est à nil !   v_BeanParution à nil etc.
+* + PEG_PointTourneeADXViewController (écran IP09)
+* removed "PEG_DtlPresentoirViewController" + dans le Storyboard ( warning "scene is unreachable" et la classe n'existe pas) -> reste 47 warnings
+* suite liste des point de distribution
+* idourneeRef ? idTourneeRef    -> corriger, mais vérifier comment c'est chargé !
+* problème filtre de date sur PEG_TourneeADXServices -> apparement la date 'est pas chargée !
+* écran IP08 "Tournee prestataire" 
+* completer PEG_TourneeADXServices (GetListeLieuPassageByTournee…) -> pb avec les commentaires !
+* note : dans BeanTourneeADX.h on a des accesseur synthetiés (CoreDataGeneratedAccessors)
+* problèmes droits GITHub -> ok
+
+lundi 26 mai
+------------
+* création écran IP08 "Tournee prestataire"  -> en place mais crash
+* service PEG_TourneeADXServices (place holder existant, à remplir)
+* création écran "Compte rendu" IP05:
+    + Directory TourneesPrestataires
+    + PEG_TourneesPrestataireViewController.m
+    + PEG_TourneePrestataireCell
+* login, 1200 km, récup des données
+* vérifié (Charles" qu'on tape sur url "int": http://adxnet.int.adrexo.fr/WS_Commun/S
+* manque un login/psw	-> 619, 'a', mais j'ai l'impression que c'est éccrasé dans PEGAuthenticationViewController.m
+* recupération source, compilation ok.
+
+
+tel Matthieu jeudi 22 mai
+-------------------------
+ecran IP05
+----------
+Tab "Compte Rendu" -> liste des tournées prestataires -> ecran IP05
+Uniquement les tournée Adrexo
+Il y a 2 tables différentes dans CoreData (et Web Services)
+Saisie de 2 dates en haut, validation par btn vert -> affichage liste des tournées "adrexo by date"
+
+Synchro et chargement liste des tournées
+----------------------------------------
+après synchro, vider CoreData
+Récupérer tournées neuves
+
+Voir tournée normales -> dupliquer en tournée Adrexo
+
++ Get et Set dans CoreData (nouveau services)
+
+La saisie se fait à partir des comptes rendu papier (pas sur place lors de la tournée !)
+
+ecran IP08
+----------
+On a un bean action Distribution prévu
+Duplication en distribution
+On peut aussi avoir un bean action "retour": duplication distribution prévu, changer idParutionRef en idParutionRefPrec (retour de la parution précédente)
+
+
+==================
+
+notes (à vérifier)
+-----
+* définition "SANS_SYNCHRO" dans les build setting ???
+
+
+getBeanTourneeADXByMatricule à utiliser pour PEG_ListeTournesPrestataireViewController
+
+* - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+    n'est pas appellé dans le cas d'un nib !
+
+
+-------------
+
+BeanTourneeADX
+PEG_BeanTournee     <<< obsolete ?
+
+BeanTournee
+
+
+
+
+

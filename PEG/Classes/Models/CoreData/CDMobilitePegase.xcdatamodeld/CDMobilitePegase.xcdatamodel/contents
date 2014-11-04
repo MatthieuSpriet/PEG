@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BeanAction" representedClassName="BeanAction" syncable="YES">
+        <attribute name="codeAction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coordGPSFiable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="coordX" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coordY" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dateAction" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="emplacement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="guidPresentoir" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idEditionRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParutionRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPointDistribution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="localisation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantiteDistribuee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantitePrevue" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantiteRecuperee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="typePresentoir" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valeurInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="valeurTexte" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentLieuPassage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieuPassage" inverseName="listAction" inverseEntity="BeanLieuPassage" syncable="YES"/>
+    </entity>
+    <entity name="BeanActionADX" representedClassName="BeanActionADX" syncable="YES">
+        <attribute name="codeAction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeTypePresentoir" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idEditionRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParutionRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParutionRefPrec" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="libEdition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantiteDistribuee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantitePrevue" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantiteRecuperee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="valeurInt" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="valeurTexte" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentLieuPassageADX" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieuPassageADX" inverseName="listActionADX" inverseEntity="BeanLieuPassageADX" syncable="YES"/>
+    </entity>
+    <entity name="BeanChoix" representedClassName="BeanChoix" syncable="YES">
+        <attribute name="categorie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="idItemListChoix" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="libelle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="restriction" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listRestriction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanRestrictionChoix" inverseName="parentChoix" inverseEntity="BeanRestrictionChoix" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listChoix" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanConcurentLieu" representedClassName="BeanConcurentLieu" syncable="YES">
+        <attribute name="dateDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="emplacement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="famille" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idConcurrence" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parentLieu" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieu" inverseName="listConcurentLieu" inverseEntity="BeanLieu" syncable="YES"/>
+    </entity>
+    <entity name="BeanConcurents" representedClassName="BeanConcurents" syncable="YES">
+        <attribute name="dateDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="idConcurentRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="libelleConcurent" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listConcurents" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanCPCommune" representedClassName="BeanCPCommune" syncable="YES">
+        <attribute name="codeCommune" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commune" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cP" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listEdition" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanEdition" inverseName="parentCP" inverseEntity="BeanEdition" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listCommune" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanEdition" representedClassName="BeanEdition" syncable="YES">
+        <attribute name="cP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idEdition" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="libelleEdition" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentCP" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanCPCommune" inverseName="listEdition" inverseEntity="BeanCPCommune" syncable="YES"/>
+    </entity>
+    <entity name="BeanHistoriqueParutionPresentoir" representedClassName="BeanHistoriqueParutionPresentoir" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="idParution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="qteDistri" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="qteRetour" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parentPresentoir" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanPresentoir" inverseName="listHistoriqueParutionPresentoir" inverseEntity="BeanPresentoir" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="idParution"/>
+                <index value="idPresentoir"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="BeanHoraire" representedClassName="BeanHoraire" syncable="YES">
+        <attribute name="aMDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="aMFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="jour" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="livre24" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pMDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="pMFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="parentLieu" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieu" inverseName="listHoraire" inverseEntity="BeanLieu" syncable="YES"/>
+    </entity>
+    <entity name="BeanLieu" representedClassName="BeanLieu" syncable="YES">
+        <attribute name="aucunConcurent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="codeActivite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeEtatLieu" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codePays" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codePostal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codePostalComplement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeProchainEtatLieu" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentaire" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="complement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coordX" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coordXpda" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coordY" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coordYpda" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dateCreation" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateDerniereVisite" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateIntention" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateProchainEtatLieu" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dist" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="etat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gUIDLieu" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="intersection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liaisonVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liInfoSupp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liNomLieu" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nomBatiment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nomDirecteurVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nomVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noVoie" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="noVoieComplement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ouvert247" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="prefixDirectionVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proprietaire" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="respCivilite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="respNom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="respTel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="service" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="suffixDirectionVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeVoie" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vfClientMag" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="vfExclusif" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="ville" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listConcurentLieu" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanConcurentLieu" inverseName="parentLieu" inverseEntity="BeanConcurentLieu" syncable="YES"/>
+        <relationship name="listHoraire" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanHoraire" inverseName="parentLieu" inverseEntity="BeanHoraire" syncable="YES"/>
+        <relationship name="listPresentoir" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanPresentoir" inverseName="parentLieu" inverseEntity="BeanPresentoir" syncable="YES"/>
+        <relationship name="listTache" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanTache" inverseName="parentLieu" inverseEntity="BeanTache" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listLieu" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+    </entity>
+    <entity name="BeanLieuPassage" representedClassName="BeanLieuPassage" syncable="YES">
+        <attribute name="datePassageReel" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateValeur" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagCreerMerch" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieuPassage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="clePrimaire" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="idTournee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="liCommentaire" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nbNewOrdrePassage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="nbOrdrePassage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="listAction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanAction" inverseName="parentLieuPassage" inverseEntity="BeanAction" syncable="YES"/>
+        <relationship name="parentTournee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanTournee" inverseName="listLieuPassage" inverseEntity="BeanTournee" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="idLieu"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="BeanLieuPassageADX" representedClassName="BeanLieuPassageADX" syncable="YES">
+        <attribute name="commune" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieuPassage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idTournee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="nbOrdrePassage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="nomLieu" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listActionADX" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanActionADX" inverseName="parentLieuPassageADX" inverseEntity="BeanActionADX" syncable="YES"/>
+        <relationship name="parentTourneeADX" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanTourneeADX" inverseName="listLieuPassageADX" inverseEntity="BeanTourneeADX" syncable="YES"/>
+    </entity>
+    <entity name="BeanLogError" representedClassName="BeanLogError" syncable="YES">
+        <attribute name="codeError" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="domainError" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="BeanMobilitePegase" representedClassName="BeanMobilitePegase" syncable="YES">
+        <attribute name="dateSynchro" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="matricule" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="listChoix" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanChoix" inverseName="parentMobilitePegase" inverseEntity="BeanChoix" syncable="YES"/>
+        <relationship name="listCommune" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanCPCommune" inverseName="parentMobilitePegase" inverseEntity="BeanCPCommune" syncable="YES"/>
+        <relationship name="listConcurents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanConcurents" inverseName="parentMobilitePegase" inverseEntity="BeanConcurents" syncable="YES"/>
+        <relationship name="listLieu" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanLieu" inverseName="parentMobilitePegase" inverseEntity="BeanLieu" syncable="YES"/>
+        <relationship name="listParution" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanParution" inverseName="parentMobilite" inverseEntity="BeanParution" syncable="YES"/>
+        <relationship name="listSuiviKMUtilisateur" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanSuiviKMUtilisateur" inverseName="parentMobilitePegase" inverseEntity="BeanSuiviKMUtilisateur" syncable="YES"/>
+        <relationship name="listTournee" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanTournee" inverseName="parentMobilitePegase" inverseEntity="BeanTournee" syncable="YES"/>
+        <relationship name="listTourneeADX" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanTourneeADX" inverseName="parentMobilitePegase" inverseEntity="BeanTourneeADX" syncable="YES"/>
+    </entity>
+    <entity name="BeanParametre" representedClassName="BeanParametre" syncable="YES">
+        <attribute name="idCommunication" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="BeanParution" representedClassName="BeanParution" syncable="YES">
+        <attribute name="dateDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateFin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idEdition" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParutionPrec" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParutionReferentiel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="libelleEdition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="libelleParution" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nomParution" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentMobilite" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listParution" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="id"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="idEdition"/>
+            </compoundIndex>
+        </compoundIndexes>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanPhoto" representedClassName="BeanPhoto" syncable="YES">
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="isSend" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="nom" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="BeanPresentoir" representedClassName="BeanPresentoir" syncable="YES">
+        <attribute name="dateAnnule" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateDernierePhoto" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="emplacement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flagPhoto" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="guidpresentoir" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idParution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPointDistribution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="localisation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nomBatiment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="preAnnuleId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="tYPE" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listHistoriqueParutionPresentoir" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanHistoriqueParutionPresentoir" inverseName="parentPresentoir" inverseEntity="BeanHistoriqueParutionPresentoir" syncable="YES"/>
+        <relationship name="listPresentoirParution" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanPresentoirParution" inverseName="parentPresentoir" inverseEntity="BeanPresentoirParution" syncable="YES"/>
+        <relationship name="listTache" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanTache" inverseName="parentPresentoir" inverseEntity="BeanTache" syncable="YES"/>
+        <relationship name="parentLieu" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieu" inverseName="listPresentoir" inverseEntity="BeanLieu" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="id"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="BeanPresentoirParution" representedClassName="BeanPresentoirParution" syncable="YES">
+        <attribute name="idParution" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parentPresentoir" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanPresentoir" inverseName="listPresentoirParution" inverseEntity="BeanPresentoir" syncable="YES"/>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanRestrictionChoix" representedClassName="BeanRestrictionChoix" syncable="YES">
+        <attribute name="codeFils" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codePere" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeRestriction" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentChoix" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanChoix" inverseName="listRestriction" inverseEntity="BeanChoix" syncable="YES"/>
+        <userInfo>
+            <entry key="isExportForSave" value="NO"/>
+        </userInfo>
+    </entity>
+    <entity name="BeanSuiviKMUtilisateur" representedClassName="BeanSuiviKMUtilisateur" syncable="YES">
+        <attribute name="codeAgence" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeLangAppli" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codePays" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeSociete" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kilometrage" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="matricule" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prenom" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listSuiviKMUtilisateur" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+    </entity>
+    <entity name="BeanTache" representedClassName="BeanTache" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idLieu" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idPresentoir" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idTache" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="valeur" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parentLieu" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanLieu" inverseName="listTache" inverseEntity="BeanLieu" syncable="YES"/>
+        <relationship name="parentPresentoir" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BeanPresentoir" inverseName="listTache" inverseEntity="BeanPresentoir" syncable="YES"/>
+    </entity>
+    <entity name="BeanTournee" representedClassName="BeanTournee" syncable="YES">
+        <attribute name="coTourneeType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dtDebutReelle" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idTournee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="clePrimaire" value="true"/>
+            </userInfo>
+        </attribute>
+        <attribute name="idTourneeRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="liCommentaire" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liTournee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="premiereDistribution" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="listLieuPassage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanLieuPassage" inverseName="parentTournee" inverseEntity="BeanLieuPassage" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listTournee" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+    </entity>
+    <entity name="BeanTourneeADX" representedClassName="BeanTourneeADX" syncable="YES">
+        <attribute name="dtDebut" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="flagMAJ" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idTournee" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="idTourneeRef" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="liTournee" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listLieuPassageADX" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BeanLieuPassageADX" inverseName="parentTourneeADX" inverseEntity="BeanLieuPassageADX" syncable="YES"/>
+        <relationship name="parentMobilitePegase" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BeanMobilitePegase" inverseName="listTourneeADX" inverseEntity="BeanMobilitePegase" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BeanAction" positionX="0" positionY="0" width="128" height="375"/>
+        <element name="BeanActionADX" positionX="0" positionY="0" width="128" height="285"/>
+        <element name="BeanChoix" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="BeanConcurentLieu" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="BeanConcurents" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="BeanCPCommune" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="BeanEdition" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="BeanHistoriqueParutionPresentoir" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="BeanHoraire" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="BeanLieu" positionX="0" positionY="0" width="128" height="765"/>
+        <element name="BeanLieuPassage" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="BeanLieuPassageADX" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="BeanLogError" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="BeanMobilitePegase" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="BeanParametre" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="BeanParution" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="BeanPhoto" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="BeanPresentoir" positionX="0" positionY="0" width="128" height="315"/>
+        <element name="BeanPresentoirParution" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="BeanRestrictionChoix" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="BeanSuiviKMUtilisateur" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="BeanTache" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="BeanTournee" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="BeanTourneeADX" positionX="0" positionY="0" width="128" height="150"/>
+    </elements>
+</model>
