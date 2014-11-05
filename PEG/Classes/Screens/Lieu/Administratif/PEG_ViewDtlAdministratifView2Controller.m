@@ -31,14 +31,6 @@
     self.BeanLieu = [[PEG_FMobilitePegase CreateLieu] GetBeanLieuById:p_IdLieu];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -51,24 +43,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     // Return the number of rows in the section.
     return 1;
 }
@@ -79,11 +62,7 @@
         return 40;
     }
     if(indexPath.section==1){
-        if( !self.IsKeyBoardOpen){
-        return 240;
-        }else{
-            return 400;
-        }
+        return 236;
     }
     return 0;
 }
@@ -247,8 +226,8 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     self.IsKeyBoardOpen=YES;
-    [self.MyTableView reloadData];
-    //UITableViewCell *cell = (UITableViewCell*) [[textField superview] superview];
+    // [self.MyTableView reloadData];   pm 11/2014
+    
     UITableViewCell *cell = [PEG_FTechnical getTableViewCellFromUI:textField];
     if(textField.tag<=4){
         [self.MyTableView scrollToRowAtIndexPath:[self.MyTableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -306,7 +285,7 @@
     return YES;
 }
 
--(BOOL) Save{
+-(BOOL)Save {
     BOOL v_IsSave = false;
     self.IsKeyBoardOpen=NO;
     [self.MyTableView reloadData];

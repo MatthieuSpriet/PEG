@@ -9,16 +9,21 @@ novembre 2014
 -------
 * est ce que les fichiers SPIRStore sont encore utilisés ?
     -> SPIRStoreApplicationListRequest.m etc douteux (framework privés)
-
+* dans les build setting, SANS_SYNCHRO est défini (à 1). Il est redéfini dans PEG_SynchroViewController.m. à virer ?
+* CP et ville non modifiable dans ecran administratif, normal ?
 
 
 mercredi 5 novembre
 -------------------
 todo:
+* problème sur les écran PEG_ViewDtlAdministratifView1Controller.m etc: si le clavier est sorti et qu'on selectionne un picker, la clavier ne rentre pas !
 
 en cours:
 
 done:
+* les 2 dernier champs de PEG_ViewDtlAdministratifView1Controller non saisissables
+-> apparement normal: if ([self.BeanLieu.flagMAJ isEqualToString:PEG_EnumFlagMAJ_Added]){
+* pas de possibilité de saisie en partie administrative d'un lieu   - PEG_ViewDtlAdministratifView1Controller (les 3 écrans)
 * compiler avec XCode 6 (pour execution en iOS8 !) -> Ok, lancement sur simulateur iPhone 6
 * SPIRMobileInstallationProxy.m findAppForIdentifier : commenté MobileInstallationBrowse
 (appel depuis SPIRStoreApplicationListRequest.m),

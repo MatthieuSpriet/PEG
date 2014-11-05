@@ -13,8 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *NomLieuUILabel;
 
 
-
-
 @property (strong, nonatomic) IBOutlet UITextField *NomEtablissementUITextField;
 @property (strong, nonatomic) IBOutlet UITextField *NumVoieUITextFiled;
 @property (strong, nonatomic) IBOutlet UITextField *BisTerUITextField;

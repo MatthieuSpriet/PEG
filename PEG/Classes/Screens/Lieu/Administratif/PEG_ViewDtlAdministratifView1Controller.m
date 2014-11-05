@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *MyTableView;
 @property (strong, nonatomic) BeanLieu* BeanLieu;
 @property (assign, nonatomic) BOOL IsEditable;
-//@property (retain, nonatomic) IBOutlet UILabel *LieuUILabel;
 @property (assign, nonatomic) BOOL IsKeyBoardOpen;
 
 
@@ -37,15 +36,6 @@
     self.BeanLieu = [[PEG_FMobilitePegase CreateLieu] GetBeanLieuById:p_IdLieu];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 - (void)viewDidLoad
 {
@@ -53,17 +43,11 @@
     [super viewDidLoad];
     self.IsEditable=NO;
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
@@ -87,11 +71,8 @@
         return 40;
     }
     if(indexPath.section==1){
-        if( !self.IsKeyBoardOpen){
-            return 240;
-        }else{
-            return 400;
-        }
+        return 240;
+        // pm 11/2014 il y avait une hauteur de cellule différente en fct du clavier ici
     }
     
     return 0;
@@ -111,15 +92,14 @@
         
         return cell;
         
-    }else if (indexPath.section == 1)
+    }
+    else if (indexPath.section == 1)
     {
-        
-        
         NSString *CellIdentifier = @"cellFormulaire";
         PEG_DtlView1Cell *cell = (PEG_DtlView1Cell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         //On met se test pour ne pas rafraichir les valeur alors quelles ne sont pas encore enregistrées
-        if(!self.IsEditable)
+        if (!self.IsEditable)
         {
             cell.NomEtablissementUITextField.text = self.BeanLieu.liNomLieu;
             cell.NomEtablissementUITextField.delegate=self;
@@ -153,7 +133,7 @@
             cell.VilleUITextField.tag=8;
         }
         
-        if(self.IsEditable != cell.NomEtablissementUITextField.enabled)
+        if (self.IsEditable != cell.NomEtablissementUITextField.enabled)
         {
             [cell.NomEtablissementUITextField setEnabled:self.IsEditable];
             [cell.NumVoieUITextFiled setEnabled:self.IsEditable];
@@ -347,8 +327,9 @@ return v_IsSave;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     self.IsKeyBoardOpen=YES;
-    [self.MyTableView reloadData];
-    //UITableViewCell *cell = (UITableViewCell*) [[textField superview] superview];
+    
+    //[self.MyTableView reloadData];      // << pm 11/2014 là on détruit et recrée la cell, donc pas d'édition possible !
+    
     UITableViewCell *cell = [PEG_FTechnical getTableViewCellFromUI:textField];
     if(textField.tag<=6){
         [self.MyTableView scrollToRowAtIndexPath:[self.MyTableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
