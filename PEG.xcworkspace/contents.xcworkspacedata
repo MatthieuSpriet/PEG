@@ -5,6 +5,9 @@
       location = "group:Doc"
       name = "Doc">
       <FileRef
+         location = "group:log-pm-11-2014.txt">
+      </FileRef>
+      <FileRef
          location = "group:googleAnalytics.txt">
       </FileRef>
       <FileRef
@@ -12,9 +15,6 @@
       </FileRef>
       <FileRef
          location = "group:log-pm-05-2014.txt">
-      </FileRef>
-      <FileRef
-         location = "group:log-pm-11-2014.txt">
       </FileRef>
       <FileRef
          location = "group:log-pm.txt">

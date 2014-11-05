@@ -11,6 +11,10 @@ novembre 2014
     -> SPIRStoreApplicationListRequest.m etc douteux (framework privés)
 * dans les build setting, SANS_SYNCHRO est défini (à 1). Il est redéfini dans PEG_SynchroViewController.m. à virer ?
 * CP et ville non modifiable dans ecran administratif, normal ?
+* picker : afficher le choix initial
+* picker : scroll pour montrer le champ pické ?
+* bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
+* sending 5 photo ???
 
 
 mercredi 5 novembre
@@ -18,8 +22,11 @@ mercredi 5 novembre
 todo:
 
 en cours:
+* le changement de présentoir n'est pas pris en compte (?)
+
 
 done:
+* vérifier bande noire en haut écrans admin (tester iPhone 4) -> virée pour l'instant
 * problème sur les écran PEG_ViewDtlAdministratifView1Controller.m etc: si le clavier est sorti et qu'on selectionne un picker, la clavier ne rentre pas !
 * les 2 dernier champs de PEG_ViewDtlAdministratifView1Controller non saisissables
     -> apparement normal: if ([self.BeanLieu.flagMAJ isEqualToString:PEG_EnumFlagMAJ_Added]){

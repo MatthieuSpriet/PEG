@@ -19,7 +19,7 @@
 /********** Pour DEBUG *********************/
 // 0: Synchro (Pour Prod)
 // 1: Pas de synchro
-#define SANS_SYNCHRO 1
+#define SANS_SYNCHRO 0
 /*******************************************/
 
 @interface PEG_SynchroViewController ()
