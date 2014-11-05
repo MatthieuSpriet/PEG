@@ -16,13 +16,13 @@ novembre 2014
 mercredi 5 novembre
 -------------------
 todo:
-* problème sur les écran PEG_ViewDtlAdministratifView1Controller.m etc: si le clavier est sorti et qu'on selectionne un picker, la clavier ne rentre pas !
 
 en cours:
 
 done:
+* problème sur les écran PEG_ViewDtlAdministratifView1Controller.m etc: si le clavier est sorti et qu'on selectionne un picker, la clavier ne rentre pas !
 * les 2 dernier champs de PEG_ViewDtlAdministratifView1Controller non saisissables
--> apparement normal: if ([self.BeanLieu.flagMAJ isEqualToString:PEG_EnumFlagMAJ_Added]){
+    -> apparement normal: if ([self.BeanLieu.flagMAJ isEqualToString:PEG_EnumFlagMAJ_Added]){
 * pas de possibilité de saisie en partie administrative d'un lieu   - PEG_ViewDtlAdministratifView1Controller (les 3 écrans)
 * compiler avec XCode 6 (pour execution en iOS8 !) -> Ok, lancement sur simulateur iPhone 6
 * SPIRMobileInstallationProxy.m findAppForIdentifier : commenté MobileInstallationBrowse

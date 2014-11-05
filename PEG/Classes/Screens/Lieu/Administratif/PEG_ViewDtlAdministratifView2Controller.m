@@ -333,6 +333,7 @@
 }
 
 - (void)ShowPicker:(SPIROrderedDictionary*)p_List {
+    [self hideKeyboard];
     PEG_PickerViewController *pickerController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"PEG_PickerViewController"];
     
     NSArray* v_array = [[NSArray alloc] initWithObjects:p_List, nil];
@@ -428,6 +429,12 @@
         self.UITextFieldSelected.text = v_Libelle;
     }
     [self.MyTableView reloadData];
+}
+
+
+- (void)hideKeyboard
+{
+    [self.view endEditing:YES];
 }
 
 @end

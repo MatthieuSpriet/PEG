@@ -400,6 +400,7 @@ return v_IsSave;
 }
 
 - (void)ShowPicker:(SPIROrderedDictionary*)p_List {
+    [self hideKeyboard];
     PEG_PickerViewController *pickerController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"PEG_PickerViewController"];
     
     NSArray* v_array = [[NSArray alloc] initWithObjects:p_List, nil];
@@ -502,6 +503,7 @@ return v_IsSave;
 }
 
 - (void)ShowPickerCommune:(SPIROrderedDictionary*)p_List {
+    [self hideKeyboard];
     PEG_PickerViewController *pickerController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"PEG_PickerViewController"];
     pickerController.title=@"Commune";
     NSArray* v_array = [[NSArray alloc] initWithObjects:p_List, nil];
@@ -544,6 +546,13 @@ return v_IsSave;
      ];
     
     
+}
+
+- (void)hideKeyboard
+{
+    // pm I was trying to call resignFirstResponder , but the simplest solution is to call endEditing on self.view !
+    // cf http://stackoverflow.com/questions/1823317/get-the-current-first-responder-without-using-a-private-api
+    [self.view endEditing:YES];
 }
 
 
