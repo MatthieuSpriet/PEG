@@ -1,5 +1,5 @@
 //
-//  SQLIAppFinder.m
+//  SPIRMobileInstallationProxy.m
 //  SQLIStore
 //
 //  Created by Christophe BUGUET on 09/10/10.
@@ -34,6 +34,10 @@ static int lookup_mibcallback(NSDictionary *dict, NSString *bundleIdentifier)
 	return 0;
 }
 
+// pm 5 novembre 2014 - MobileInstallationBrowse était un framework privé, plus supporté sous iOS8
+// in iOS8, the MobileInstallation has been modified, MobileInstallationBrowse is gone.
+// http://stackoverflow.com/questions/25992031/how-to-get-installed-app-list-in-ios8-use-private-framework
+
 + (NSDictionary *)findAppForIdentifier:(NSString *)bundleIdentifier
 {
 	DLog(@"Recherche de %@", bundleIdentifier);
@@ -42,9 +46,10 @@ static int lookup_mibcallback(NSDictionary *dict, NSString *bundleIdentifier)
 	{
 		foundEntry = nil;
 	}
-	MobileInstallationBrowse([NSDictionary dictionaryWithObject:@"Any" forKey:@"ApplicationType"],
-							 &lookup_mibcallback,
-							 bundleIdentifier);
+// pm 5 novembre 2014 commented out
+//	MobileInstallationBrowse([NSDictionary dictionaryWithObject:@"Any" forKey:@"ApplicationType"],
+//							 &lookup_mibcallback,
+//							 bundleIdentifier);
 	return [foundEntry copy];
 }
 

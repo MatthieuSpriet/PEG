@@ -17,7 +17,7 @@ GCC_VERSION						= com.apple.compilers.llvm.clang.1_0
 
 ALWAYS_SEARCH_USER_PATHS		= YES
 
-HEADER_SEARCH_PATHS				= $(inherited) "$(SRCROOT)/PEG/Libraries/**" "$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse/Parse.framework/**" "$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse/**" "$(SDK_DIR)/usr/include/libxml2"
+HEADER_SEARCH_PATHS				= $(inherited) "$(SRCROOT)/PEG/Libraries/**" "$(SDK_DIR)/usr/include/libxml2"
 
 LIBRARY_SEARCH_PATHS			= $(inherited) "$(SRCROOT)/PEG/Libraries/**" "$(SDK_DIR)/usr/include/libxml2"
 FRAMEWORK_SEARCH_PATHS			= $(inherited) "$(SRCROOT)/PEG/Libraries/**"

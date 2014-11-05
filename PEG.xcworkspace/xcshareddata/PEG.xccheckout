@@ -5,59 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>93332B8A-EB3D-4D1C-867B-4D1750E5FD50</string>
+	<string>84488279-8575-4A8C-8FE2-20C68B3F9DDB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>PEG</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>4B916FE0-2070-4AE0-B398-33ACE2380D19</key>
-		<string>https://github.com/MatthieuSpriet/PEG.git</string>
-		<key>610E343F-14CD-40FF-802C-F304936815A8</key>
-		<string>http://pwappsvn-1.external.spir.fr/pub/spir-peg-cmm</string>
+		<key>129346849073DA9F6BEA1D2BE59145129E41CF29</key>
+		<string>https://github.com/MatthieuSpriet/PEG</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>trunk/PEG/PEG.xcworkspace</string>
+	<string>PEG.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>4B916FE0-2070-4AE0-B398-33ACE2380D19</key>
-		<string>../..</string>
-		<key>610E343F-14CD-40FF-802C-F304936815A8</key>
-		<string>../../../..</string>
-	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>610E343F-14CD-40FF-802C-F304936815A8</key>
-		<string>http://pwappsvn-1.external.spir.fr/pub/spir-peg-cmm</string>
+		<key>129346849073DA9F6BEA1D2BE59145129E41CF29</key>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/MatthieuSpriet/PEG.git</string>
+	<string>https://github.com/MatthieuSpriet/PEG</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>610E343F-14CD-40FF-802C-F304936815A8</string>
+	<string>129346849073DA9F6BEA1D2BE59145129E41CF29</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>4B916FE0-2070-4AE0-B398-33ACE2380D19</string>
+			<string>129346849073DA9F6BEA1D2BE59145129E41CF29</string>
 			<key>IDESourceControlWCCName</key>
-			<string>PEG</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
-			<string>branches</string>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlRepositoryTagsRelativeLocationKey</key>
-			<string>tags</string>
-			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
-			<string>trunk</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>610E343F-14CD-40FF-802C-F304936815A8</string>
-			<key>IDESourceControlWCCName</key>
-			<string>spir-peg-cmm</string>
+			<string>PEG-11-2014</string>
 		</dict>
 	</array>
 </dict>

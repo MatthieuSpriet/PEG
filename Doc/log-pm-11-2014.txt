@@ -1,0 +1,45 @@
+log-pm-11-2014.txt
+------------------
+novembre 2014
+
+
+#define SANS_SYNCHRO 1
+
+à voir:
+-------
+* est ce que les fichiers SPIRStore sont encore utilisés ?
+    -> SPIRStoreApplicationListRequest.m etc douteux (framework privés)
+
+
+
+mercredi 5 novembre
+-------------------
+todo:
+
+en cours:
+
+done:
+* compiler avec XCode 6 (pour execution en iOS8 !) -> Ok, lancement sur simulateur iPhone 6
+* SPIRMobileInstallationProxy.m findAppForIdentifier : commenté MobileInstallationBrowse
+(appel depuis SPIRStoreApplicationListRequest.m),
+* viré reférences à libtraceparse
+* récupération projet sur https://github.com/MatthieuSpriet/PEG
+* Problème compilation peut être lié à l'ouverture du projet avec XCode 6. (LibTraceParse) - effacer et recommencer le check out, compilation ok !
+
+
+
+mail Matthieu du 4 novembre:
+----------------------------
+Attention, n'utilise que le scheme de DEBUG ou de REC
+Login au démarrage : 131424, pwd : ce que tu veux, mais au moins un caractère
+
+Le but est de rendre l'application fonctionnelle avec IOS8 (dernière version).
+
+Voici un état des lieux actuel des problèmes connus :
+- pas de possibilité de saisie en partie administrative d'un lieu
+- le changement de présentoir n'est pas pris en compte
+- l'ajout présentoir n'est pas pris en compte
+- la saisie des quantités sur tournée et CompteRendu fonctionne pas en saisie libre (sans validtaion prev) et le retour ne restent pas si pas de valeurs livrées
+
+Je te refait un point plus complet quand j'ai le retour des tests.
+

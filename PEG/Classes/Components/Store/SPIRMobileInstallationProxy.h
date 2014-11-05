@@ -1,10 +1,15 @@
 //
-//  SQLIAppFinder.h
+//  SPIRMobileInstallationProxy.h
 //  SQLIStore
 //
 //  Created by Antoine Marcadet on 09/10/10.
 //  Copyright 2010 SQLI Agency. All rights reserved.
 //
+
+/* pm 5 novembre 2014
+ Ce code est sans doute en partie obsolete
+ findAppForIdentifier en particulier faisait appel à un framework privé qui n'est plus accessible (erreur compilation) sous iOS8 (et sans doute avant !)
+ */
 
 
 int MobileInstallationBrowse(NSDictionary *options, int (*mibcallback)(NSDictionary *dict, NSString *bundleIdentifier), NSString *bundleIdentifier);

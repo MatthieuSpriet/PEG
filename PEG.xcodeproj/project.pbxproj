@@ -1668,7 +1668,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PEG;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = spir;
 				TargetAttributes = {
 					40E03B97175F80470072B740 = {
@@ -2012,10 +2012,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2032,8 +2034,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = 1;
 				SDKROOT = iphoneos;
 			};
@@ -2052,10 +2054,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2084,7 +2088,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PEG/Libraries\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-					"\"$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PEG/PEG-Prefix.pch";
@@ -2095,8 +2098,8 @@
 					"$(PROJECT_DIR)/PEG/Libraries/GoogleAnalytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = no;
 				SPIR_ENDPOINT_IDENT = "${SPIR_ENDPOINT_PROTOCOL}://${SPIR_ENDPOINT_IDENT}";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2115,7 +2118,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/PEG/Libraries\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-					"\"$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2127,7 +2129,7 @@
 					"$(PROJECT_DIR)/PEG/Libraries/GoogleAnalytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
 				SANS_SYNCHRO = no;
 				SPIR_ENDPOINT_IDENT = "${SPIR_ENDPOINT_PROTOCOL}://${SPIR_ENDPOINT_IDENT}";
@@ -2149,10 +2151,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Spir Communication S.A.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Spir Communication S.A.";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2181,13 +2185,12 @@
 			baseConfigurationReference = FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Spir Communication S.A.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Spir Communication S.A.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PEG/Libraries\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-					"\"$(SRCROOT)/../../../spir-lib-traceparse/trunk/LibTraceParse\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PEG/PEG-Prefix.pch";
@@ -2198,7 +2201,7 @@
 					"$(PROJECT_DIR)/PEG/Libraries/GoogleAnalytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B3CBA3CE-7D3B-422A-87EB-BE506012C02A";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3CBA3CE-7D3B-422A-87EB-BE506012C02A";
 				SANS_SYNCHRO = no;
 				SPIR_ENDPOINT_IDENT = "${SPIR_ENDPOINT_PROTOCOL}://${SPIR_ENDPOINT_IDENT}";
