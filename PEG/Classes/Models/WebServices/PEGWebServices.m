@@ -313,50 +313,50 @@
 
 - (void)saveBeanMobilitePegaseWithSucces:(void (^)(void))succes failure:(void (^)(NSError *error))failure
 {
-	PEGParametres* sharedCEXParametres = [PEGParametres sharedInstance];
-	NSString* urlWebservice =[sharedCEXParametres.URL stringForKey:@"WebServicesIndianaMerchandisingV2"];
-	NSString* urlService=@"/REST/SaveBeanMobilitePegase_POST";
-	NSString* urlString = [NSString stringWithFormat:@"%@%@", urlWebservice, urlService];
-	
+    PEGParametres* sharedCEXParametres = [PEGParametres sharedInstance];
+    NSString* urlWebservice =[sharedCEXParametres.URL stringForKey:@"WebServicesIndianaMerchandisingV2"];
+    NSString* urlService=@"/REST/SaveBeanMobilitePegase_POST";
+    NSString* urlString = [NSString stringWithFormat:@"%@%@", urlWebservice, urlService];
+    
     DLog(@"=>urlString: %@ ",urlString);
     
-	AFHTTPRequestOperationManager *manager = [self requestManager];
-	
-	[manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[SPIRSession username] password:[SPIRSession password]];
-
-	NSDictionary *parameters = nil;
+    AFHTTPRequestOperationManager *manager = [self requestManager];
     
-	
-	// laisser faire la sérialisation JSON à AFJSONRequestSerializer
-	
-		NSArray* array = [[PEG_FMobilitePegase CreateMobilitePegaseService] GetAllBeanMobilitePegase];
-		
-		NSArray *objectsArray = [[PEG_FMobilitePegase CreateCoreData] dataStructuresFromManagedObjectsModified:array];
-		if (! [NSJSONSerialization isValidJSONObject:objectsArray]) {	// serialisable ?
-			failure(nil);	// que fait on dans ce cas ? (ne devrait pas se produire)
-			return;
-		}
-        
+    [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:[SPIRSession username] password:[SPIRSession password]];
+    
+    NSDictionary *parameters = nil;
+    
+    
+    // laisser faire la sérialisation JSON à AFJSONRequestSerializer
+    
+    NSArray* array = [[PEG_FMobilitePegase CreateMobilitePegaseService] GetAllBeanMobilitePegase];
+    
+    NSArray *objectsArray = [[PEG_FMobilitePegase CreateCoreData] dataStructuresFromManagedObjectsModified:array];
+    if (! [NSJSONSerialization isValidJSONObject:objectsArray]) {	// serialisable ?
+        failure(nil);	// que fait on dans ce cas ? (ne devrait pas se produire)
+        return;
+    }
+    
 #ifdef DEBUG
-        NSData* v_data = [NSJSONSerialization dataWithJSONObject:objectsArray options:NSJSONWritingPrettyPrinted error:nil];
-        NSString* v_Json = [[NSString alloc] initWithData:v_data encoding:NSUTF8StringEncoding];
-        DLog(@"=>PostBody: %@",v_Json);
+    NSData* v_data = [NSJSONSerialization dataWithJSONObject:objectsArray options:NSJSONWritingPrettyPrinted error:nil];
+    NSString* v_Json = [[NSString alloc] initWithData:v_data encoding:NSUTF8StringEncoding];
+    DLog(@"=>PostBody: %@",v_Json);
 #endif
-		
-		// ATTENTION, vérifier si c'est ok de passer un array à la place dictionnaire !
-		// A priori il faut juste que ce soit un objet sérialisable en JSON
-		parameters = (NSDictionary*)objectsArray;
-
-	NSMutableURLRequest *request = [manager.requestSerializer
-									requestWithMethod:@"POST"
-									URLString:urlString
-									parameters:parameters
-									error:nil];
-	[request setTimeoutInterval:300];
-	
-	
+    
+    // ATTENTION, vérifier si c'est ok de passer un array à la place dictionnaire !
+    // A priori il faut juste que ce soit un objet sérialisable en JSON
+    parameters = (NSDictionary*)objectsArray;
+    
+    NSMutableURLRequest *request = [manager.requestSerializer
+                                    requestWithMethod:@"POST"
+                                    URLString:urlString
+                                    parameters:parameters
+                                    error:nil];
+    [request setTimeoutInterval:300];
+    
+    
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-		@try{
+        @try{
 #ifdef DEBUG
             NSLog(@"success response: %@", responseObject);			// un dictionnaire déjà parsé
 #endif
@@ -376,13 +376,13 @@
             [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Exception saveBeanMobilitePegaseWithSucces" andExparams:nil];
             failure(nil);
         }
-		
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"failure error: %@", error);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failure error: %@", error);
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:nil andMessage:@"failure saveBeanMobilitePegaseWithSucces" andExparams:[NSString stringWithFormat:@"failure error: %@", error]];
-		failure(error);
-	}];
-	
+        failure(error);
+    }];
+    
     [manager.operationQueue addOperation:operation];
 }
 

@@ -186,7 +186,27 @@ static NSDateFormatter* _formatter_Z;
     return GUID;
 }
 
-+(UITableViewCell*) getTableViewCellFromUI:(UITextField*)p_UITextField
+// pm: très dangereux ! Peut être cassé avec iOS8 ?
+// on essais ici de retrouver la cellule (UITableViewCell) qui contient un champ texte (UITextField)
+
+#if 1   // nouvelle version pm 11/2014, mais il faudrait réfléchir à un autre mécanisme !
+
++ (UITableViewCell*)getTableViewCellFromUI:(UITextField*)p_UITextField
+{
+    UIView *view = p_UITextField;
+    while (view) {
+        if ([view isKindOfClass:[UITableViewCell class]]) {
+            break;
+        }
+        view = view.superview;
+    }
+    // DLog(@"getTableViewCellFromUI -> %@", view);
+    return (UITableViewCell*)view;
+}
+
+#else
+
++(UITableViewCell*)getTableViewCellFromUI:(UITextField*)p_UITextField
 {
     UITableViewCell* v_cell = nil;
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
@@ -199,6 +219,8 @@ static NSDateFormatter* _formatter_Z;
     }
     return v_cell;
 }
+#endif
+
 
 +(void) traceErrorWithMessage:(NSString*)p_Message
 {

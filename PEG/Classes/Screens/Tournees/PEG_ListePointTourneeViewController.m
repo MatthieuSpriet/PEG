@@ -27,19 +27,13 @@
 @property (strong, nonatomic) NSString *QuantiteUITextFieldOldValue;
 @property (strong, nonatomic) BeanTournee* _BeanTournee;
 @property (strong, nonatomic) UITextField *QteUITextField;
-@property (assign, nonatomic) BOOL IsKeyBoardOpen;
+//@property (assign, nonatomic) BOOL IsKeyBoardOpen;
 @end
 
 @implementation PEG_ListePointTourneeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+// pm 11/2014 UIMenuController : en charge de copy / paste etc.
+// que fait on avec ici ?
 
 -(void)processit:(id)sender {
     UIMenuController *menu = [UIMenuController sharedMenuController];
@@ -60,55 +54,42 @@
     //UIBarButtonItem * v_RefreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(RefreshIButtonClick)];
     //self.navigationItem.rightBarButtonItem = v_RefreshButton;
 }
-/*- (void)RefreshIButtonClick{
- self.LibelleMagazineUILabel.text = [[PEG_FMobilitePegase CreateTournee] GetLibelleMagazinesForDesignByTournee:self._BeanTournee andNbCarTrunc:15 andEntete:true];
- }*/
+/*
+- (void)RefreshIButtonClick{
+    self.LibelleMagazineUILabel.text = [[PEG_FMobilitePegase CreateTournee] GetLibelleMagazinesForDesignByTournee:self._BeanTournee andNbCarTrunc:15 andEntete:true];
+}
+*/
 
-- (void) viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self setDetailItem:self.IdTournee];
     [self.ListePointUITableView reloadData];
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark Gestion de la table view
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(self.ListBeanPointDsgn != nil){
-        // if(self.IsKeyBoardOpen){
-        return [self.ListBeanPointDsgn count]+5;
-        //        }else{
-        //            return [self.ListBeanPointDsgn count];
-        //        }
+        return [self.ListBeanPointDsgn count];
+        // return [self.ListBeanPointDsgn count]+5;
     }
     else return 0;
 }
 
--(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row<[self.ListBeanPointDsgn count]){
-        NSString * cellIdentifier = @"cellListePointTournee";
-        
+    // DLog (@"cellForRowAtIndexPath %d / %d", indexPath.row, [self.ListBeanPointDsgn count]);
+    NSString * cellIdentifier = @"cellListePointTournee";
+    if (indexPath.row < [self.ListBeanPointDsgn count])
+    {
         PEG_ListePointTourneeCell* cellDtl = (PEG_ListePointTourneeCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        
-        // pm140527 Storyboard allways returns a cell, and dis there a PEG_ListePointTourneeCell nib file ?
-        if (cellDtl == nil)
-        {
-            UIViewController *c = [[UIViewController alloc] initWithNibName:@"PEG_ListePointTourneeCell" bundle:nil];
-            cellDtl = (PEG_ListePointTourneeCell*) c.view;
-            
-        }
-        
         
         cellDtl.QuantiteDistribueeUITextField.delegate=self;
         cellDtl.QuantiteRetourUITextField.delegate=self;
-        cellDtl.QuantiteDistribueeUITextField.tag=0;        // pm: you can set theses tags are set in the StoryBoard
+        cellDtl.QuantiteDistribueeUITextField.tag=0;
         cellDtl.QuantiteRetourUITextField.tag=1;
         [self initClavier:cellDtl.QuantiteDistribueeUITextField];
         [self initClavier:cellDtl.QuantiteRetourUITextField];
@@ -142,15 +123,14 @@
             {
                 cellDtl.QuantiteRetourUITextField.enabled = false;
             }
-            //cellDtl.QuantiteRetourUITextField.enabled = true;
             cellDtl.BtnCopierPreviUIButton.enabled = true;
         }
         cellDtl.BtnCopierPreviUIButton.tag = indexPath.row;
         
         return cellDtl;
-    }else{
-        NSString * cellIdentifier = @"cellListePointTournee";
-        
+    }
+    else {
+        // pm 11/2014 si je comprend bien on crée des cellules invisible pour pouvoir scroller. C'est ça ?
         PEG_ListePointTourneeCell* cellDtl = (PEG_ListePointTourneeCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         [cellDtl initDataWithNumPoint:@"" andNomPoint:@"" andTypePresentoir:@"" andCommune:@"" andParution:@"" andQtePrepa:[NSNumber numberWithInt:0]  andQteDistri:[NSNumber numberWithInt:0]  andQteRetour:[NSNumber numberWithInt:0]  andNbTache:[NSNumber numberWithInt:0]  andIdPresentoir:[NSNumber numberWithInt:0]  andIdParution:[NSNumber numberWithInt:0]  andIdLieuPassage:[NSNumber numberWithInt:0] ];
         [cellDtl setHidden:YES];
@@ -159,6 +139,7 @@
     
 }
 
+// associer au dessus du clavier une barre avec un bouton "Apply"
 -(void) initClavier:(UITextField *) p_TextField
 {
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -172,6 +153,7 @@
     p_TextField.inputAccessoryView = numberToolbar;
     
 }
+
 //- (IBAction)QuantiteDistribueeUITextFieldEditingDidBegin:(UITextField*)sender {
 //    self.QuantiteUITextFieldOldValue = sender.text;
 //    self.QteUITextField=sender;
@@ -201,7 +183,7 @@
     self.QteUITextField=textField;
     
     [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    self.IsKeyBoardOpen=YES;
+    //self.IsKeyBoardOpen=YES;
     // [self.ListePointUITableView reloadData ];
     [textField performSelector:@selector(selectAll:) withObject:textField afterDelay:0.f];
     return YES;
@@ -234,7 +216,7 @@
         }
     }
     //[self.QteUITextField resignFirstResponder];
-    self.IsKeyBoardOpen=NO;
+    //self.IsKeyBoardOpen=NO;
     [self.ListePointUITableView reloadData ];
 }
 
@@ -271,7 +253,7 @@
         }
     }
     [self.QteUITextField resignFirstResponder];
-    self.IsKeyBoardOpen=NO;
+    //self.IsKeyBoardOpen=NO;
     [self.ListePointUITableView reloadData ];
 }
 

@@ -14,18 +14,34 @@ novembre 2014
 * picker : afficher le choix initial
 * picker : scroll pour montrer le champ pické ?
 * bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
-* sending 5 photo ???
+* ---> Background, sending 5 photos  / 0 photos : ()
+
+
+jeudi 6 novembre
+----------------
+
+todo:
+- l'ajout présentoir n'est pas pris en compte
+
+en cours:
+
+
+done:
+* crash sur saisie qt sur tournée et compte rendu -> crash en iOS8
+    -> corrigé + (UITableViewCell*)getTableViewCellFromUI:(UITextField*)p_UITextField
+* suite - le changement de présentoir n'est pas pris en compte (?)
+    "tYPE" : "T5",  Je suppose que cette typo a été utilisée pour éviter le mot "type"
+    -> en attente réponse Matthieu
+la réponse du serveur semble ok
+    success response: {
+        Msg = "";
+        Type = S;
+    }
 
 
 mercredi 5 novembre
 -------------------
-todo:
-
-en cours:
-* le changement de présentoir n'est pas pris en compte (?)
-
-
-done:
+* test pb: le changement de présentoir n'est pas pris en compte (?) -> problème serveur ?
 * vérifier bande noire en haut écrans admin (tester iPhone 4) -> virée pour l'instant
 * problème sur les écran PEG_ViewDtlAdministratifView1Controller.m etc: si le clavier est sorti et qu'on selectionne un picker, la clavier ne rentre pas !
 * les 2 dernier champs de PEG_ViewDtlAdministratifView1Controller non saisissables
@@ -37,6 +53,7 @@ done:
 * viré reférences à libtraceparse
 * récupération projet sur https://github.com/MatthieuSpriet/PEG
 * Problème compilation peut être lié à l'ouverture du projet avec XCode 6. (LibTraceParse) - effacer et recommencer le check out, compilation ok !
+
 
 
 
