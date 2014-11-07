@@ -12,24 +12,37 @@ novembre 2014
 * dans les build setting, SANS_SYNCHRO est défini (à 1). Il est redéfini dans PEG_SynchroViewController.m. à virer ?
 * CP et ville non modifiable dans ecran administratif, normal ?
 * picker : afficher le choix initial
-* picker : scroll pour montrer le champ pické ?
 * bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
-* ---> Background, sending 5 photos  / 0 photos : ()
+
+
+mail Matthieu: pb mémoire, cf repport par Google Analytics:
+- (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
+
+
+
+vendredi 7 novembre
+-------------------
+
+todo:
+* picker : selectionner la valeur initiales
+
+en cours:
+* écran saise qt : retouches UI (scroll, selection texte ?)
+    PEG_ListePointTourneeViewController.m
+
+
+done:
+* removed obsolete viewDidUnload
 
 
 jeudi 6 novembre
 ----------------
-
-todo:
-- l'ajout présentoir n'est pas pris en compte
-
-en cours:
-
-
-done:
+* test ajout de présentoir -> ok, pas de pb detecté (ajout-presentoir.txt)
+* test iOS7 iOS8    -> envoyé mail à Matthieu
+* ---> Background, sending 5 photos  / 0 photos : () -> c'est juste le texte qui est trompeur, on envoie au maximum 5 photo d'un coup, mais 0 s'il n'y en a pas :-)
 * crash sur saisie qt sur tournée et compte rendu -> crash en iOS8
     -> corrigé + (UITableViewCell*)getTableViewCellFromUI:(UITextField*)p_UITextField
-* suite - le changement de présentoir n'est pas pris en compte (?)
+* suite test changement de présentoir pas pris en compte
     "tYPE" : "T5",  Je suppose que cette typo a été utilisée pour éviter le mot "type"
     -> en attente réponse Matthieu
 la réponse du serveur semble ok

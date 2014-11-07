@@ -361,7 +361,7 @@ void myExceptionHandler(NSException *exception)
                             // On en fait que 5 à la fois pour pas saturer la mémoire
                             int v_NbPhotoSend = 0;
                             NSArray* v_arrayPhoto = [[PEG_FMobilitePegase CreateImage] GetAllBeanPhotoNotSend];
-                            NSLog (@"---> Background, sending 5 photos  / %d photos : %@", v_arrayPhoto.count, v_arrayPhoto);
+                            NSLog (@"---> Background, %d photos to send: %@", v_arrayPhoto.count, v_arrayPhoto);
                             for (BeanPhoto* v_BeanPhoto in v_arrayPhoto) {
                                 UIImage* v_image=[[PEG_FMobilitePegase CreateImage] GetPictureFromFileById:[v_BeanPhoto.idPresentoir intValue]];
                                 PEG_BeanImage *v_BeanImage = [[PEG_BeanImage alloc ]init];

@@ -243,6 +243,7 @@
 		8F52A112193615070029A030 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F52A111193615070029A030 /* libGoogleAnalyticsServices.a */; };
 		8F52A1151936182E0029A030 /* PEG_BaseUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A1141936182E0029A030 /* PEG_BaseUIViewController.m */; };
 		8F52A119193621C00029A030 /* PEG_GoogleAnalyticsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A118193621C00029A030 /* PEG_GoogleAnalyticsServices.m */; };
+		8F8DB5BB1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8DB5BA1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m */; };
 		8FC2578818B73D9A0085CC46 /* PEGWebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2578718B73D9A0085CC46 /* PEGWebServices.m */; };
 		A0360E1217734F2100B2373B /* PEG_DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0360E1117734F2100B2373B /* PEG_DatePickerViewController.m */; };
 		A03E2D8C176A14AF00BE0F20 /* PEG_TestUnitaireViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E2D8B176A14AF00BE0F20 /* PEG_TestUnitaireViewController.m */; };
@@ -703,6 +704,8 @@
 		8F52A1141936182E0029A030 /* PEG_BaseUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_BaseUIViewController.m; sourceTree = "<group>"; };
 		8F52A117193621C00029A030 /* PEG_GoogleAnalyticsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_GoogleAnalyticsServices.h; sourceTree = "<group>"; };
 		8F52A118193621C00029A030 /* PEG_GoogleAnalyticsServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_GoogleAnalyticsServices.m; sourceTree = "<group>"; };
+		8F8DB5B91A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotification+KeyboardAdditions.h"; sourceTree = "<group>"; };
+		8F8DB5BA1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+KeyboardAdditions.m"; sourceTree = "<group>"; };
 		8FC2578618B73D9A0085CC46 /* PEGWebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEGWebServices.h; sourceTree = "<group>"; };
 		8FC2578718B73D9A0085CC46 /* PEGWebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEGWebServices.m; sourceTree = "<group>"; };
 		A0360E1017734F2100B2373B /* PEG_DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_DatePickerViewController.h; sourceTree = "<group>"; };
@@ -1377,6 +1380,8 @@
 				40E03C7D176228730072B740 /* UIFont+PXExtensions.h */,
 				40E03C7E176228730072B740 /* UIView+Responder.h */,
 				40E03C7F176228730072B740 /* UIView+Responder.m */,
+				8F8DB5B91A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.h */,
+				8F8DB5BA1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1801,6 +1806,7 @@
 				40E03BAC175F80470072B740 /* PEGAppDelegate.m in Sources */,
 				40E03BB8175F80470072B740 /* PEGViewController.m in Sources */,
 				40E03C09175F83660072B740 /* ASIAuthenticationDialog.m in Sources */,
+				8F8DB5BB1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m in Sources */,
 				40E03C0A175F83660072B740 /* ASIDataCompressor.m in Sources */,
 				40E03C0B175F83660072B740 /* ASIDataDecompressor.m in Sources */,
 				40E03C0C175F83660072B740 /* ASIDownloadCache.m in Sources */,

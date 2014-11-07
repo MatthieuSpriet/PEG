@@ -10,7 +10,6 @@
 #import "PEG_ListePointTourneeCell.h"
 #import "BeanLieuPassage.h"
 #import "PEG_FMobilitePegase.h"
-//#import "PEG_BeanMobilitePegase.h"
 #import "BeanPresentoir.h"
 #import "PEG_BeanPointDsgn.h"
 #import "PEG_DtlLieuxViewController.h"
@@ -18,6 +17,7 @@
 #import "PEG_BeanPresentoirParution.h"
 #import "BeanEdition.h"
 #import "PEG_FTechnical.h"
+#import "NSNotification+KeyboardAdditions.h"
 
 @interface PEG_ListePointTourneeViewController ()
 //liste de PEG_BeanLieuPassage
@@ -27,15 +27,14 @@
 @property (strong, nonatomic) NSString *QuantiteUITextFieldOldValue;
 @property (strong, nonatomic) BeanTournee* _BeanTournee;
 @property (strong, nonatomic) UITextField *QteUITextField;
-//@property (assign, nonatomic) BOOL IsKeyBoardOpen;
 @end
 
 @implementation PEG_ListePointTourneeViewController
 
-// pm 11/2014 UIMenuController : en charge de copy / paste etc.
-// que fait on avec ici ?
+// UIMenuController : en charge de copy / paste etc.
 
--(void)processit:(id)sender {
+-(void)processit:(id)sender
+{
     UIMenuController *menu = [UIMenuController sharedMenuController];
     [menu setMenuVisible:NO];
     [menu performSelector:@selector(setMenuVisible:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.15];
@@ -54,19 +53,54 @@
     //UIBarButtonItem * v_RefreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(RefreshIButtonClick)];
     //self.navigationItem.rightBarButtonItem = v_RefreshButton;
 }
+
+
 /*
 - (void)RefreshIButtonClick{
     self.LibelleMagazineUILabel.text = [[PEG_FMobilitePegase CreateTournee] GetLibelleMagazinesForDesignByTournee:self._BeanTournee andNbCarTrunc:15 andEntete:true];
 }
 */
+static CGRect savedFrame;
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self setDetailItem:self.IdTournee];
     [self.ListePointUITableView reloadData];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    savedFrame = self.ListePointUITableView.frame;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
+}
+
+#pragma mark -
+#pragma mark - Keyboard Notificiation
+
+
+- (void)keyboardWillShow:(NSNotification*)notification {
+    float keyboardTop = [notification keyboardFrameInView:self.ListePointUITableView].origin.y;
+    
+    CGRect frame = self.ListePointUITableView.frame;
+//    savedFrame = frame;
+    frame.size.height = keyboardTop;
+    self.ListePointUITableView.frame = frame;
+    [self.ListePointUITableView scrollRectToVisible:frame animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:[notification keyboardAnimationDuration]];
+    self.ListePointUITableView.frame = savedFrame;
+    
+    [UIView commitAnimations];
+}
 
 
 #pragma mark Gestion de la table view
@@ -74,7 +108,6 @@
 {
     if(self.ListBeanPointDsgn != nil){
         return [self.ListBeanPointDsgn count];
-        // return [self.ListBeanPointDsgn count]+5;
     }
     else return 0;
 }
@@ -82,65 +115,54 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // DLog (@"cellForRowAtIndexPath %d / %d", indexPath.row, [self.ListBeanPointDsgn count]);
-    NSString * cellIdentifier = @"cellListePointTournee";
-    if (indexPath.row < [self.ListBeanPointDsgn count])
+    static NSString * cellIdentifier = @"cellListePointTournee";
+    PEG_ListePointTourneeCell* cellDtl = (PEG_ListePointTourneeCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    cellDtl.QuantiteDistribueeUITextField.delegate=self;
+    cellDtl.QuantiteRetourUITextField.delegate=self;
+    cellDtl.QuantiteDistribueeUITextField.tag=0;
+    cellDtl.QuantiteRetourUITextField.tag=1;
+    [self initClavier:cellDtl.QuantiteDistribueeUITextField];
+    [self initClavier:cellDtl.QuantiteRetourUITextField];
+    PEG_BeanPointDsgn* v_BeanPointDsgn = [self.ListBeanPointDsgn objectAtIndex:indexPath.item];
+    NSString* v_NumeroPoint = v_BeanPointDsgn.NumeroPoint;
+    NSString* v_NomPoint = v_BeanPointDsgn.NomPoint;
+    NSNumber* v_NombreTache = v_BeanPointDsgn.NombreTache;
+    NSString* v_TypePresentoir = v_BeanPointDsgn.TypePresentoir;
+    NSString* v_Commune = v_BeanPointDsgn.Commune;
+    NSString* v_Parution = v_BeanPointDsgn.Parution;
+    NSNumber* v_QuantitePreparee=v_BeanPointDsgn.QuantitePreparee;
+    NSNumber* v_QuantiteDistribuee=v_BeanPointDsgn.QuantiteDistribuee;
+    NSNumber* v_QuantiteRetour=v_BeanPointDsgn.QuantiteRetour;
+    
+    [cellDtl initDataWithNumPoint:v_NumeroPoint andNomPoint:v_NomPoint andTypePresentoir:v_TypePresentoir andCommune:v_Commune andParution:v_Parution andQtePrepa:v_QuantitePreparee andQteDistri:v_QuantiteDistribuee andQteRetour:v_QuantiteRetour andNbTache:v_NombreTache andIdPresentoir:v_BeanPointDsgn.IdPresentoir andIdParution:v_BeanPointDsgn.IdParution andIdLieuPassage:v_BeanPointDsgn.IdLieuPassage];
+    
+    if(v_BeanPointDsgn.IdParution == nil)
     {
-        PEG_ListePointTourneeCell* cellDtl = (PEG_ListePointTourneeCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        cellDtl.QuantiteDistribueeUITextField.delegate=self;
-        cellDtl.QuantiteRetourUITextField.delegate=self;
-        cellDtl.QuantiteDistribueeUITextField.tag=0;
-        cellDtl.QuantiteRetourUITextField.tag=1;
-        [self initClavier:cellDtl.QuantiteDistribueeUITextField];
-        [self initClavier:cellDtl.QuantiteRetourUITextField];
-        PEG_BeanPointDsgn* v_BeanPointDsgn = [self.ListBeanPointDsgn objectAtIndex:indexPath.item];
-        NSString* v_NumeroPoint = v_BeanPointDsgn.NumeroPoint;
-        NSString* v_NomPoint = v_BeanPointDsgn.NomPoint;
-        NSNumber* v_NombreTache = v_BeanPointDsgn.NombreTache;
-        NSString* v_TypePresentoir = v_BeanPointDsgn.TypePresentoir;
-        NSString* v_Commune = v_BeanPointDsgn.Commune;
-        NSString* v_Parution = v_BeanPointDsgn.Parution;
-        NSNumber* v_QuantitePreparee=v_BeanPointDsgn.QuantitePreparee;
-        NSNumber* v_QuantiteDistribuee=v_BeanPointDsgn.QuantiteDistribuee;
-        NSNumber* v_QuantiteRetour=v_BeanPointDsgn.QuantiteRetour;
-        
-        [cellDtl initDataWithNumPoint:v_NumeroPoint andNomPoint:v_NomPoint andTypePresentoir:v_TypePresentoir andCommune:v_Commune andParution:v_Parution andQtePrepa:v_QuantitePreparee andQteDistri:v_QuantiteDistribuee andQteRetour:v_QuantiteRetour andNbTache:v_NombreTache andIdPresentoir:v_BeanPointDsgn.IdPresentoir andIdParution:v_BeanPointDsgn.IdParution andIdLieuPassage:v_BeanPointDsgn.IdLieuPassage];
-        
-        if(v_BeanPointDsgn.IdParution == nil)
+        cellDtl.QuantiteDistribueeUITextField.enabled = false;
+        cellDtl.QuantiteRetourUITextField.enabled = false;
+        cellDtl.BtnCopierPreviUIButton.enabled = false;
+    }
+    else
+    {
+        cellDtl.QuantiteDistribueeUITextField.enabled = true;
+        if(v_BeanPointDsgn.IdParutionPrec != nil)
         {
-            cellDtl.QuantiteDistribueeUITextField.enabled = false;
-            cellDtl.QuantiteRetourUITextField.enabled = false;
-            cellDtl.BtnCopierPreviUIButton.enabled = false;
+            cellDtl.QuantiteRetourUITextField.enabled = true;
         }
         else
         {
-            cellDtl.QuantiteDistribueeUITextField.enabled = true;
-            if(v_BeanPointDsgn.IdParutionPrec != nil)
-            {
-                cellDtl.QuantiteRetourUITextField.enabled = true;
-            }
-            else
-            {
-                cellDtl.QuantiteRetourUITextField.enabled = false;
-            }
-            cellDtl.BtnCopierPreviUIButton.enabled = true;
+            cellDtl.QuantiteRetourUITextField.enabled = false;
         }
-        cellDtl.BtnCopierPreviUIButton.tag = indexPath.row;
-        
-        return cellDtl;
+        cellDtl.BtnCopierPreviUIButton.enabled = true;
     }
-    else {
-        // pm 11/2014 si je comprend bien on crée des cellules invisible pour pouvoir scroller. C'est ça ?
-        PEG_ListePointTourneeCell* cellDtl = (PEG_ListePointTourneeCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        [cellDtl initDataWithNumPoint:@"" andNomPoint:@"" andTypePresentoir:@"" andCommune:@"" andParution:@"" andQtePrepa:[NSNumber numberWithInt:0]  andQteDistri:[NSNumber numberWithInt:0]  andQteRetour:[NSNumber numberWithInt:0]  andNbTache:[NSNumber numberWithInt:0]  andIdPresentoir:[NSNumber numberWithInt:0]  andIdParution:[NSNumber numberWithInt:0]  andIdLieuPassage:[NSNumber numberWithInt:0] ];
-        [cellDtl setHidden:YES];
-        return cellDtl;
-    }
+    cellDtl.BtnCopierPreviUIButton.tag = indexPath.row;
     
+    return cellDtl;
 }
 
 // associer au dessus du clavier une barre avec un bouton "Apply"
--(void) initClavier:(UITextField *) p_TextField
+- (void)initClavier:(UITextField *) p_TextField
 {
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     numberToolbar.barStyle = UIBarStyleBlackTranslucent;
@@ -183,7 +205,6 @@
     self.QteUITextField=textField;
     
     [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    //self.IsKeyBoardOpen=YES;
     // [self.ListePointUITableView reloadData ];
     [textField performSelector:@selector(selectAll:) withObject:textField afterDelay:0.f];
     return YES;
@@ -216,7 +237,6 @@
         }
     }
     //[self.QteUITextField resignFirstResponder];
-    //self.IsKeyBoardOpen=NO;
     [self.ListePointUITableView reloadData ];
 }
 
@@ -224,7 +244,6 @@
 /*-(void)cancelNumberPadQuantite{
     [self.QteUITextField resignFirstResponder];
     self.QteUITextField.text = self.QuantiteUITextFieldOldValue;
-    self.IsKeyBoardOpen=NO;
     [self.ListePointUITableView reloadData ];
 }*/
 
@@ -253,11 +272,8 @@
         }
     }
     [self.QteUITextField resignFirstResponder];
-    //self.IsKeyBoardOpen=NO;
     [self.ListePointUITableView reloadData ];
 }
-
-
 
 
 -(void) setDetailItem:(NSNumber*)p_IdTournee
@@ -392,6 +408,8 @@
     
     [self.ListePointUITableView reloadData ];
 }
+
+
 #pragma mark Segue
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -409,8 +427,4 @@
 }
 
 
-- (void)viewDidUnload {
-    [self setLibelleMagazineUILabel:nil];
-    [super viewDidUnload];
-}
 @end
