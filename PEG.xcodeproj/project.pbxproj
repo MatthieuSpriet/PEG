@@ -115,8 +115,6 @@
 		40E03C12175F83660072B740 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E03BD8175F83660072B740 /* Crashlytics.framework */; };
 		40E03C13175F83660072B740 /* EHAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03BDB175F83660072B740 /* EHAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		40E03C15175F83660072B740 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03BF6175F83660072B740 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		40E03C16175F83660072B740 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 40E03BF8175F83660072B740 /* 37x-Checkmark.png */; };
-		40E03C17175F83660072B740 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03BFA175F83660072B740 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		40E03C1A175F83660072B740 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C04175F83660072B740 /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		40E03C1B175F83660072B740 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C08175F83660072B740 /* XMLReader.m */; };
 		40E03C1E175F84550072B740 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40E03C1C175F84550072B740 /* CFNetwork.framework */; };
@@ -135,7 +133,6 @@
 		40E03C671762273C0072B740 /* PEGAuthentificationRequest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 40E03C651762273C0072B740 /* PEGAuthentificationRequest.xml */; };
 		40E03C6A1762278E0072B740 /* PEGBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C691762278E0072B740 /* PEGBaseRequest.m */; };
 		40E03C6D176227E50072B740 /* PEGRequestFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C6C176227E50072B740 /* PEGRequestFormatter.m */; };
-		40E03C80176228730072B740 /* MBProgressHUD+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C70176228730072B740 /* MBProgressHUD+Toast.m */; };
 		40E03C81176228730072B740 /* NSDate+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C72176228730072B740 /* NSDate+Tools.m */; };
 		40E03C82176228730072B740 /* NSDictionary+ConvenientAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C74176228730072B740 /* NSDictionary+ConvenientAccess.m */; };
 		40E03C83176228730072B740 /* NSDictionary+PXExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E03C76176228730072B740 /* NSDictionary+PXExtensions.m */; };
@@ -259,6 +256,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F11F2A67A767CF47B032A53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1F5DF175683EFD0333F61833 /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 		4003E46C180FCEFF002F3D9F /* PEG_ActionReplaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEG_ActionReplaceViewController.h; path = Presentoir/PEG_ActionReplaceViewController.h; sourceTree = "<group>"; };
 		4003E46D180FCEFF002F3D9F /* PEG_ActionReplaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEG_ActionReplaceViewController.m; path = Presentoir/PEG_ActionReplaceViewController.m; sourceTree = "<group>"; };
 		4003E46F180FDC15002F3D9F /* PEG_ActionReplaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEG_ActionReplaceCell.h; path = Presentoir/PEG_ActionReplaceCell.h; sourceTree = "<group>"; };
@@ -466,9 +465,6 @@
 		40E03BF3175F83660072B740 /* GRMustacheVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVersion.h; sourceTree = "<group>"; };
 		40E03BF5175F83660072B740 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		40E03BF6175F83660072B740 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		40E03BF8175F83660072B740 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
-		40E03BF9175F83660072B740 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		40E03BFA175F83660072B740 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		40E03C03175F83660072B740 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		40E03C04175F83660072B740 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		40E03C07175F83660072B740 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
@@ -496,8 +492,6 @@
 		40E03C691762278E0072B740 /* PEGBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEGBaseRequest.m; sourceTree = "<group>"; };
 		40E03C6B176227E50072B740 /* PEGRequestFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEGRequestFormatter.h; sourceTree = "<group>"; };
 		40E03C6C176227E50072B740 /* PEGRequestFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEGRequestFormatter.m; sourceTree = "<group>"; };
-		40E03C6F176228730072B740 /* MBProgressHUD+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Toast.h"; sourceTree = "<group>"; };
-		40E03C70176228730072B740 /* MBProgressHUD+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Toast.m"; sourceTree = "<group>"; };
 		40E03C71176228730072B740 /* NSDate+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Tools.h"; sourceTree = "<group>"; };
 		40E03C72176228730072B740 /* NSDate+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Tools.m"; sourceTree = "<group>"; };
 		40E03C73176228730072B740 /* NSDictionary+ConvenientAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ConvenientAccess.h"; sourceTree = "<group>"; };
@@ -708,6 +702,7 @@
 		8F8DB5BA1A0CCB0300BC6B12 /* NSNotification+KeyboardAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+KeyboardAdditions.m"; sourceTree = "<group>"; };
 		8FC2578618B73D9A0085CC46 /* PEGWebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEGWebServices.h; sourceTree = "<group>"; };
 		8FC2578718B73D9A0085CC46 /* PEGWebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEGWebServices.m; sourceTree = "<group>"; };
+		944C3B27C9073397BAA84950 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A0360E1017734F2100B2373B /* PEG_DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_DatePickerViewController.h; sourceTree = "<group>"; };
 		A0360E1117734F2100B2373B /* PEG_DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_DatePickerViewController.m; sourceTree = "<group>"; };
 		A03E2D8A176A14AF00BE0F20 /* PEG_TestUnitaireViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_TestUnitaireViewController.h; sourceTree = "<group>"; };
@@ -729,7 +724,6 @@
 		A0D694C317D8C2BF00F61D26 /* PEG_DtlLieuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_DtlLieuCell.h; sourceTree = "<group>"; };
 		A0D694C417D8C2BF00F61D26 /* PEG_DtlLieuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_DtlLieuCell.m; sourceTree = "<group>"; };
 		C8D674DA1B0648E284354C8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -771,6 +765,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3ABA331CF8DECE59A6EC3E1F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				944C3B27C9073397BAA84950 /* Pods.debug.xcconfig */,
+				1F5DF175683EFD0333F61833 /* Pods.distribution.xcconfig */,
+				1F11F2A67A767CF47B032A53 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4003E4751811738B002F3D9F /* Administratif */ = {
 			isa = PBXGroup;
 			children = (
@@ -1045,7 +1049,7 @@
 				40E03BA1175F80470072B740 /* PEG */,
 				40E03B9A175F80470072B740 /* Frameworks */,
 				40E03B99175F80470072B740 /* Products */,
-				FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */,
+				3ABA331CF8DECE59A6EC3E1F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1132,7 +1136,6 @@
 				40E03BDC175F83660072B740 /* GRMustache */,
 				40E03BE8175F83660072B740 /* GRMustache5 */,
 				40E03BF4175F83660072B740 /* JSONKit */,
-				40E03BF7175F83660072B740 /* MBProgressHUD */,
 				40E03C02175F83660072B740 /* SFHFKeychainUtils */,
 				40E03C06175F83660072B740 /* XMLReader */,
 			);
@@ -1236,16 +1239,6 @@
 				40E03BF6175F83660072B740 /* JSONKit.m */,
 			);
 			path = JSONKit;
-			sourceTree = "<group>";
-		};
-		40E03BF7175F83660072B740 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				40E03BF8175F83660072B740 /* 37x-Checkmark.png */,
-				40E03BF9175F83660072B740 /* MBProgressHUD.h */,
-				40E03BFA175F83660072B740 /* MBProgressHUD.m */,
-			);
-			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		40E03C02175F83660072B740 /* SFHFKeychainUtils */ = {
@@ -1363,8 +1356,6 @@
 		40E03C6E176228720072B740 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				40E03C6F176228730072B740 /* MBProgressHUD+Toast.h */,
-				40E03C70176228730072B740 /* MBProgressHUD+Toast.m */,
 				40E03C71176228730072B740 /* NSDate+Tools.h */,
 				40E03C72176228730072B740 /* NSDate+Tools.m */,
 				40E03C73176228730072B740 /* NSDictionary+ConvenientAccess.h */,
@@ -1708,7 +1699,6 @@
 				40E03BB0175F80470072B740 /* Default@2x.png in Resources */,
 				40E03BB2175F80470072B740 /* Default-568h@2x.png in Resources */,
 				40E03BB5175F80470072B740 /* MainStoryboard.storyboard in Resources */,
-				40E03C16175F83660072B740 /* 37x-Checkmark.png in Resources */,
 				40E03C60176224C90072B740 /* PEGAuthenticationViewController.xib in Resources */,
 				40E03C671762273C0072B740 /* PEGAuthentificationRequest.xml in Resources */,
 				A03E2D9D176B742D00BE0F20 /* synchro.png in Resources */,
@@ -1792,7 +1782,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1817,7 +1807,6 @@
 				40E03C11175F83660072B740 /* Reachability.m in Sources */,
 				40E03C13175F83660072B740 /* EHAlertView.m in Sources */,
 				40E03C15175F83660072B740 /* JSONKit.m in Sources */,
-				40E03C17175F83660072B740 /* MBProgressHUD.m in Sources */,
 				40E03C1A175F83660072B740 /* SFHFKeychainUtils.m in Sources */,
 				40E03C1B175F83660072B740 /* XMLReader.m in Sources */,
 				40E03C57176224900072B740 /* SPIRBasicAuthURL.m in Sources */,
@@ -1828,7 +1817,6 @@
 				40E03C5F176224C90072B740 /* PEGAuthenticationViewController.m in Sources */,
 				40E03C6A1762278E0072B740 /* PEGBaseRequest.m in Sources */,
 				40E03C6D176227E50072B740 /* PEGRequestFormatter.m in Sources */,
-				40E03C80176228730072B740 /* MBProgressHUD+Toast.m in Sources */,
 				40E03C81176228730072B740 /* NSDate+Tools.m in Sources */,
 				40E03C82176228730072B740 /* NSDictionary+ConvenientAccess.m in Sources */,
 				606C207B1945FAFA00B14C7B /* BeanLieuPassageADX+.m in Sources */,
@@ -2062,8 +2050,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2075,8 +2063,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = 1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2085,7 +2073,7 @@
 		};
 		40E03BBC175F80470072B740 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */;
+			baseConfigurationReference = 944C3B27C9073397BAA84950 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2115,7 +2103,7 @@
 		};
 		40E03BBD175F80470072B740 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */;
+			baseConfigurationReference = 1F11F2A67A767CF47B032A53 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2136,7 +2124,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d53bae2b-d2ae-4a56-950f-e0e143a8450d";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = no;
 				SPIR_ENDPOINT_IDENT = "${SPIR_ENDPOINT_PROTOCOL}://${SPIR_ENDPOINT_IDENT}";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2179,8 +2167,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "B3CBA3CE-7D3B-422A-87EB-BE506012C02A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3CBA3CE-7D3B-422A-87EB-BE506012C02A";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = 1;
 				SDKROOT = iphoneos;
 			};
@@ -2188,7 +2176,7 @@
 		};
 		40FED30C17660E66007C9EB3 /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFAC2D317A62412A80BAEDAF /* Pods.xcconfig */;
+			baseConfigurationReference = 1F5DF175683EFD0333F61833 /* Pods.distribution.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2208,7 +2196,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3CBA3CE-7D3B-422A-87EB-BE506012C02A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SANS_SYNCHRO = no;
 				SPIR_ENDPOINT_IDENT = "${SPIR_ENDPOINT_PROTOCOL}://${SPIR_ENDPOINT_IDENT}";
 				TARGETED_DEVICE_FAMILY = 1;

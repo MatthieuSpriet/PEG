@@ -71,7 +71,7 @@
     self.dateFin = [PEG_FTechnical GetDateYYYYMMDDFromDate:v_dateFin];
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-    self.hud .labelText=@"Chargement des tournées";
+    self.hud.labelText=@"Chargement des tournées";
     [self.view addSubview:self.hud ];
 }
 
@@ -79,13 +79,13 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     [self.hud show:YES];
-    
-    // chargement des données
-    [self.hud showWhileExecutingBlock:^{
-        [self performSelectorOnMainThread:@selector(loadData) withObject:nil waitUntilDone:NO];
-    }
-                             animated:YES];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self loadData];    // in main thread
+        [self.hud hide:YES];
+    });
 }
 
 // load from core data

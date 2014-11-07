@@ -49,11 +49,11 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //On refresh à chaque fois qu'on affiche
     self.ListBeanLieu=[[PEG_FMobilitePegase CreateLieu] GetListeBeanLieuWithTache];
     [self.ListeTachesUITableView reloadData];
-    
 }
 
 #pragma mark - Table view data source

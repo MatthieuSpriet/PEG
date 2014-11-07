@@ -10,9 +10,7 @@
 #import "PEG_ListeTourneeCell.h"
 #import "PEG_DatePickerViewController.h"
 #import "PEG_FMobilitePegase.h"
-//#import "PEG_BeanTournee.h"
 #import "PEG_ListePointTourneeViewController.h"
-//#import "PEG_BeanMobilitePegase.h"
 #import "PEGSession.h"
 #import "PEG_FTechnical.h"
 #import "PEG_FMobilitePegase.h"
@@ -80,24 +78,24 @@
     //Faire le chargement des données
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-    //self.hud .removeFromSuperViewOnHide = YES;
     self.hud .labelText=@"Chargement des tournées";
     [self.view addSubview:self.hud ];
 
 }
 
-- (void) viewDidAppear:(BOOL)animated{
-    
-    [self.hud  show:YES];
-    
-    
-    [self.hud showWhileExecutingBlock:^{
-        [self performSelectorOnMainThread:@selector(loadData) withObject:nil waitUntilDone:NO];
-        
-    }
-                        animated:YES];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.hud show:YES];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self loadData];    // in main thread
+        [self.hud hide:YES];
+    });
 
 }
+
+
 - (void)loadData
 {
     self.ListTourneeDate = [[PEG_FMobilitePegase CreateTournee] GetTourneeBetweenDateDebut:self.dateDebut andDateFin:self.dateFin];

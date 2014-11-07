@@ -8,11 +8,7 @@
 
 #import "PEG_MenuLieuViewController.h"
 #import "PEG_ListeLieuViewController.h"
-#import "MBProgressHUD.h"
 
-@interface PEG_MenuLieuViewController ()
-@property (strong, nonatomic) MBProgressHUD *hud ;
-@end
 
 @implementation PEG_MenuLieuViewController
 
@@ -35,12 +31,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.title = @"Mes Lieux";
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-- (void) viewDidAppear:(BOOL)animated{
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

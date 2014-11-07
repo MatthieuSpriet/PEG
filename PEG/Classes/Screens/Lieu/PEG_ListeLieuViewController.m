@@ -130,8 +130,9 @@
     [self.locationManager startUpdatingLocation];
 }*/
 
-- (void) viewDidAppear:(BOOL)animated{
-    
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     //Gestion des coordonnées GPS
     //PEGAppDelegate* appDelegate = (PEGAppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -139,34 +140,16 @@
     //self.locationManager = appDelegate.principalLocationManager;
     //self.locationManager.delegate = self;
     //[self.locationManager startUpdatingLocation];
-
     
-    MBProgressHUD* hud = [[MBProgressHUD alloc] initWithView:self.view];
-    hud .removeFromSuperViewOnHide = YES;
-    hud .labelText=@"Chargement des lieux";
-    [self.view addSubview:hud ];
-    [hud  show:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Chargement des lieux";
+    [hud show:YES];
     
-    //UIKit does its drawing when the run loop completes the current cycle. In other words, if you're configuring a view (e.g., MBProgressHUD), the changes won't be visible until the next run loop iteration. Thus if you don't allow the run loop to spin by blocking the main thread, the UI changes won't appear immediately.
-    //If you can't do your work on a background thread, you need to allow the run loop to complete its cycle before you start your long-running blocking task on the main thread.
-    // http://stackoverflow.com/questions/5685331/run-mbprogresshud-in-another-thread/5834571#5834571
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-    
-    [hud showWhileExecutingBlock:^{
-        //On laise un sleep de 3 sinon si on fait rapidement back, le calcul part et bloque l'ecran back le temps de se terminer
-         //sleep(3);
-        //On refresh dans tous les cas maintenant demande SAD 11/03/2014
-        //if(self.ListBeanPointDsgn == nil || self.ListBeanPointDsgn.count == 0)
-        //{
-            [self performSelectorOnMainThread:@selector(setListeItem) withObject:nil waitUntilDone:NO];
-        //}
-        
-    }
-                        animated:YES];
-    //On ne peut pas le faire dans un autre thread, car coredata ne supporte pas multithread
-    //[hud showWhileExecuting:@selector(setListeItem) onTarget:self withObject:nil animated:YES];
-    //[self setListeItem ];
-    //[hud  show:NO];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self setListeItem];    //  main thread, coredata ne supporte pas multithread
+        [hud hide:YES];
+    });
 }
 
 -(void)setContextPointParCriteredeRecherche{

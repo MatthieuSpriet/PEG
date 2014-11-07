@@ -7,13 +7,10 @@
 //
 
 #import "PEG_SynchroViewController.h"
-//#import "PEG_BeanMobilitePegase.h"
 #import "PEGSession.h"
 #import "PEG_FMobilitePegase.h"
 #import "PEG_FTechnical.h"
-#import "MBProgressHUD.h"
 #import "PEGWebServices.h"
-//#import "PEGAppDelegate.h"
 
 
 /********** Pour DEBUG *********************/
@@ -103,12 +100,6 @@
 {
     @try{
         [PEGSession sharedPEGSession].IsSynchroOK=NO;
-        /*MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view.window];
-		 hud.removeFromSuperViewOnHide = YES;
-		 [self.view.window addSubview:hud];
-		 [hud release];
-		 [hud setLabelText:@"Publication vers Pégase..."];
-		 [hud show:YES];*/
 		
         //faire la synchro
         //[NSThread sleepForTimeInterval:1];
@@ -252,12 +243,6 @@
         //On met la barre de progression à 40%
         self.ProgressBar.progress = (float)0.5f;
         
-        /*MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view.window];
-        hud.removeFromSuperViewOnHide = YES;
-        [self.view.window addSubview:hud];
-        [hud release];
-        [hud setLabelText:@"Effacement de la base locale..."];
-         [hud show:YES];*/
         //dispatch_async(dispatch_get_main_queue(), ^{
             self.MessageUILabel.text = @"Effacement de la base locale...";
         [self.MessageUILabel setNeedsDisplay];
@@ -280,8 +265,6 @@
             //Pour permettre l'affichage
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
         //});
-        /*[hud setLabelText:@"Récupération des données..."];
-        [hud show:YES];*/
         //On récupère les infos du SI
 #if USE_AFNetworkingWS
 		[[PEGWebServices sharedWebServices] getBeanMobilitePegaseByMatricule:v_Matricule andDate:v_Date succes:^(void) {

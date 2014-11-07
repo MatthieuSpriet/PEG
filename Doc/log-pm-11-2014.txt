@@ -14,24 +14,52 @@ novembre 2014
 * picker : afficher le choix initial
 * bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
 
+* PEGAuthenticationViewController.m l'utilisation du hud est douteuse !
+* terminer correction saisie quantités
+* picker : selectionner la valeur initiales
+
 
 mail Matthieu: pb mémoire, cf repport par Google Analytics:
 - (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
 
 
 
+notes:
+-----
+PEG_TourneesADXViewController.m : correspond au tab "compte rendu"
+
+fuite mémoire
+-------------
+Test : pas évident, j'ai eu un appel à applicationDidReceiveMemoryWarning après install, mais depuis juste une petite fuite durant les synchro.
+le soft utilise 28 méga, ce qui n'est pas critique !
+28.4 synchro -> 29.9
+apres redémarage, on revient à 16 méga. Synchro -> 25 mega
+
+Sur 2eme appel à applicationDidReceiveMemoryWarning, on affiche alerte et on force à quitter, mais c'est cumulé sur la vie de l'appli !
+
 vendredi 7 novembre
 -------------------
 
 todo:
+* terminer correction saisie quantités
 * picker : selectionner la valeur initiales
+* PEGAuthenticationViewController.m l'utilisation du hud est douteuse !
 
 en cours:
-* écran saise qt : retouches UI (scroll, selection texte ?)
-    PEG_ListePointTourneeViewController.m
+* crash -[UIScrollView(UIScrollViewInternal) _delegateScrollViewAnimationEnded] + 52
+    https://crashlytics.com/spir-communication/ios/apps/fr.spir.pegase.cmm/issues/53a9496ce3de5099ba648dcf
+    sans doute un problème de delegate ou d'observer ?
+    -> peut etre que MBProgressHUD est en cause ?
 
 
 done:
+* remplacé MBProgressHUD version 0.4 par le pod MBProgressHUD version 0.8.
+    -> Il y avat des warning de l'analyseur statique avec une posssible source de crash'
+* test fuite mémoire : petite fuite durant la synchro, mais rien de grave !
+    -> par contre on quitte volontairement au 2eme applicationDidReceiveMemoryWarning
+* écran saise qt : retouches UI (scroll, selection texte ?)
+PEG_ListePointTourneeViewController.m
+* verifié version PageViewController: original sur https://github.com/wannabegeek/PageViewController
 * removed obsolete viewDidUnload
 
 

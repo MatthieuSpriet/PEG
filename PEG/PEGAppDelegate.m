@@ -718,7 +718,7 @@ void myExceptionHandler(NSException *exception)
         debugAlertView.delegate = self;
         [debugAlertView show];
     }
-    self.nbMemoryWarning++;
+    self.nbMemoryWarning++;     // pm 11/2014 nbMemoryWarning reset only when app launches, ie not very often !
 }
 
 -(void)callModuleCom

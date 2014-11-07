@@ -24,7 +24,6 @@
 #import "PEGPresentoirTabbarViewController.h"
 #import "PEG_ActionReplaceViewController.h"
 #import "PEG_EnumFlagMAJ.h"
-#import "MBProgressHUD.h"
 #import "CustomBadge.h"
 #import "PEG_BeanPresentoirParution.h"
 #import "PEG_ImageViewController.h"
@@ -38,7 +37,6 @@
 @property (strong, nonatomic) NSMutableArray* ListPresentoirParution; //PEG_BeanPresentoirParution* BeanPresentoirParution;
 @property (assign, nonatomic) int IndexPresentoirSelected;
 @property (strong, nonatomic) IBOutlet UITableView *DtlLieuUITableView;
-@property (strong, nonatomic) MBProgressHUD *hud ;
 @property (assign, nonatomic) BOOL isFullScreen;
 @property (assign, nonatomic) CGRect prevFrame;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
@@ -265,14 +263,6 @@
                             
                             [self.HudPhoto stopAnimating];
                         }
-                        //                            self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-                        //                            self.hud.removeFromSuperViewOnHide = YES;
-                        //                            self.hud.labelText=@"Chargement de la photo";
-                        //                            [self.view addSubview:self.hud];
-                        //                            [self.hud show:YES];
-                        //                            [self.hud release];
-                        
-                        
                     }
                 }
                 /**/
@@ -898,7 +888,6 @@
 
 -(void) fillFinishedGetBeanImage
 {
-    //[self.hud hide:YES];
     //    PEG_DtlLieuCell* cell = (PEG_DtlLieuCell *) [self.DtlLieuUITableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     //    [cell.HudPhoto stopAnimating];
     //    [cell.HudPhoto setHidden:YES];
@@ -910,7 +899,6 @@
 
 -(void) finishedWithErrorGetBeanImage
 {
-    //[self.hud hide:YES];
     //    PEG_DtlLieuCell* cell = (PEG_DtlLieuCell *) [self.DtlLieuUITableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     //    [cell.HudPhoto stopAnimating];
     //    [cell.HudPhoto setHidden:YES];
