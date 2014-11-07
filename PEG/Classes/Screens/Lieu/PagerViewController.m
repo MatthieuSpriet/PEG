@@ -37,6 +37,11 @@
 
 }
 
+- (void)dealloc
+{
+    [self.scrollView setDelegate:nil];  // pm 11/2014 trying to fix a crash, but how to test it ?
+}
+
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
 	return NO;
 }
