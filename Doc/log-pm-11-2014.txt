@@ -37,22 +37,38 @@ apres redémarage, on revient à 16 méga. Synchro -> 25 mega
 
 Sur 2eme appel à applicationDidReceiveMemoryWarning, on affiche alerte et on force à quitter, mais c'est cumulé sur la vie de l'appli !
 
-vendredi 7 novembre
--------------------
+PEGAuthenticationViewController.m est instancié à partir de son .xib
 
+
+
+Lundi 10 novembre
+-----------------
 todo:
 * terminer correction saisie quantités
 * picker : selectionner la valeur initiales
-* PEGAuthenticationViewController.m l'utilisation du hud est douteuse !
+* fuite durant la synchro, mais rien de grave !
 
 en cours:
+* vérifier systématiquement les removeObserver (source possible du crash sur _delegateScrollViewAnimationEnded avec UIKeyboardWillHideNotification ?)
+* vérifier les notifications UIKeyboardWillShowNotification
+
+
+done:
+* PEGAuthenticationViewController.m UIKeyboardWillShowNotification broadcasted before viewDidAppear was causing incorect layout!
+* les idf et psw pas effacés, il sont stockés dans la keychain
+* tests changement de présentoir
+    confirmation qu'il n'y a qu'un changement pris en compte (par jour ?)
+    pas de pb relevé sur les ajouts
+    -> cf "chgt-type-presentoir.txt"
+
+
+
+vendredi 7 novembre
+-------------------
 * crash -[UIScrollView(UIScrollViewInternal) _delegateScrollViewAnimationEnded] + 52
     https://crashlytics.com/spir-communication/ios/apps/fr.spir.pegase.cmm/issues/53a9496ce3de5099ba648dcf
     sans doute un problème de delegate ou d'observer ?
     -> peut etre que MBProgressHUD est en cause ?
-
-
-done:
 * remplacé MBProgressHUD version 0.4 par le pod MBProgressHUD version 0.8.
     -> Il y avat des warning de l'analyseur statique avec une posssible source de crash'
 * test fuite mémoire : petite fuite durant la synchro, mais rien de grave !
@@ -94,8 +110,6 @@ mercredi 5 novembre
 * viré reférences à libtraceparse
 * récupération projet sur https://github.com/MatthieuSpriet/PEG
 * Problème compilation peut être lié à l'ouverture du projet avec XCode 6. (LibTraceParse) - effacer et recommencer le check out, compilation ok !
-
-
 
 
 mail Matthieu du 4 novembre:

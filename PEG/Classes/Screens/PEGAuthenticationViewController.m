@@ -9,7 +9,6 @@
 #import "PEGAuthenticationViewController.h"
 #import "EHAlertView.h"
 #import "Reachability.h"
-//#import "PEGAuthentificationRequest.h"
 #import "SPIRStoreHostApplicationAuthorizationRequest.h"
 #import "MBProgressHUD.h"
 #import "SPIRMessage.h"
@@ -46,7 +45,6 @@
 @synthesize username = _username;
 @synthesize password = _password;
 
-// Libération des ressources
 
 - (id)init
 {
@@ -61,24 +59,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(keyboardWillAppear:) 
-												 name:UIKeyboardWillShowNotification
-											   object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(keyboardWillDisappear:)
-												 name:UIKeyboardWillHideNotification 
-											   object:nil];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -116,7 +98,17 @@
 		[self login];
 	}
 #endif
+    // pm 10/11/2014 UIKeyboardWillShowNotification broadcasted before viewDidAppear was causing incorect layout!
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardWillHideNotification object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
+}
+
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -135,7 +127,7 @@
     CGRect keyboardFrame;
     
 	[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-	UIViewAnimationOptions animationOption = animationCurve << 16;		// pm201402 fixed enumeration mismatch
+	UIViewAnimationOptions animationOption = animationCurve << 16;
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
 
@@ -161,6 +153,7 @@
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
 	
+    
 	[UIView animateWithDuration:animationDuration
 						  delay:.0 
 						options:animationOption
@@ -266,11 +259,8 @@
     PEGParametres* sharedCEXParametres = [PEGParametres sharedInstance];
     [sharedCEXParametres start_download:PEG_WS_ENVIRONNEMENT];	// requète synchrone !
 
-#if USE_AFNetworkingWS
-	   
     hud.labelText = @"Chargement...";
 	[hud show:YES];
-
     
     [[PEGWebServices sharedWebServices] Login:v_Login andPassword:v_Pass  succes:^(bool p_isAuthentif) {
         
@@ -316,74 +306,6 @@
         }*/
 
     }];
-
-	// pas de setStartedBlock avec AFNetworking, on affiche directement ici ?
-
-#else	// USE_AFNetworking
-
-    //authentification
-    PEGAuthentificationWSRequest* v_CEXAuthentificationRequest= [PEGAuthentificationWSRequest requestLogin:v_Login andPassword:v_Pass];
-    
-    [v_CEXAuthentificationRequest setStartedBlock:^
-     {
-		 hud.labelText = @"Chargement...";
-		 [hud show:YES];
-     }];
-	
-    
-    [v_CEXAuthentificationRequest setCompletionBlock:^
-     {
-         @try
-         {
-             [hud hide:YES];
-			 BOOL v_authentification=  [v_CEXAuthentificationRequest processResponse];
-             if(v_authentification){
-                 [SPIRSession saveUsername:self.username andPassword:self.password];
-                 
-                 //On set le matricule du merch
-                 [[PEGSession sharedPEGSession] replaceMatResp:self.username];
-                 
-                 //TODO A supprimer
-                 //[[PEGSession sharedPEGSession] replaceMatResp:@"00000619"];
-                 // et on check le store
-                 [self checkStoreApplicationAuthorization];
-             }
-             else{
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Echec de l'authentification"
-																 message:@"Votre identifiant et/ou votre mot de passe sont incorrects."
-																delegate:nil
-													   cancelButtonTitle:nil
-													   otherButtonTitles:@"Fermer", nil];
-                 [alert show];
-             }
-         }
-         @catch (SPIRException *exception)
-         {
-             // traitement de l'exception si on n'a pas de messages SAP
-             if (![v_CEXAuthentificationRequest hasMessages])
-             {
-             }
-         }
-         @finally
-         {
-             // traitement messages SAP
-             if ([v_CEXAuthentificationRequest hasMessages])
-             {
-                 
-             }
-         }
-     }];
-    
-    [v_CEXAuthentificationRequest setFailedBlock:^
-     {
-     }];
-    
-    // lancement de la requête
-    [v_CEXAuthentificationRequest startAsynchronous];
-
-#endif
-
-    
 }
 
 - (void)checkStoreApplicationAuthorization
