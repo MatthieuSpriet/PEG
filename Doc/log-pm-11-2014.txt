@@ -42,9 +42,10 @@ todo:
 * fuite durant la synchro, mais rien de grave !
 
 en cours:
-* picker : selectionner la valeur initiales
 
 done:
+* picker : selectionner la valeur initiales: PEG_PresentoirChangeViewController
+    PEG_PresentoirChangeViewController.m / showPickerNewPresentoir
 * terminer correction saisie quantités
     PEG_ListePointTourneeViewController ("ma tournée")
     PEG_TourneeADXViewController ("compte rendu")

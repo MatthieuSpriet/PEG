@@ -350,31 +350,19 @@
     
 }
 
--(void) formPicker:(PEG_PickerViewController *)_formPicker didChoose:(NSMutableArray *)value
+- (void)formPicker:(PEG_PickerViewController *)_formPicker didChoose:(NSMutableArray *)value
 {
-    
     PEG_PickerViewController *pickerController = [self.childViewControllers objectAtIndex:0];
     [UIView animateWithDuration:.3
-     
                           delay:.0
-     
                         options:UIViewAnimationOptionCurveLinear
-     
                      animations:^{
-                         
                          pickerController.view.frame = CGRectMake(.0, self.view.frame.size.height, pickerController.view.frame.size.width, pickerController.view.frame.size.height);
-                         
                      }
-     
                      completion:^(BOOL finished) {
-                         
                          [pickerController.view removeFromSuperview];
-                         
                          [pickerController willMoveToParentViewController:self];
-                         
                          [pickerController removeFromParentViewController];
-                         
-                         
                      }];
     
     self.IsKeyBoardOpen=NO;

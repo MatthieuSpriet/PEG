@@ -17,45 +17,26 @@
 
 @implementation PEG_PickerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+// pm141110 TODO: rename that (this is not an initializer !)
+- (void)initWithListValue:(NSArray*)listAllValue andListValueSelected:(NSArray*)listValueSelected andNbColonnesToSee:(NSInteger)nbColonnes
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    self.nbColonnesToSee = nbColonnes;
+    self.listIndexSelectedRow = [[NSMutableArray alloc]init];
+    self.listAllValues = listAllValue;
+    self.listValueSelected = listValueSelected;
 }
 
--(void)initWithListValue:(NSArray*)listAllValue andListValueSelected:(NSArray*) listValueSelected andNbColonnesToSee:(NSInteger) nbColonnes
-{
-  if (self)
-  {
-        self.nbColonnesToSee = nbColonnes;
-        self.listIndexSelectedRow = [[NSMutableArray alloc]init];
-        self.listAllValues = listAllValue;
-        self.listValueSelected = listValueSelected;
-        // Custom initialization
-    }
- 
-}
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-	// Do any additional setup after loading the view.
-    }
-
--(void) viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     if (self.listValueSelected)
     {
-            for (int nb=0; nb<self.nbColonnesToSee; nb++) {
+        for (int nb=0; nb<self.nbColonnesToSee; nb++) {
             
             SPIROrderedDictionary* v_dict = (SPIROrderedDictionary*)[self.listAllValues objectAtIndex:nb];
-             NSInteger count = [v_dict count];
+            NSInteger count = [v_dict count];
             for (int i = 0; i < count; i++)
             {
                 NSString *rowKey = [v_dict keyAtIndex:i];
@@ -68,18 +49,10 @@
             }
         }
     }
-
-    
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark UIPickerViewDelegate
+#pragma mark - UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)aPickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
@@ -94,8 +67,7 @@
 
 
 
-#pragma mark -
-#pragma mark UIPickerViewDatasource
+#pragma mark ) UIPickerViewDatasource
 
 //TODO TSE PASSER CELA EN PARAMETRE DU COMPOSANT
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
