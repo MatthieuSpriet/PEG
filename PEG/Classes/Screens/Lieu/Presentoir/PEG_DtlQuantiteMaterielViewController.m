@@ -46,6 +46,11 @@
     
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(int) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
@@ -372,11 +377,10 @@
     }
     [self.MyTableViewUITableView reloadData ];
 }
+
 #pragma mark ScrollEcran
 //http://stackoverflow.com/questions/18368567/uitableviewcell-with-uitextview-height-in-ios-7
-// Penser à ajouter ces deux lignes dans viewDidLoad
-//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     [self scrollToCursorForTextView:textView];
 }

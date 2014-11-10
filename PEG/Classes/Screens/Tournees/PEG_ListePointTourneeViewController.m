@@ -54,6 +54,10 @@
     //self.navigationItem.rightBarButtonItem = v_RefreshButton;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 /*
 - (void)RefreshIButtonClick{
@@ -76,7 +80,8 @@ static CGRect savedFrame;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [super viewWillDisappear:animated];
 }
 

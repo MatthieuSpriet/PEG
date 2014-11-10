@@ -105,7 +105,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // cf article by Sam: http://subjective-objective-c.blogspot.fr/2011/04/avoid-nsnotification-removeobserver.html
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [super viewWillDisappear:animated];
 }
 

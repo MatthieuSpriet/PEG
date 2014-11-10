@@ -49,11 +49,12 @@ todo:
 * fuite durant la synchro, mais rien de grave !
 
 en cours:
-* vérifier systématiquement les removeObserver (source possible du crash sur _delegateScrollViewAnimationEnded avec UIKeyboardWillHideNotification ?)
-* vérifier les notifications UIKeyboardWillShowNotification
 
 
 done:
+* vérifier systématiquement les removeObserver (source possible du crash sur _delegateScrollViewAnimationEnded avec UIKeyboardWillHideNotification ?)
+* vérifier les notifications UIKeyboardWillShowNotification et removeObserver sur dealloc (si addObserver sur didload)
+* cf http://subjective-objective-c.blogspot.fr/2011/04/avoid-nsnotification-removeobserver.html
 * PEGAuthenticationViewController.m UIKeyboardWillShowNotification broadcasted before viewDidAppear was causing incorect layout!
 * les idf et psw pas effacés, il sont stockés dans la keychain
 * tests changement de présentoir

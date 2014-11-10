@@ -69,6 +69,13 @@
     
 }
 
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 -(void) updatedLocation:(NSNotification*)notif {
     CLLocation* newLocation = (CLLocation*)[[notif userInfo] valueForKey:@"newLocationResult"];
     
