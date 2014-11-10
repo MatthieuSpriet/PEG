@@ -11,22 +11,17 @@ novembre 2014
     -> SPIRStoreApplicationListRequest.m etc douteux (framework privés)
 * dans les build setting, SANS_SYNCHRO est défini (à 1). Il est redéfini dans PEG_SynchroViewController.m. à virer ?
 * CP et ville non modifiable dans ecran administratif, normal ?
-* picker : afficher le choix initial
 * bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
 
 * PEGAuthenticationViewController.m l'utilisation du hud est douteuse !
-* terminer correction saisie quantités
-* picker : selectionner la valeur initiales
 
 
 mail Matthieu: pb mémoire, cf repport par Google Analytics:
 - (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
 
+* comment avoir qq chose ds tab "compte rendu" PEG_TourneeADXViewController ?
 
 
-notes:
------
-PEG_TourneesADXViewController.m : correspond au tab "compte rendu"
 
 fuite mémoire
 -------------
@@ -44,14 +39,17 @@ PEGAuthenticationViewController.m est instancié à partir de son .xib
 Lundi 10 novembre
 -----------------
 todo:
-* terminer correction saisie quantités
-* picker : selectionner la valeur initiales
 * fuite durant la synchro, mais rien de grave !
 
 en cours:
-
+* picker : selectionner la valeur initiales
 
 done:
+* terminer correction saisie quantités
+    PEG_ListePointTourneeViewController ("ma tournée")
+    PEG_TourneeADXViewController ("compte rendu")
+
+* vérifié "superview] superview" qui ne fonctionne plus à nouveau sous iOS8
 * vérifier systématiquement les removeObserver (source possible du crash sur _delegateScrollViewAnimationEnded avec UIKeyboardWillHideNotification ?)
 * vérifier les notifications UIKeyboardWillShowNotification et removeObserver sur dealloc (si addObserver sur didload)
 * cf http://subjective-objective-c.blogspot.fr/2011/04/avoid-nsnotification-removeobserver.html

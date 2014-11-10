@@ -11,8 +11,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class PEG_BeanPointDsgn;
+
 @interface PEG_PointTourneeADXViewController : PEG_BaseUIViewController
 
--(void) setDetailItem:(NSNumber*)p_IdLieu;
+//-(void) setDetailItem:(NSNumber*)p_IdLieu;
+-(void)setDetailItem:(PEG_BeanPointDsgn*)p_BeanPointDsg;
 
 @end

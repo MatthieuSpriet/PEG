@@ -17,7 +17,6 @@
 #import "PEG_BeanPresentoirParution.h"
 #import "BeanEdition.h"
 #import "PEG_FTechnical.h"
-#import "NSNotification+KeyboardAdditions.h"
 
 @interface PEG_ListePointTourneeViewController ()
 //liste de PEG_BeanLieuPassage
@@ -64,7 +63,6 @@
     self.LibelleMagazineUILabel.text = [[PEG_FMobilitePegase CreateTournee] GetLibelleMagazinesForDesignByTournee:self._BeanTournee andNbCarTrunc:15 andEntete:true];
 }
 */
-static CGRect savedFrame;
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -74,8 +72,6 @@ static CGRect savedFrame;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
-    savedFrame = self.ListePointUITableView.frame;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -85,30 +81,30 @@ static CGRect savedFrame;
     [super viewWillDisappear:animated];
 }
 
-#pragma mark -
-#pragma mark - Keyboard Notificiation
 
+#pragma mark - Keyboard Notification
 
-- (void)keyboardWillShow:(NSNotification*)notification {
-    float keyboardTop = [notification keyboardFrameInView:self.ListePointUITableView].origin.y;
+- (void)keyboardWillShow:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
-    CGRect frame = self.ListePointUITableView.frame;
-//    savedFrame = frame;
-    frame.size.height = keyboardTop;
-    self.ListePointUITableView.frame = frame;
-    [self.ListePointUITableView scrollRectToVisible:frame animated:YES];
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.ListePointUITableView.contentInset.top, 0.0, kbSize.height, 0.0);
+    self.ListePointUITableView.contentInset = contentInsets;
+    self.ListePointUITableView.scrollIndicatorInsets = contentInsets;
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
+- (void)keyboardWillHide:(NSNotification*)aNotification {
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:[notification keyboardAnimationDuration]];
-    self.ListePointUITableView.frame = savedFrame;
-    
+    [UIView setAnimationDuration:0.35];
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.ListePointUITableView.contentInset.top, 0.0, 0.0, 0.0);
+    self.ListePointUITableView.contentInset = contentInsets;
+    self.ListePointUITableView.scrollIndicatorInsets = contentInsets;
     [UIView commitAnimations];
 }
 
 
-#pragma mark Gestion de la table view
+
+#pragma mark - Gestion de la table view
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(self.ListBeanPointDsgn != nil){
@@ -181,36 +177,16 @@ static CGRect savedFrame;
     
 }
 
-//- (IBAction)QuantiteDistribueeUITextFieldEditingDidBegin:(UITextField*)sender {
-//    self.QuantiteUITextFieldOldValue = sender.text;
-//    self.QteUITextField=sender;
-//    UITableViewCell *cell = (UITableViewCell*) [[sender superview] superview];
-//    [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//    self.IsKeyBoardOpen=YES;
-//    [self.ListePointUITableView reloadData ];
-//    [sender performSelector:@selector(selectAll:) withObject:sender afterDelay:0.f];
-//
-//}
-//- (IBAction)QuantiteRetourUITextFieldEditingDidBegin:(UITextField*)sender {
-//    self.QuantiteUITextFieldOldValue = sender.text;
-//    self.QteUITextField=sender;
-//    UITableViewCell *cell = (UITableViewCell*) [[sender superview] superview];
-//    [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//    self.IsKeyBoardOpen=YES;
-//    [self.ListePointUITableView reloadData ];
-//    [sender performSelector:@selector(selectAll:) withObject:sender afterDelay:0.f];
-//}
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    
-    //UITableViewCell *cell = (UITableViewCell*) [[textField superview] superview];
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
     UITableViewCell *cell = [PEG_FTechnical getTableViewCellFromUI:textField];
     
     self.QuantiteUITextFieldOldValue = textField.text;
     self.QteUITextField=textField;
     
     [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    // [self.ListePointUITableView reloadData ];
+    
     [textField performSelector:@selector(selectAll:) withObject:textField afterDelay:0.f];
     return YES;
 }
@@ -225,10 +201,6 @@ static CGRect savedFrame;
         v_Qte = [numberFromTheKeyboard intValue];
     }
     if(v_Qte >= 0){
-        
-        //            [[PEG_FMobilitePegase CreateLieu] AddOrUpdateQteDistribueByIdLieuPassage:self.IdLieuPassage andIdPresentoir:self.IdPresentoir andIdParution:self.IdParution andQte:[[NSNumber alloc] initWithInt:v_Qte]];
-        
-        //UITableViewCell *cell = (UITableViewCell*) [[self.QteUITextField superview] superview];
         UITableViewCell *cell = [PEG_FTechnical getTableViewCellFromUI:textField];
         
         PEG_BeanPointDsgn* v_PointDsgn = [self.ListBeanPointDsgn objectAtIndex:[self.ListePointUITableView indexPathForCell:cell].row];
@@ -260,10 +232,6 @@ static CGRect savedFrame;
         v_Qte = [numberFromTheKeyboard intValue];
     }
     if(v_Qte >= 0){
-        
-        //            [[PEG_FMobilitePegase CreateLieu] AddOrUpdateQteDistribueByIdLieuPassage:self.IdLieuPassage andIdPresentoir:self.IdPresentoir andIdParution:self.IdParution andQte:[[NSNumber alloc] initWithInt:v_Qte]];
-        
-        //UITableViewCell *cell = (UITableViewCell*) [[self.QteUITextField superview] superview];
         UITableViewCell *cell = [PEG_FTechnical getTableViewCellFromUI:self.QteUITextField];
         
         PEG_BeanPointDsgn* v_PointDsgn = [self.ListBeanPointDsgn objectAtIndex:[self.ListePointUITableView indexPathForCell:cell].row];

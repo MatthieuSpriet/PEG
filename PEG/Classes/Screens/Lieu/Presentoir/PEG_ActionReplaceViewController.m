@@ -177,6 +177,8 @@
     
     return YES;
 }
+
+
 #pragma mark ScrollEcran
 //http://stackoverflow.com/questions/18368567/uitableviewcell-with-uitextview-height-in-ios-7
 - (void)textViewDidBeginEditing:(UITextView *)textView {

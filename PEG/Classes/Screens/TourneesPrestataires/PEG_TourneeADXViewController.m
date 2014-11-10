@@ -23,7 +23,6 @@
 @property (nonatomic,strong) NSMutableArray* ListBeanPointDsgn;
 @property (strong, nonatomic) IBOutlet UITableView *ListePointUITableView;
 @property (strong, nonatomic) NSString *QuantiteUITextFieldOldValue;
-// pm @property (strong, nonatomic) BeanTournee* _BeanTournee;
 @property (strong, nonatomic) UITextField *QteUITextField;
 
 @end
@@ -42,6 +41,43 @@
     self.navigationItem.title = tournee.liTournee;
     self.LibelleMagazineUILabel.text = [[PEG_FMobilitePegase CreateTourneeADX] GetLibelleMagazinesForDesignByTournee:tournee andNbCarTrunc:15 andEntete:true];
 }
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [super viewWillDisappear:animated];
+}
+
+
+#pragma mark - Keyboard Notification
+
+- (void)keyboardWillShow:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.ListePointUITableView.contentInset.top, 0.0, kbSize.height, 0.0);
+    self.ListePointUITableView.contentInset = contentInsets;
+    self.ListePointUITableView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.35];
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(self.ListePointUITableView.contentInset.top, 0.0, 0.0, 0.0);
+    self.ListePointUITableView.contentInset = contentInsets;
+    self.ListePointUITableView.scrollIndicatorInsets = contentInsets;
+    [UIView commitAnimations];
+}
+
 
 
 // called before the segue is performed to present this view
@@ -237,7 +273,7 @@
     self.QteUITextField=textField;
     
     [self.ListePointUITableView scrollToRowAtIndexPath:[self.ListePointUITableView indexPathForCell:cell] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    // [self.ListePointUITableView reloadData ];
+
     [textField performSelector:@selector(selectAll:) withObject:textField afterDelay:0.f];
     return YES;
 }
@@ -311,5 +347,6 @@
     }
    
 }
+
 
 @end
