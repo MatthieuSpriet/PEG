@@ -211,7 +211,6 @@
 		60457DA21892B008008ACBE7 /* BeanLieuPassage+.m in Sources */ = {isa = PBXBuildFile; fileRef = 60457DA11892B005008ACBE7 /* BeanLieuPassage+.m */; };
 		605B72D5186337DE00417EE9 /* Int-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605B72D3186337DE00417EE9 /* Int-Icon.png */; };
 		605B72D6186337DE00417EE9 /* Int-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 605B72D4186337DE00417EE9 /* Int-Icon@2x.png */; };
-		605B72D918645BA200417EE9 /* CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72D818645BA200417EE9 /* CustomBadge.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		605B72DF1876C7ED00417EE9 /* PEG_EnuActionMobilite.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72DE1876C7ED00417EE9 /* PEG_EnuActionMobilite.m */; };
 		605B72E21876CB9500417EE9 /* PEG_EnumActionTache.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72E11876CB9500417EE9 /* PEG_EnumActionTache.m */; };
 		605B72EB1876F8F900417EE9 /* BeanLieuPassage.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72EA1876F8F800417EE9 /* BeanLieuPassage.m */; };
@@ -235,6 +234,7 @@
 		8F05D9961934E78700BF3FF1 /* PEG_PointTourneeADXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05D9951934E78700BF3FF1 /* PEG_PointTourneeADXViewController.m */; };
 		8F05D99719352D1500BF3FF1 /* PEG_DtlLieuxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D694C117D8C1F400F61D26 /* PEG_DtlLieuxViewController.m */; };
 		8F091C4B18B4EFDC00F65862 /* PEGBaseRequestAFN.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F091C4A18B4EFDC00F65862 /* PEGBaseRequestAFN.m */; };
+		8F4CCEB01A13681400303631 /* CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72D818645BA200417EE9 /* CustomBadge.m */; };
 		8F52A1041935CFEB0029A030 /* PEG_PointTourneeADXActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A1031935CFEB0029A030 /* PEG_PointTourneeADXActionCell.m */; };
 		8F52A1071936088A0029A030 /* PEG_ActionPresentoirADXServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A1061936088A0029A030 /* PEG_ActionPresentoirADXServices.m */; };
 		8F52A112193615070029A030 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F52A111193615070029A030 /* libGoogleAnalyticsServices.a */; };
@@ -1954,13 +1954,13 @@
 				8F091C4B18B4EFDC00F65862 /* PEGBaseRequestAFN.m in Sources */,
 				40801280184CDA6D006068F0 /* PEG_QuantiteACeJourCell.m in Sources */,
 				40957F32186191E000B3E57D /* BeanChoix+.m in Sources */,
-				605B72D918645BA200417EE9 /* CustomBadge.m in Sources */,
 				605B72DF1876C7ED00417EE9 /* PEG_EnuActionMobilite.m in Sources */,
 				605B72E21876CB9500417EE9 /* PEG_EnumActionTache.m in Sources */,
 				6075DA9418AE63AC009C66D6 /* BeanEdition.m in Sources */,
 				605B72EB1876F8F900417EE9 /* BeanLieuPassage.m in Sources */,
 				603A1EB0187D3A2E0099BF36 /* PEG_BeanPresentoirParution.m in Sources */,
 				40957F37187D8E5E00B3E57D /* PEG_ImageServices.m in Sources */,
+				8F4CCEB01A13681400303631 /* CustomBadge.m in Sources */,
 				403576E1187EA06000A39067 /* BeanCPCommune+.m in Sources */,
 				403576E6187FF4F300A39067 /* BeanParametre.m in Sources */,
 				403576EA187FF7FF00A39067 /* PEG_ModuleCommunicationRequest.m in Sources */,

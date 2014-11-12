@@ -5,6 +5,7 @@ novembre 2014
 
 #define SANS_SYNCHRO 1
 
+
 à voir:
 -------
 * est ce que les fichiers SPIRStore sont encore utilisés ?
@@ -18,7 +19,7 @@ mail Matthieu: pb mémoire, cf repport par Google Analytics:
 - (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
 
 *************** Problème compilation du projet avec pods ***************
-- si on compile pour le imulateur iPhone 5S directement, il y a un pb au niveau des pods:
+- si on compile pour le simulateur iPhone 5S directement, il y a un pb au niveau des pods:
     "Pods was rejected as an implicit dependency for 'libPods.a' because its architectures 'x86_64' didn't contain all required architectures 'i386'"
 -> compiler une fois en iPhone 5, ensuite c'est ok
 **************
@@ -38,12 +39,14 @@ Sur 2eme appel à applicationDidReceiveMemoryWarning, on affiche alerte et on fo
 Mercredi 12 novembre
 --------------------
 todo:
-* fuite durant la synchro, mais rien de grave !
+
 
 en cours:
+* fuite mémoire durant la synchro
 
 
 done:
+* a static analyser warning in CustomBadge, but it has disapeared ! new version at : https://github.com/ckteebe/CustomBadge
 * glitches écran "compte rendu" aka PEG_TourneeADXViewController (bouton vert)
     ! c'est pas un bug qu'il n'y ait pas de btn retour, il faut remplir les Qtés !
 

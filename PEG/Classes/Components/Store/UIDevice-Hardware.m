@@ -228,7 +228,7 @@
 	}
 	
 	if (sysctl(mib, 6, buf, &len, NULL, 0) < 0) {
-		printf("Error: sysctl, take 2");
+		printf("Error: sysctl, take 2");    // pm 11/2014 leaking, but macaddress is never called in PEG project!
 		return NULL;
 	}
 	
