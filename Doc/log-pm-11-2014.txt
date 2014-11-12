@@ -13,13 +13,15 @@ novembre 2014
 * CP et ville non modifiable dans ecran administratif, normal ?
 * bande noire en haut des écran admin (j'ai supprimé, mais c'était peut être volontaire ?)
 
-* PEGAuthenticationViewController.m l'utilisation du hud est douteuse !
-
 
 mail Matthieu: pb mémoire, cf repport par Google Analytics:
 - (void) applicationDidReceiveMemoryWarning:(UIApplication *)application {
 
-* comment avoir qq chose ds tab "compte rendu" PEG_TourneeADXViewController ?
+*************** Problème compilation du projet avec pods ***************
+- si on compile pour le imulateur iPhone 5S directement, il y a un pb au niveau des pods:
+    "Pods was rejected as an implicit dependency for 'libPods.a' because its architectures 'x86_64' didn't contain all required architectures 'i386'"
+-> compiler une fois en iPhone 5, ensuite c'est ok
+**************
 
 
 
@@ -32,18 +34,22 @@ apres redémarage, on revient à 16 méga. Synchro -> 25 mega
 
 Sur 2eme appel à applicationDidReceiveMemoryWarning, on affiche alerte et on force à quitter, mais c'est cumulé sur la vie de l'appli !
 
-PEGAuthenticationViewController.m est instancié à partir de son .xib
 
-
-
-Lundi 10 novembre
------------------
+Mercredi 12 novembre
+--------------------
 todo:
 * fuite durant la synchro, mais rien de grave !
 
 en cours:
 
+
 done:
+* glitches écran "compte rendu" aka PEG_TourneeADXViewController (bouton vert)
+    ! c'est pas un bug qu'il n'y ait pas de btn retour, il faut remplir les Qtés !
+
+
+Lundi 10 novembre
+-----------------
 * picker : selectionner la valeur initiales: PEG_PresentoirChangeViewController
     PEG_PresentoirChangeViewController.m / showPickerNewPresentoir
 * terminer correction saisie quantités
