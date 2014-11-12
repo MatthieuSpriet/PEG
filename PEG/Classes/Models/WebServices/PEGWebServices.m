@@ -166,7 +166,7 @@
 	NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"GET" URLString:urlString parameters:nil error:nil];
     [request setTimeoutInterval:600];
     
-    
+    // pm 11/2014 responseObject est un dictionary ? pourquoi on recré une string qu'on parse à nouveau ?
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try{
             NSString *responseString = [operation responseString];
@@ -190,8 +190,9 @@
                     
                     NSString* v_st = [[PEG_FMobilitePegase CreateCoreData] GetContenuDebugCoreData];
                     DLog("%@",v_st);
-                    
+                   
                     succes();
+                    
                 }
             }
             else {
@@ -354,7 +355,6 @@
                                     error:nil];
     [request setTimeoutInterval:300];
     
-    
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         @try{
 #ifdef DEBUG
@@ -370,9 +370,8 @@
             else {
                 failure(nil);	// TODO: check that error = nil is handled correctly by the caller
             }
-        }@catch(NSException* p_exception){
-            
-            //[self MessageErrorUser:@"GetReferentiel"];
+        }
+        @catch(NSException* p_exception){
             [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Exception saveBeanMobilitePegaseWithSucces" andExparams:nil];
             failure(nil);
         }

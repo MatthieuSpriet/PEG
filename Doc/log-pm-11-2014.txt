@@ -35,6 +35,17 @@ apres redémarage, on revient à 16 méga. Synchro -> 25 mega
 
 Sur 2eme appel à applicationDidReceiveMemoryWarning, on affiche alerte et on force à quitter, mais c'est cumulé sur la vie de l'appli !
 
+---
+l'utilisation de @try @catch autour de block asynchrone est sans doute problématique
+    cf http://stackoverflow.com/questions/17024883/objective-c-catch-exception-raised-from-inside-a-block
+mais à priori, c'est juste que ça fait rien, ça devrait pas opser de pb mémoire ?
+
+
+
+problème de nommage managedObjectsFromJSONStructure ? et transfert de ownership ?
+
+
+
 
 Mercredi 12 novembre
 --------------------
@@ -43,9 +54,10 @@ todo:
 
 en cours:
 * fuite mémoire durant la synchro
-
+    PEG_SynchroViewController.m
 
 done:
+* cleaning code removing unsuported obsolete version - #define USE_AFNetworkingWS	1
 * a static analyser warning in CustomBadge, but it has disapeared ! new version at : https://github.com/ckteebe/CustomBadge
 * glitches écran "compte rendu" aka PEG_TourneeADXViewController (bouton vert)
     ! c'est pas un bug qu'il n'y ait pas de btn retour, il faut remplir les Qtés !

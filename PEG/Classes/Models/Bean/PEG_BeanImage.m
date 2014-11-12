@@ -23,13 +23,10 @@
     self.observer = p_ObserverOwner;
     
     
-#if USE_AFNetworkingWS
     [[PEGWebServices sharedWebServices] getImageStreamByIdPointLivraison:self.IdImage
     succes:^(UIImage *p_image) {
         @try
         {
-            //self.Image=nil;
-            //self.Image=p_image;
             @autoreleasepool {
                 [self performSelectorOnMainThread:@selector(updateImage:) withObject:p_image waitUntilDone:YES];
             }
@@ -48,57 +45,6 @@
             [self.observer finishedWithErrorGetBeanImage];
         }
     }];
-#else
-   /* PEG_ServicesMerchandisingRequests* request = [PEG_ServicesMerchandisingRequests requestGetImageByIdPointLivraison:self.IdImage ];
-#if ! USE_AFNetworking
-    
-    [request setStartedBlock:^
-     {
-     }];
-#endif
-    [request setCompletionBlock:^
-     {
-         @try
-         {
-             self.Image=[request processResponseGetImageByIdPointLivraison];
-         }
-         @catch (SPIRException *exception)
-         {
-             if (![request hasMessages])
-             {
-                 
-             }
-         }
-         @finally
-         {
-             // traitement messages SAP
-             if ([request hasMessages])
-             {
-                 
-             }
-         }
-         if (self.observer && [self.observer respondsToSelector:@selector(fillFinishedGetBeanImage)])
-         {
-             [self.observer fillFinishedGetBeanImage];
-         }
-         
-     }];
-    
-    // traitement des erreurs réseau
-    [request setFailedBlock:^
-     {
-         
-         //self.infoGeneraleVenteFailed = YES;
-         if (self.observer && [self.observer respondsToSelector:@selector(finishedWithErrorGetBeanImage)])
-         {
-             [self.observer finishedWithErrorGetBeanImage];
-         }
-         
-     }];
-    
-    //    // lancement de la requête
-    [request startAsynchronous];*/
-#endif
 }
 
 - (void) SaveBeanImageWithObserver:(id<PEG_BeanImageDataSource>)p_ObserverOwner
@@ -107,71 +53,20 @@
     {
         self.observer = p_ObserverOwner;
         
-//#if USE_AFNetworkingWS
-        [[PEGWebServices sharedWebServices] saveBeanImage:self
-            succes:^(void) {
-                if (self.observer && [self.observer respondsToSelector:@selector(fillFinishedSaveBeanImage:)])
-                {
-                    [self.observer fillFinishedSaveBeanImage:self];
-                }
-            }
-           failure:^(NSError *error) {
-               if (self.observer && [self.observer respondsToSelector:@selector(finishedWithErrorSaveBeanImage:)])
-               {
-                   [self.observer finishedWithErrorSaveBeanImage:self];
-               }
-           }];
-//#else
-  /*      PEG_ServicesMerchandisingRequests* request = [PEG_ServicesMerchandisingRequests requestSaveImage:self ];
-        
-#if ! USE_AFNetworking
-        [request setStartedBlock:^
-         {
-         }];
-#endif
-        [request setCompletionBlock:^
-         {
-             @try
+        [[PEGWebServices sharedWebServices]
+         saveBeanImage:self
+         succes:^(void) {
+             if (self.observer && [self.observer respondsToSelector:@selector(fillFinishedSaveBeanImage:)])
              {
-                 BOOL v_retour =[request processResponseSaveImage];
-                 if(v_retour){
-                     if (self.observer && [self.observer respondsToSelector:@selector(fillFinishedSaveBeanImage:)])
-                     {
-                         [self.observer fillFinishedSaveBeanImage:self];
-                     }
-                 }else{
-                     if (self.observer && [self.observer respondsToSelector:@selector(finishedWithErrorSaveBeanImage:)])
-                     {
-                         [self.observer finishedWithErrorSaveBeanImage:self];
-                     }
-                 }
+                 [self.observer fillFinishedSaveBeanImage:self];
              }
-             @catch (SPIRException *exception)
-             {
-                 if (self.observer && [self.observer respondsToSelector:@selector(finishedWithErrorSaveBeanImage:)])
-                 {
-                     [self.observer finishedWithErrorSaveBeanImage:self];
-                 }
-             }
-             
-             
-             
-         }];
-        
-        // traitement des erreurs réseau
-        [request setFailedBlock:^
-         {
-             
+         }
+         failure:^(NSError *error) {
              if (self.observer && [self.observer respondsToSelector:@selector(finishedWithErrorSaveBeanImage:)])
              {
                  [self.observer finishedWithErrorSaveBeanImage:self];
              }
-             
          }];
-        
-        //    // lancement de la requête
-        [request startSynchronous];*/
-//#endif
     }
     @catch (NSException* p_exception)
     {
@@ -201,11 +96,7 @@
                                    byteArray,@"Image",
                                    
                                    nil];
-    
-    
-    //   [imageData release];
-    // CFRelease(bytes);
-    
+
     return v_Return ;
 }
 

@@ -6,9 +6,6 @@
 //  Copyright (c) 2012 SQLI. All rights reserved.
 //
 
-#if ! USE_AFNetworking
-
-
 #import "PEGBaseRequest.h"
 #import "XMLReader.h"
 #import "NSDictionary+ConvenientAccess.h"
@@ -19,7 +16,6 @@
 #import "SPIRFunction.h"
 #import "SPIRException.h"
 #import "PEGRequestFormatter.h"
-//#import "PEGAuthentificationRequest.h"
 #import "PEGException.h"
 
 
@@ -627,5 +623,4 @@ static NSError *ADXEmptyResponseError;
 
 @end
 
-#endif // ! USE_AFNetworking
 

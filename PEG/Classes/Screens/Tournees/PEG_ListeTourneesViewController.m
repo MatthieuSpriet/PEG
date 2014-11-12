@@ -239,7 +239,7 @@
     
     //On récupere les tournées
     NSString* v_Matricule = [[PEGSession sharedPEGSession] matResp];
-#if USE_AFNetworkingWS
+
     [[PEGWebServices sharedWebServices] getBeanTourneeByMatricule:v_Matricule andDateDebut:self.dateDebut andDateFin:self.dateFin succes:^(void) {
         NSLog (@"getBeanTourneeByMatricule success");
         [self fillFinishedGetBeanTournee];
@@ -247,17 +247,7 @@
         NSLog (@"getBeanTourneeByMatricule failure.");
         [self finishedWithErrorGetBeanTournee:error];
     }];
-    /**** TEST *****/
-// commented out pm140527
-//    [[PEGWebServices sharedWebServices] getBeanTourneeADXByMatricule:v_Matricule andDateDebut:self.dateDebut andDateFin:self.dateFin succes:^(void) {
-//        NSLog (@"getBeanTourneeADXByMatricule success");
-//    } failure:^(NSError *error) {
-//        NSLog (@"getBeanTourneeADXByMatricule failure.");
-//    }];
-    /**** FIN TEST ****/
-#else
-    [[PEG_FMobilitePegase CreateMobilitePegaseService] GetBeanTourneeWithObserver:self andMatricule:v_Matricule andDateDebut:self.dateDebut andDateFin:self.dateFin];
-#endif
+
     //Faire le chargement des données
     self.ListTourneeDate = [[PEG_FMobilitePegase CreateTournee] GetTourneeBetweenDateDebut:self.dateDebut andDateFin:self.dateFin];
     

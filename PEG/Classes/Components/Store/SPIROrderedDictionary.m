@@ -34,10 +34,11 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 	return objectString;
 }
 
-- (id)init
-{
-	return [self initWithCapacity:0];
-}
+// pm 11/2014 commented out !
+//- (id)init
+//{
+//	return [self initWithCapacity:0];
+//}
 
 - (id)initWithCapacity:(NSUInteger)capacity
 {

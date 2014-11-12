@@ -733,7 +733,6 @@ void myExceptionHandler(NSException *exception)
     
 	
     
-#if USE_AFNetworkingWS
     [[PEGWebServices sharedWebServices] GetBeanCommunicationByIDRequest:v_idSequence succes:^(PEG_BeanCommunication* p_BeanCommunication) {
         
         //NSLog (@"getBeanTourneeByMatricule success");
@@ -756,57 +755,6 @@ void myExceptionHandler(NSException *exception)
         //NSLog (@"getBeanTourneeByMatricule failure.");
         //[self finishedWithErrorGetBeanTournee];
     }];
-#else
-   
-
-    
-    // ARC pm140218 __weak to avoid retain cycle (v_request is retained by the block, the block is retained by v_request when calling setCompletionBlock)
-	// v_request est une ASIHTTPRequest
-   PEG_ModuleCommunicationRequest* v_request=[PEG_ModuleCommunicationRequest GetBeanCommunicationByIDRequest:v_idSequence];
-    __weak PEG_ModuleCommunicationRequest* weakRequest = v_request;
-	
-    
-
-    [v_request setStartedBlock:^
-     {
-         
-     }];
-
-
-    [v_request setCompletionBlock:^
-     {
-         @try
-         {
-             PEG_BeanCommunication* v_PEG_BeanCommunication= [weakRequest processResponse];	// ARC pm140218
-             
-             if(v_PEG_BeanCommunication.Message !=nil){
-                 UIAlertView *debugAlertView;
-                 
-                 debugAlertView = [[UIAlertView alloc] initWithTitle:nil
-                                                             message:v_PEG_BeanCommunication.Message
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles:nil];
-                 
-                 debugAlertView.delegate = self;
-                 debugAlertView.tag=v_PEG_BeanCommunication.idsequence;
-                 self.debugAlertView = debugAlertView;
-                 [debugAlertView show];
-             }
-             
-         }
-         @catch (SPIRException *exception)
-         {
-         }
-         @finally
-         {
-         }
-         
-     }];
-    
-    [v_request startAsynchronous];
-    
-    #endif
 }
 
 - (void)applicationSignificantTimeChange:(UIApplication *)application

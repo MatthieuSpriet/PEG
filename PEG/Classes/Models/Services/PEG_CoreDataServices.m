@@ -672,6 +672,7 @@
     return [self managedObjectsFromJSONStructure:p_json withObjectName:p_Entity withManagedObjectContext:moc andDedoublonnage:true];
 }
 
+
 - (NSArray*)managedObjectsFromJSONStructure:(NSString*)p_json withObjectName:(NSString*)p_Entity withManagedObjectContext:(NSManagedObjectContext*)moc andDedoublonnage:(BOOL)p_Dedoub
 {
     NSMutableArray *objectArray = [[NSMutableArray alloc] init];
@@ -683,7 +684,8 @@
         //for (NSDictionary *structureDictionary in structureArray) {
         [objectArray addObject:[self managedObjectFromStructure:structureArray withObjectName:p_Entity withManagedObjectContext:moc andDedoublonnage:p_Dedoub]];
         //}
-    }@catch(NSException* p_exception){
+    }
+    @catch(NSException* p_exception){
         
         [[PEGException sharedInstance] ManageExceptionWithThrow:p_exception andMessage:@"Erreur dans managedObjectsFromJSONStructure andDedoublonnage" andExparams:nil];
     }

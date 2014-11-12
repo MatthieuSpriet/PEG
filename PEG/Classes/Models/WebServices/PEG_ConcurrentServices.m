@@ -12,6 +12,7 @@
 #import "PEG_EnumFlagMAJ.h"
 #import "PEG_FTechnical.h"
 #import "PEG_FMobilitePegase.h"
+#import "BeanChoix+.h"
 
 @implementation PEG_ConcurrentServices
 

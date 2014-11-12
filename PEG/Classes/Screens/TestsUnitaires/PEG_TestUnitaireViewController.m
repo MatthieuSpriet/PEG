@@ -79,7 +79,8 @@
 }
 - (IBAction)BtnChargerBean_Click:(id)sender {
     
-    NSString* v_Matricule = [[NSString alloc] init];
+/* test commenté pm 11/2014 GetBeanMobilitePegaseWithObserver n'est pas appelé dans l'application
+ NSString* v_Matricule = [[NSString alloc] init];
     v_Matricule = @"00000619";
     NSDate* v_Date = [NSDate date];
     
@@ -87,7 +88,7 @@
     //chargement
     //self.nbLigneToSee=[NSNumber numberWithInt:2];
     self.nbLigneToSee = [NSNumber numberWithInt:1];
-    
+ */
     
 }
 

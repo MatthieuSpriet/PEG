@@ -323,109 +323,6 @@
 	[self.view.window addSubview:hud];
 	
 
-// #if USE_AFNetworking
-#if 0	// pm140220 c'est encore une requete ASIFormDataRequest
-	SPIRStoreHostApplicationAuthorizationRequest *request = [SPIRStoreHostApplicationAuthorizationRequest request];
-
-	[request setSuccessBlock:^{
-		@try
-		{
-			SPIRApplication *application = [request processResponse];
-			
-			if (application == nil)
-			{
-				__block EHAlertView *alertView = [[EHAlertView alloc] initWithTitle:@"Attention"
-																			message:@"Vous ne disposez pas des droits nécessaire pour accéder à cette application"
-																  cancelButtonTitle:@"Fermer"
-																  otherButtonTitles:nil];
-				[alertView show];
-			}
-			else
-			{
-				DLog(@"URL install %@", [application.manifest absoluteString]);
-				NSString *authUrl = urlWithAuth([application.manifest absoluteString]);
-				
-				if (application.status == SPIRApplicationStatusUpdate)
-				{
-					if (application.updateType == SPIRApplicationUpdateTypeMajor)
-					{
-						DLog(@"Update type majeur");
-						__block EHAlertView *alertView = [[EHAlertView alloc] initWithTitle:@"Attention"
-																					message:@"Vous devez mettre à jour cette application"
-																		  cancelButtonTitle:@"Annuler"
-																		  otherButtonTitles:@"Continuer", nil];
-						[alertView setClickedButtonBlock:^(NSInteger buttonIndex) {
-							if (buttonIndex == 1)
-							{
-								[[UIApplication sharedApplication] openURL:[NSURL URLWithString:authUrl]];
-							}
-							else
-							{
-                                [[NSNotificationCenter defaultCenter] postNotificationName:PEGLoginSucceedNotification object:nil];
-							}
-						}];
-						[alertView show];
-					}
-					else
-					{
-						DLog(@"Update type mineure");
-						__block EHAlertView *alertView = [[EHAlertView alloc] initWithTitle:@"Avertissement"
-																					message:@"Une mise à jour est disponible pour cette application. Voulez-vous l'installer ?"
-																		  cancelButtonTitle:@"Non"
-																		  otherButtonTitles:@"Oui", nil];
-						[alertView setClickedButtonBlock:^(NSInteger buttonIndex) {
-							if (buttonIndex == 1)
-							{
-								[[UIApplication sharedApplication] openURL:[NSURL URLWithString:authUrl]];
-							}
-							else
-							{
-                                [[NSNotificationCenter defaultCenter] postNotificationName:PEGLoginSucceedNotification object:nil];
-							}
-						}];
-						[alertView show];
-					}
-				}
-				else if (application.status == SPIRApplicationStatusInstalled)
-				{
-					DLog(@"Déjà installé, pas d'update");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PEGLoginSucceedNotification object:nil];
-				}
-			}
-		}
-		@catch (NSException *exception)
-		{
-			DLog(@"exception %@", exception.reason);
-			__block EHAlertView *alertView = [[EHAlertView alloc] initWithTitle:@"Un problème serveur est survenu."
-																		message:[NSString stringWithFormat:@"%@\nSouhaitez-vous réessayer ?", exception.reason]
-															  cancelButtonTitle:@"Fermer"
-															  otherButtonTitles:@"Réessayer", nil];
-			[alertView setClickedButtonBlock:^(NSInteger buttonIndex) {
-				if (buttonIndex == 1)
-				{
-					[self checkStoreApplicationAuthorization];
-				}
-			}];
-			[alertView show];
-		}
-		@finally
-		{
-			[hud hide:YES];
-		}
-	}];
-	
-	[request setFailedBlock:^{
-		[hud hide:YES];
-		
-	}];
-	
-	[request startAsynchronous];
-
-	[hud setLabelText:@"Vérification des accès..."];
-	[hud show:YES];
-	
-
-#else
 	__weak SPIRStoreHostApplicationAuthorizationRequest *request = [SPIRStoreHostApplicationAuthorizationRequest request];
 	
 	[request setStartedBlock:^{
@@ -526,7 +423,6 @@
 	}];
 	
 	[request startAsynchronous];
-#endif
 
 }
 

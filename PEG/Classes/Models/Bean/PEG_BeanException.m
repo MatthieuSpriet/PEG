@@ -27,11 +27,9 @@
     
     PEG_LogSpirRequest* v_request=[PEG_LogSpirRequest  requestLogError:self];
     
-#if ! USE_AFNetworking
     [v_request setStartedBlock:^
      {
      }];
-#endif
 
     [v_request setCompletionBlock:^
      {

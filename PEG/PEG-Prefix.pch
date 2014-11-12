@@ -16,11 +16,8 @@
 #endif
 
 #define	DEBUG
-#define	USE_AFNetworking	0		// pm140219
-#define USE_AFNetworkingWS	1		// pm140221 nouvelle approche avec des services AFN
 
 #import "PEG.h"
-// pm140218 #import "SynthesizeSingleton.h"
 #import "SPIRSession.h"
 #import "SPIRException.h"
 #import "NSDictionary+ConvenientAccess.h"

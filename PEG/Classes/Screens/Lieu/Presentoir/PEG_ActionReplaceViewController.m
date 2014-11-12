@@ -296,6 +296,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
 - (void)AjouterJournalClicked{
     NSArray* v_list=[[PEG_FMobilitePegase CreateParution]GetListBeanParutionCouranteByCP:self._BeanPresentoir.parentLieu.codePostal];
     SPIROrderedDictionary* v_SPIROrderedDictionary =[[SPIROrderedDictionary alloc]init];
@@ -305,6 +306,7 @@
     [self ShowPicker:v_SPIROrderedDictionary];
     
 }
+
 - (void)ShowPicker:(SPIROrderedDictionary*)p_List {
     PEG_PickerViewController *pickerController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"PEG_PickerViewController"];
     

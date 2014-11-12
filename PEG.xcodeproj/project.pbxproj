@@ -233,7 +233,6 @@
 		8F05D9931934C5E900BF3FF1 /* BeanTourneeADX.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05D9921934C5E900BF3FF1 /* BeanTourneeADX.m */; };
 		8F05D9961934E78700BF3FF1 /* PEG_PointTourneeADXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05D9951934E78700BF3FF1 /* PEG_PointTourneeADXViewController.m */; };
 		8F05D99719352D1500BF3FF1 /* PEG_DtlLieuxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D694C117D8C1F400F61D26 /* PEG_DtlLieuxViewController.m */; };
-		8F091C4B18B4EFDC00F65862 /* PEGBaseRequestAFN.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F091C4A18B4EFDC00F65862 /* PEGBaseRequestAFN.m */; };
 		8F4CCEB01A13681400303631 /* CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 605B72D818645BA200417EE9 /* CustomBadge.m */; };
 		8F52A1041935CFEB0029A030 /* PEG_PointTourneeADXActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A1031935CFEB0029A030 /* PEG_PointTourneeADXActionCell.m */; };
 		8F52A1071936088A0029A030 /* PEG_ActionPresentoirADXServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F52A1061936088A0029A030 /* PEG_ActionPresentoirADXServices.m */; };
@@ -681,8 +680,6 @@
 		8F05D9921934C5E900BF3FF1 /* BeanTourneeADX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeanTourneeADX.m; path = CoreData/TourneeADX/BeanTourneeADX.m; sourceTree = "<group>"; };
 		8F05D9941934E78700BF3FF1 /* PEG_PointTourneeADXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_PointTourneeADXViewController.h; sourceTree = "<group>"; };
 		8F05D9951934E78700BF3FF1 /* PEG_PointTourneeADXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_PointTourneeADXViewController.m; sourceTree = "<group>"; };
-		8F091C4918B4EFDC00F65862 /* PEGBaseRequestAFN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEGBaseRequestAFN.h; sourceTree = "<group>"; };
-		8F091C4A18B4EFDC00F65862 /* PEGBaseRequestAFN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEGBaseRequestAFN.m; sourceTree = "<group>"; };
 		8F52A1021935CFEB0029A030 /* PEG_PointTourneeADXActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEG_PointTourneeADXActionCell.h; sourceTree = "<group>"; };
 		8F52A1031935CFEB0029A030 /* PEG_PointTourneeADXActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEG_PointTourneeADXActionCell.m; sourceTree = "<group>"; };
 		8F52A1051936088A0029A030 /* PEG_ActionPresentoirADXServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEG_ActionPresentoirADXServices.h; path = PEG/Classes/Models/Services/PEG_ActionPresentoirADXServices.h; sourceTree = SOURCE_ROOT; };
@@ -1337,8 +1334,6 @@
 				40E03C6C176227E50072B740 /* PEGRequestFormatter.m */,
 				40E03C681762278E0072B740 /* PEGBaseRequest.h */,
 				40E03C691762278E0072B740 /* PEGBaseRequest.m */,
-				8F091C4918B4EFDC00F65862 /* PEGBaseRequestAFN.h */,
-				8F091C4A18B4EFDC00F65862 /* PEGBaseRequestAFN.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1951,7 +1946,6 @@
 				408012791848C43B006068F0 /* PEG_ImageViewController.m in Sources */,
 				60072B591938858500CFEE58 /* BeanActionADX.m in Sources */,
 				60072B5C1938880700CFEE58 /* PEG_BeanPresentoirParutionADX.m in Sources */,
-				8F091C4B18B4EFDC00F65862 /* PEGBaseRequestAFN.m in Sources */,
 				40801280184CDA6D006068F0 /* PEG_QuantiteACeJourCell.m in Sources */,
 				40957F32186191E000B3E57D /* BeanChoix+.m in Sources */,
 				605B72DF1876C7ED00417EE9 /* PEG_EnuActionMobilite.m in Sources */,

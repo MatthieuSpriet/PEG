@@ -30,20 +30,6 @@
 
 @implementation PEG_SynchroViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 
 - (void)viewDidLoad
 {
@@ -55,12 +41,13 @@
     
 }
 
-//sur cet écran, on ne veut pas la tab bar d'en bas. On surcharge la méthode initiale
--(BOOL) hidesBottomBarWhenPushed
+//sur cet écran, on ne veut pas la tab bar d'en bas.
+- (BOOL)hidesBottomBarWhenPushed
 {
     return YES;
 }
--(void) viewDidAppear:(BOOL)animated
+
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -74,53 +61,37 @@
     }
     else
     {
-       // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-       //     NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
-            [self synchronisation];
-        //    [p drain];
-        //});
+        [self synchronisation];
     }
 }
 
--(void) viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     //On re-active la mise en veille auto
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark Méthodes privées
--(BOOL) synchronisation
+- (void)synchronisation
 {
     @try{
         [PEGSession sharedPEGSession].IsSynchroOK=NO;
-		
+        
         //faire la synchro
-        //[NSThread sleepForTimeInterval:1];
-        //dispatch_async(dispatch_get_main_queue(), ^{
-			self.MessageUILabel.text = @"Publication des Photos...";
-			[self.MessageUILabel setNeedsDisplay];
-            //Pour permettre l'affichage
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-        //});
+        self.MessageUILabel.text = @"Publication des Photos...";
+        [self.MessageUILabel setNeedsDisplay];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];        //Pour permettre l'affichage
+
         //On envoi les données local vers le SI
         //on envoie les photo
-        
         NSArray * v_AllPhoto=[[PEG_FMobilitePegase CreateImage] GetAllBeanPhotoNotSend];
         self.nbPhoto=[v_AllPhoto count];
         
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
-            [self.MessageUILabel setNeedsDisplay];
-            //Pour permettre l'affichage
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-        //});
+        self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
+        [self.MessageUILabel setNeedsDisplay];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
         
         PEG_BeanImage *v_BeanImage = nil;
         for (BeanPhoto* v_BeanPhoto in v_AllPhoto) {
@@ -139,47 +110,28 @@
         }
         v_AllPhoto = nil; //Pour liberer la mémoire des UIImage
         
-        /*do{
-         dispatch_async(dispatch_get_main_queue(), ^{
-         self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
-         [self.MessageUILabel setNeedsDisplay];
-         });
-         sleep(1);
-         }
-         while(self.nbPhoto>0);*/
-        //[self fillFinishedSaveBeanMobilitePegase]; //Bouchon
-        
-    }@catch(NSException* p_exception){
-        
+    }
+    @catch(NSException* p_exception) {
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Erreur dans synchronisation" andExparams:nil];
         [self MessageErrorUser:@"PreSave"];
     }
-    //quand c'est terminé, renvoyer true si c'est ok
-    return true;
 }
 
--(void)synchroEtape2
+- (void)synchroEtape2
 {
     @try{
         self.ProgressBar.progress = (float)0.2f;
-    //dispatch_async(dispatch_get_main_queue(), ^{
         self.MessageUILabel.text = @"Publication vers Pégase...";
         [self.MessageUILabel setNeedsDisplay];
-        //Pour permettre l'affichage
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-    //});
-    
-#if USE_AFNetworkingWS
-    [[PEGWebServices sharedWebServices] saveBeanMobilitePegaseWithSucces:^(void) {
-        NSLog (@"saveBeanMobilitePegaseWithSucces success");
-        [self fillFinishedSaveBeanMobilitePegase];
-    } failure:^(NSError *error) {
-        NSLog (@"saveBeanMobilitePegaseWithSucces failure. error: %@", error);
-        [self fillFinishedSaveWithErrorBeanMobilitePegase:error];
-    }];
-#else
-    [[PEG_FMobilitePegase CreateMobilitePegaseService] SaveBeanMobilitePegaseWithObserver:self];
-#endif
+        
+        [[PEGWebServices sharedWebServices] saveBeanMobilitePegaseWithSucces:^(void) {
+            NSLog (@"saveBeanMobilitePegaseWithSucces success");
+            [self fillFinishedSaveBeanMobilitePegase];
+        } failure:^(NSError *error) {
+            NSLog (@"saveBeanMobilitePegaseWithSucces failure. error: %@", error);
+            [self fillFinishedSaveWithErrorBeanMobilitePegase:error];
+        }];
     }
     @catch (NSException *p_exception) {
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Erreur dans synchroEtape2" andExparams:@""];
@@ -191,35 +143,27 @@
     @try{
         NSLog(@"fillFinishedSaveBeanImage");
         self.nbPhoto--;
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
-            [self.MessageUILabel setNeedsDisplay];
-            //Pour permettre l'affichage
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-        //});
-        
-        [[PEG_FMobilitePegase CreateImage] SavePhotoSend:p_BeanImage.IdImage];
+        self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
+        [self.MessageUILabel setNeedsDisplay];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]]; //Pour permettre l'affichage
 
+        [[PEG_FMobilitePegase CreateImage] SavePhotoSend:p_BeanImage.IdImage];
+        
         if(self.nbPhoto<=0) [self synchroEtape2];
     }
     @catch (NSException *p_exception) {
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Erreur dans fillFinishedSaveBeanImage" andExparams:@""];
     }
     //[PEGSession sharedPEGSession].IsSynchroOK = true;
-    
-    
 }
 
 -(void) finishedWithErrorSaveBeanImage:(PEG_BeanImage*)p_BeanImage
 {
     NSLog(@"finishedWithErrorSaveBeanImage");
     self.nbPhoto--;
-    //dispatch_async(dispatch_get_main_queue(), ^{
-        self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
-        [self.MessageUILabel setNeedsDisplay];
-        //Pour permettre l'affichage
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-    //});
+    self.MessageUILabel.text = [NSString stringWithFormat:@"Publication des Photos %d",self.nbPhoto];
+    [self.MessageUILabel setNeedsDisplay];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];     // affichage
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Attention"
                           message:[NSString stringWithFormat:@"La photo du présentoir d'id %i n'a pu être transmise. Elle est malheureusement perdue.",p_BeanImage.IdImage]
@@ -228,7 +172,7 @@
                           otherButtonTitles:nil];
     
     [alert show];
-    if(self.nbPhoto<=0) [self synchroEtape2];
+    if (self.nbPhoto<=0) [self synchroEtape2];
 }
 
 #pragma mark interface PEG_BeanMobilitePegaseDataSource
@@ -237,19 +181,12 @@
     @try{
         NSString* v_Matricule = [[PEGSession sharedPEGSession] matResp];
         NSDate* v_Date = [NSDate date];
-        //TODO bouchon a supprimer
-        //v_Date = [PEG_FTechnical GetDateYYYYMMDDFromString:@"20130429"];
-        
-        //On met la barre de progression à 40%
         self.ProgressBar.progress = (float)0.5f;
         
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            self.MessageUILabel.text = @"Effacement de la base locale...";
+        self.MessageUILabel.text = @"Effacement de la base locale...";
         [self.MessageUILabel setNeedsDisplay];
-        //Pour permettre l'affichage
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-         //});
-
+        
         //On vide les infos
         NSString* v_ContenuCD = [[PEG_FMobilitePegase CreateCoreData] GetContenuDebugCoreData];
         DLog(@"Avant Purge %@",v_ContenuCD);
@@ -257,27 +194,19 @@
         v_ContenuCD = [[PEG_FMobilitePegase CreateCoreData] GetContenuDebugCoreData];
         DLog(@"Apres Purge %@",v_ContenuCD);
         
-        //On met la barre de progression à 40%
         self.ProgressBar.progress = (float)0.6f;
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            self.MessageUILabel.text = @"Récupération des données...";
-            [self.MessageUILabel setNeedsDisplay];
-            //Pour permettre l'affichage
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-        //});
+        self.MessageUILabel.text = @"Récupération des données...";
+        [self.MessageUILabel setNeedsDisplay];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
+        
         //On récupère les infos du SI
-#if USE_AFNetworkingWS
-		[[PEGWebServices sharedWebServices] getBeanMobilitePegaseByMatricule:v_Matricule andDate:v_Date succes:^(void) {
-			NSLog (@"getBeanMobilitePegaseByMatricule success");
-			[self fillFinishedGetBeanMobilitePegase];
-		} failure:^(NSError *error) {
-			NSLog (@"getBeanMobilitePegaseByMatricule failure.");
-			[self finishedWithErrorGetBeanMobilitePegase:error];
-		}];
-#else
-        [[PEG_FMobilitePegase CreateMobilitePegaseService] GetBeanMobilitePegaseWithObserver:self andMatricule:v_Matricule andDate:v_Date];
-#endif
-        //[self fillFinishedGetBeanMobilitePegase]; //Bouchon
+        [[PEGWebServices sharedWebServices] getBeanMobilitePegaseByMatricule:v_Matricule andDate:v_Date succes:^(void) {
+            NSLog (@"getBeanMobilitePegaseByMatricule success");
+            [self fillFinishedGetBeanMobilitePegase];
+        } failure:^(NSError *error) {
+            NSLog (@"getBeanMobilitePegaseByMatricule failure.");
+            [self finishedWithErrorGetBeanMobilitePegase:error];
+        }];
     }@catch(NSException* p_exception){
         
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Erreur dans fillFinishedSaveBeanMobilitePegase" andExparams:nil];
@@ -286,7 +215,6 @@
     
 }
 
-// pm140221 p_Error can be nil ?
 -(void) fillFinishedSaveWithErrorBeanMobilitePegase:(NSError*)p_Error
 {
     [PEGSession sharedPEGSession].IsSynchroOK=NO;
@@ -299,52 +227,18 @@
         NSString* v_ContenuCD = [[PEG_FMobilitePegase CreateCoreData] GetContenuDebugCoreData];
         DLog(@"Après chargement %@",v_ContenuCD);
         
-        //self.MessageUILabel.text = @"MAJ des parutions...";
-        //self.ProgressBar.progress = (float)0.6f;
-        //On ne fait pas [[PEG_FMobilitePegase CreatePresentoir] MAJParutionPresentoir];
-        
         // On ne fait plus le get tournee lors de la synchro
         [self fillFinishedGetBeanTournee];
-        /*NSString* v_Matricule = [[PEGSession sharedPEGSession] matResp];
-
-		// NSCalendar *calendar = [[NSCalendar currentCalendar]initWithCalendarIdentifier:NSGregorianCalendar];
-		// pm201402 exeption sur la ligne au dessus. En supposant que l'utilisateur a un setting calendrier gregorien:
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        //NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-		
-        NSDateComponents *comps = [[NSDateComponents alloc] init];
-        comps=[calendar components:NSWeekCalendarUnit|NSYearCalendarUnit fromDate:[NSDate date]];
-        comps.weekday = 2;
-        //create date on week start
-        NSDate* v_dateDeb=[calendar dateFromComponents:comps];
-        NSDate* v_dateFin = [v_dateDeb dateByAddingTimeInterval:((3600*24)*6)];
-#if USE_AFNetworkingWS
-		[[PEGWebServices sharedWebServices] getBeanTourneeByMatricule:v_Matricule andDateDebut:v_dateDeb andDateFin:v_dateFin succes:^(void) {
-			NSLog (@"getBeanTourneeByMatricule success");
-			[self fillFinishedGetBeanTournee];
-		} failure:^(NSError *error) {
-			NSLog (@"getBeanTourneeByMatricule failure.");
-			[self finishedWithErrorGetBeanTournee:error];
-		}];
-#else
-        [[PEG_FMobilitePegase CreateMobilitePegaseService] GetBeanTourneeWithObserver:self andMatricule:v_Matricule andDateDebut:v_dateDeb andDateFin:v_dateFin];
-#endif
-        //[self fillFinishedGetBeanTournee];
-        dispatch_async(dispatch_get_main_queue(), ^{
-        self.MessageUILabel.text = @"Récupération des tournées...";
-        [self.MessageUILabel setNeedsDisplay];
-        });*/
+        
         self.ProgressBar.progress = (float)0.8f;
-        
-        //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Suivant"
-        //                                                                              style:self.editButtonItem.style target:self action:@selector(doneButtonNext)];
-        
-    }@catch(NSException* p_exception){
+    }
+    @catch(NSException* p_exception){
         
         [[PEGException sharedInstance] ManageExceptionWithoutThrow:p_exception andMessage:@"Erreur dans fillFinishedGetBeanMobilitePegase" andExparams:nil];
         [self MessageErrorUser:@"Get"];
     }
 }
+
 -(void) fillFinishedGetBeanTournee
 {
     [PEGSession sharedPEGSession].IsSynchroOK=YES;
@@ -354,8 +248,8 @@
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
     sleep(2);
     [self performSegueWithIdentifier:@"NextSegue2" sender:self];
-
 }
+
 -(void) finishedWithErrorGetBeanTournee:(NSError *)error
 {
     [PEGSession sharedPEGSession].IsSynchroOK=YES;

@@ -13,10 +13,7 @@
 #import "PEG_EnumFlagMAJ.h"
 #import "PEGCell.h"
 #import "BeanSuiviKMUtilisateur.h"
-
-#if USE_AFNetworkingWS
 #import "PEGWebServices.h"
-#endif
 
 
 @interface PEGViewController ()
@@ -61,7 +58,6 @@
 				//PEG_BeanSuiviKMUtilisateur* v_BSK = [[PEG_BeanSuiviKMUtilisateur alloc ] init];
 				
 				// pm140220 faire un WebService AFN
-#if USE_AFNetworkingWS
 				[[PEGWebServices sharedWebServices] getLastSuiviKilometreByMatricule:v_Matricule succes:^(void) {
 					NSLog (@"getLastSuiviKilometreByMatricule success");
 					[self fillFinishedGetLastSuiviKMUtilisateur];
@@ -69,9 +65,6 @@
 					NSLog (@"getLastSuiviKilometreByMatricule failure");
 					[self fillFinishedErrorGetLastSuiviKMUtilisateur:error];
 				}];
-#else
-				[[PEG_FMobilitePegase CreateMobilitePegaseService] GetLastSuiviKMUtilisateurWithObserver:self andMatricule:v_Matricule];
-#endif
 			}
 			else
 			{

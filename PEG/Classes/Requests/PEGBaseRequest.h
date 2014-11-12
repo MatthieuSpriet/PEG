@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 SQLI. All rights reserved.
 //
 
-#if ! USE_AFNetworking
 
 #import "ASIHTTPRequest.h"
 #import "SPIRRequestProtocol.h"
@@ -57,6 +56,3 @@ extern NSString* const ADXNetworkRequestErrorDomain;
 
 @end
 
-#else
-#import "PEGBaseRequestAFN.h"
-#endif
